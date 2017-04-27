@@ -10,7 +10,7 @@
     <version>1.0</version>
     <modules>
         <module>milk</module>
-        <module>socket</module>
+        <module>jsocket</module>
         <module>util</module>
     </modules>
 

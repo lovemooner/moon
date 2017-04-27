@@ -1,6 +1,7 @@
-package love.util;
+package love.moon.util;
 
 import org.apache.commons.io.IOUtils;
+
 import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class IOUtil extends IOUtils {
    *
    * @param in
    * @return
-   * @throws java.io.IOException
+   * @throws IOException
    */
   public static Set<String> getStringsFromInputStream(InputStream in) throws IOException {
     Set<String> stringList = new HashSet<String>();

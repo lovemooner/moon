@@ -1,12 +1,10 @@
-package love.util;
+package love.moon.util;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
@@ -16,7 +14,7 @@ import java.util.zip.CheckedInputStream;
  * Date: 17-3-28
  * Time: 上午10:25
  */
-public class FileUtil extends FileUtils{
+public class FileUtil extends FileUtils {
 
   public static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
@@ -25,7 +23,7 @@ public class FileUtil extends FileUtils{
    *
    * @param fileName
    * @return
-   * @throws java.io.IOException
+   * @throws IOException
    */
   public static Long calcCRC32CheckSum(String fileName) throws IOException {
     CheckedInputStream cis = null;
@@ -46,7 +44,7 @@ public class FileUtil extends FileUtils{
    *
    * @param fileBytes
    * @return
-   * @throws java.io.IOException
+   * @throws IOException
    */
   public static Long calcCRC32CheckSum(byte[] fileBytes) throws IOException {
     CheckedInputStream cis = null;
@@ -78,7 +76,7 @@ public class FileUtil extends FileUtils{
    * 下载网络文件
    *
    * @param url
-   * @throws java.io.IOException
+   * @throws IOException
    */
   public static void download(String url, String path) throws IOException {
     if (StringUtil.isEmpty(url)) return;

@@ -8,11 +8,8 @@ import org.apache.commons.lang.StringUtils;
  * Date: 17-3-28
  * Time: 上午10:31
  */
-public class StringUtil {
+public class StringUtil extends StringUtils{
 
-    public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
-    }
 
     public static boolean isAllEmpty(Object... str) {
         if (ArrayUtils.isEmpty(str)) return true;

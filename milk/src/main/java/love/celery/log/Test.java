@@ -1,4 +1,4 @@
-package love.moon;
+package love.celery.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

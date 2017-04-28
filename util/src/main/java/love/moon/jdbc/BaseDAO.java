@@ -3,6 +3,9 @@ package love.moon.jdbc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -40,42 +43,30 @@ public class BaseDAO<T> {
     }
 
 
-    /**
-     * 保存
-     */
     public void save(T entity) throws Exception {
         PreparedStatement pstmt = null;
         try {
-            //SQL语句,insert into table name (
-            String sql = "insert into " + entity.getClass().getSimpleName().toLowerCase() + "(";
-
-            //获得带有字符串get的所有方法的对象
+            StringBuilder sb = new StringBuilder();
+            sb.append("insert into " + getTableName(entity) + "(");
             List<Method> list = this.matchPojoMethods(entity, "get");
-
             Iterator<Method> iter = list.iterator();
-
             //拼接字段顺序 insert into table name(id,name,email,
             while (iter.hasNext()) {
                 Method method = iter.next();
-                sql += method.getName().substring(3).toLowerCase() + ",";
+                sb.append(getColumnName(method) + ",");
             }
-
-            //去掉最后一个,符号insert insert into table name(id,name,email) values(
-            sql = sql.substring(0, sql.lastIndexOf(",")) + ") values(";
-
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(") values(");
             //拼装预编译SQL语句insert insert into table name(id,name,email) values(?,?,?,
             for (int j = 0; j < list.size(); j++) {
-                sql += "?,";
+                sb.append("?,");
             }
-
             //去掉SQL语句最后一个,符号insert insert into table name(id,name,email) values(?,?,?);
-            sql = sql.substring(0, sql.lastIndexOf(",")) + ")";
-
+            sb.deleteCharAt(sb.length() - 1).append(")");
             //到此SQL语句拼接完成,打印SQL语句
-            LOG.info(sql);
+            LOG.info(sb.toString());
             //获得预编译对象的引用
-            PreparedStatement statement = getConnection().prepareStatement(sql);
-
+            PreparedStatement statement = getConnection().prepareStatement(sb.toString());
             int i = 0;
             //把指向迭代器最后一行的指针移到第一行.
             iter = list.iterator();
@@ -112,13 +103,10 @@ public class BaseDAO<T> {
     }
 
 
-    /**
-     * 修改
-     */
     public void update(T entity) throws Exception {
         PreparedStatement pstmt = null;
         try {
-            String sql = "update " + entity.getClass().getSimpleName().toLowerCase() + " set ";
+            String sql = "update " + getTableName(entity) + " set ";
 
             //获得该类所有get方法对象集合
             List<Method> list = this.matchPojoMethods(entity, "get");
@@ -200,75 +188,15 @@ public class BaseDAO<T> {
         }
     }
 
-    /**
-     * 删除
-     */
-    public void delete(T entity) throws Exception {
-        PreparedStatement pstmt = null;
-        try {
-            String sql = "delete from " + entity.getClass().getSimpleName().toLowerCase() + " where ";
 
-            //存放字符串为"id"的字段对象
-            Method idMethod = null;
-
-            //取得字符串为"id"的字段对象
-            List<Method> list = this.matchPojoMethods(entity, "get");
-            Iterator<Method> iter = list.iterator();
-            while (iter.hasNext()) {
-                Method tempMethod = iter.next();
-                //如果方法名中带有ID字符串并且长度为2,则视为ID.
-                if (tempMethod.getName().lastIndexOf("Id") != -1 && tempMethod.getName().substring(3).length() == 2) {
-                    //把ID字段的对象存放到一个变量中,然后在集合中删掉.
-                    idMethod = tempMethod;
-                    iter.remove();
-                    //如果方法名去掉set/get字符串以后与pojo + "id"想符合(大小写不敏感),则视为ID
-                } else if ((entity.getClass().getSimpleName() + "Id").equalsIgnoreCase(tempMethod.getName().substring(3))) {
-                    idMethod = tempMethod;
-                    iter.remove();
-                }
-            }
-            sql += idMethod.getName().substring(3).toLowerCase() + " = ?";
-            LOG.info(sql);
-            pstmt = this.getConnection().prepareStatement(sql);
-
-            //为Id字段添加值
-            int i = 0;
-            if (idMethod.getReturnType().getSimpleName().indexOf("String") != -1) {
-                pstmt.setString(++i, this.getString(idMethod, entity));
-            } else {
-                pstmt.setInt(++i, this.getInt(idMethod, entity));
-            }
-            conn.execOther(pstmt);
-        } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
-    /**
-     * 通过ID查询
-     */
     public T findById(Object object) throws Exception {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         T entity = null;
         try {
-            String sql = "select * from " + persistentClass.getSimpleName().toLowerCase() + " where ";
             //通过子类的构造函数,获得参数化类型的具体类型.比如BaseDAO<T>也就是获得T的具体类型
             T entityClass = persistentClass.newInstance();
+            String sql = "select * from " + getTableName(entityClass) + " where ";
             //存放Pojo(或被操作表)主键的方法对象
             Method idMethod = null;
             List<Method> list = this.matchPojoMethods(entityClass, "set");
@@ -339,16 +267,14 @@ public class BaseDAO<T> {
         return entity;
     }
 
-    /**
-     * 通过ID查询
-     */
+
     public List<T> findAll() throws Exception {
         ResultSet rs = null;
         PreparedStatement pstmt = null;
         List<T> list = null;
         try {
-            String sql = "select * from " + persistentClass.getSimpleName().toLowerCase();
             T obj = persistentClass.newInstance();
+            String sql = "select * from " + getTableName(obj);
             LOG.info(sql);
             //获得连接
             pstmt = this.getConnection().prepareStatement(sql);
@@ -402,16 +328,87 @@ public class BaseDAO<T> {
     }
 
 
+    public void delete(T entity) throws Exception {
+        PreparedStatement pstmt = null;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("DELETE FROM " + getTableName(entity) + " WHERE ");
+            Method idMethod = matchPojoIdMethod(entity);
+            sb.append(getColumnName(idMethod) + " = ?");
+            LOG.info(sb.toString());
+            pstmt = this.getConnection().prepareStatement(sb.toString());
+            int i = 0;
+            if (idMethod.getReturnType().getSimpleName().indexOf("String") != -1) {
+                pstmt.setString(++i, this.getString(idMethod, entity));
+            } else {
+                pstmt.setInt(++i, this.getInt(idMethod, entity));
+            }
+            conn.execOther(pstmt);
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    private String getTableName(T entity) {
+        Table table = entity.getClass().getAnnotation(Table.class);
+        return table != null ? table.name() : entity.getClass().getSimpleName().toLowerCase();
+    }
+
+    private String getColumnName(Method method) {
+        Column column = method.getAnnotation(Column.class);
+        return column != null ? column.name() : method.getName().substring(3).toLowerCase();
+    }
+
+    private Method matchPojoIdMethod(T entity) {
+        Method idMethod = null;
+        Method[] methods = entity.getClass().getDeclaredMethods();
+        for (int index = 0; index < methods.length; ++index) {
+            if (methods[index].getAnnotation(Id.class) != null) {
+                idMethod = methods[index];
+                break;
+            }
+        }
+        if (idMethod == null) {
+            List<Method> list = this.matchPojoMethods(entity, "get");
+            Iterator iter = list.iterator();
+            while (iter.hasNext()) {
+                Method tempMethod = (Method) iter.next();
+                if (tempMethod.getName().lastIndexOf("Id") != -1 && tempMethod.getName().substring(3).length() == 2) {
+                    idMethod = tempMethod;
+                    break;
+                } else if ((entity.getClass().getSimpleName() + "Id").equalsIgnoreCase(tempMethod.getName().substring(3))) {
+                    idMethod = tempMethod;
+                    break;
+                }
+            }
+        }
+        return idMethod;
+    }
+
     /**
      * 过滤当前Pojo类所有带传入字符串的Method对象,返回List集合.
+     *
+     * @param entity
+     * @param methodName
+     * @return
      */
     private List<Method> matchPojoMethods(T entity, String methodName) {
-        //获得当前Pojo所有方法对象
         Method[] methods = entity.getClass().getDeclaredMethods();
-
-        //List容器存放所有带get字符串的Method对象
         List<Method> list = new ArrayList<Method>();
-
         //过滤当前Pojo类所有带get字符串的Method对象,存入List容器
         for (int index = 0; index < methods.length; index++) {
             if (methods[index].getName().indexOf(methodName) != -1) {
@@ -424,6 +421,11 @@ public class BaseDAO<T> {
 
     /**
      * 方法返回类型为int或Integer类型时,返回的SQL语句值.对应get
+     *
+     * @param method
+     * @param entity
+     * @return
+     * @throws Exception
      */
     public Integer getInt(Method method, T entity) throws Exception {
         return (Integer) method.invoke(entity, new Object[]{});
@@ -431,6 +433,11 @@ public class BaseDAO<T> {
 
     /**
      * 方法返回类型为String时,返回的SQL语句拼装值.比如'abc',对应get
+     *
+     * @param method
+     * @param entity
+     * @return
+     * @throws Exception
      */
     public String getString(Method method, T entity) throws Exception {
         return (String) method.invoke(entity, new Object[]{});
@@ -438,6 +445,11 @@ public class BaseDAO<T> {
 
     /**
      * 方法返回类型为Blob时,返回的SQL语句拼装值.对应get
+     *
+     * @param method
+     * @param entity
+     * @return
+     * @throws Exception
      */
     public InputStream getBlob(Method method, T entity) throws Exception {
         return (InputStream) method.invoke(entity, new Object[]{});
@@ -446,6 +458,11 @@ public class BaseDAO<T> {
 
     /**
      * 方法返回类型为Date时,返回的SQL语句拼装值,对应get
+     *
+     * @param method
+     * @param entity
+     * @return
+     * @throws Exception
      */
     public Date getDate(Method method, T entity) throws Exception {
         return (Date) method.invoke(entity, new Object[]{});
@@ -454,6 +471,12 @@ public class BaseDAO<T> {
 
     /**
      * 参数类型为Integer或int时,为entity字段设置参数,对应set
+     *
+     * @param method
+     * @param entity
+     * @param arg
+     * @return
+     * @throws Exception
      */
     public Integer setInt(Method method, T entity, Integer arg) throws Exception {
         return (Integer) method.invoke(entity, new Object[]{arg});
@@ -461,6 +484,12 @@ public class BaseDAO<T> {
 
     /**
      * 参数类型为String时,为entity字段设置参数,对应set
+     *
+     * @param method
+     * @param entity
+     * @param arg
+     * @return
+     * @throws Exception
      */
     public String setString(Method method, T entity, String arg) throws Exception {
         return (String) method.invoke(entity, new Object[]{arg});
@@ -468,6 +497,12 @@ public class BaseDAO<T> {
 
     /**
      * 参数类型为InputStream时,为entity字段设置参数,对应set
+     *
+     * @param method
+     * @param entity
+     * @param arg
+     * @return
+     * @throws Exception
      */
     public InputStream setBlob(Method method, T entity, InputStream arg) throws Exception {
         return (InputStream) method.invoke(entity, new Object[]{arg});
@@ -476,6 +511,12 @@ public class BaseDAO<T> {
 
     /**
      * 参数类型为Date时,为entity字段设置参数,对应set
+     *
+     * @param method
+     * @param entity
+     * @param arg
+     * @return
+     * @throws Exception
      */
     public Date setDate(Method method, T entity, Date arg) throws Exception {
         return (Date) method.invoke(entity, new Object[]{arg});

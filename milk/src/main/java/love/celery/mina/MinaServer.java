@@ -39,4 +39,6 @@ public class MinaServer {
         // 绑定一个监听端口
         acceptor.bind(new InetSocketAddress(PORT));
     }
+
+
 }

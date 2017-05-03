@@ -12,6 +12,8 @@
         <module>milk</module>
         <module>jsocket</module>
         <module>util</module>
+        <module>biscuit</module>
+        <module>coffee</module>
     </modules>
 
     <properties>

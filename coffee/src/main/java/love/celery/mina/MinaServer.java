@@ -6,21 +6,35 @@ package love.celery.mina;
  * Time: 下午2:59
  */
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Date;
 
 import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.LineDelimiter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MinaServer {
+    private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
+
     private static final int PORT = 9725;
 
     public static void main(String[] args) throws Exception {
+        MinaServer server=new MinaServer();
+        server.start();
+    }
+
+
+    public void start() throws IOException {
         // 创建一个非阻塞的server端的Socket，因为这里是服务端所以用IoAcceptor
         IoAcceptor acceptor = new NioSocketAcceptor();
         // 添加一个日志过滤器
@@ -41,4 +55,47 @@ public class MinaServer {
     }
 
 
+    class MinaServerHandler extends IoHandlerAdapter {
+        @Override
+        public void exceptionCaught(IoSession session, Throwable cause)throws Exception {
+            cause.printStackTrace();
+        }
+
+        @Override
+        public void messageReceived(IoSession session, Object message)throws Exception {
+            String str = message.toString();
+            if( str.trim().equalsIgnoreCase("quit") ) {
+                session.close(Boolean.TRUE);
+                return;
+            }
+            Date date = new Date();
+            session.write( date.toString() );
+            LOG.info("server -消息已经接收到!"+message);
+        }
+
+        @Override
+        public void messageSent(IoSession session, Object message) throws Exception {
+            LOG.info("server -消息已经发出");
+        }
+
+        @Override
+        public void sessionClosed(IoSession session) throws Exception {
+            LOG.info("server-session关闭连接断开");
+        }
+
+        @Override
+        public void sessionCreated(IoSession session) throws Exception {
+            LOG.info("server-session创建，建立连接");
+        }
+
+        @Override
+        public void sessionIdle(IoSession session, IdleStatus status)throws Exception {
+            LOG.info("server-服务端进入空闲状态..");
+        }
+
+        @Override
+        public void sessionOpened(IoSession session) throws Exception {
+            LOG.info("server-服务端与客户端连接打开...");
+        }
+    }
 }

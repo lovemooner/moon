@@ -15,6 +15,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  */
 public class SimpleClient {
 
+    public static void main(String[] args) throws Exception {
+        SimpleClient client=new SimpleClient();
+        client.connect("127.0.0.1", 9999);
+    }
+
     public void connect(String host, int port) throws Exception {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -38,6 +43,11 @@ public class SimpleClient {
             workerGroup.shutdownGracefully();
         }
     }
+
+
+
+
+
 
     class SimpleClientHandler extends ChannelInboundHandlerAdapter {
 
@@ -69,13 +79,5 @@ public class SimpleClient {
             ctx.flush();
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        SimpleClient client=new SimpleClient();
-        client.connect("127.0.0.1", 9999);
-    }
-
-
-
 
 }

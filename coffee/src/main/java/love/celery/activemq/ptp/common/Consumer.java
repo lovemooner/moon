@@ -19,7 +19,6 @@ public class Consumer {
 
   private String url = ActiveMQConnection.DEFAULT_BROKER_URL; //默认的是localhost:8080
   private String subject = "TOOL.DEFAULT"; //消息目的地名称
-
   private Destination destination = null;  //在点对点（PTP）消息传递域中，目的地被成为队列（queue）
   private Connection connection = null;  //初始化 一个JMS客户端到JMS Provider的连接
   private Session session = null;     //初始化  一个接受消息的进程

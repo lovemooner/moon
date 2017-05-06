@@ -8,12 +8,15 @@ package love.celery.activemq.topic;
 public class TestTopic {
 
     public static void main(String[] args) throws Exception {
-        Consumer consumer = new Consumer();
+        Consumer consumer1 = new Consumer("consumer1");
+        Consumer consumer2 = new Consumer("consumer2");
         Producer producer = new Producer();
-        consumer.consumeMessage();
+        consumer1.consumeMessage();
+        consumer2.consumeMessage();
         producer.produceMessage("Hello, topic!");
         producer.close();
-        consumer.close();
+        consumer1.close();
+        consumer2.close();
 
     }
 

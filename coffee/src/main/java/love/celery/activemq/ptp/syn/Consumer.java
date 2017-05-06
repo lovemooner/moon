@@ -1,14 +1,15 @@
-package love.celery.activemq.ptp.listenermodel;
+package love.celery.activemq.ptp.syn;
+
+import org.apache.activemq.ActiveMQConnection;
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+import javax.jms.*;
 
 /**
  * User: lovemooner
  * Date: 17-3-27
  * Time: 下午4:06
  */
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
-
-import javax.jms.*;
 
 
 public class Consumer implements MessageListener {
@@ -21,10 +22,6 @@ public class Consumer implements MessageListener {
 
   private Destination destination = null;  //在点对点（PTP）消息传递域中，目的地被成为队列（queue）
 
-
-  private Topic topic = null;//在发布/订阅（PUB/SUB）消息传递域中，目的地被成为主题（topic）。
-
-
   private Connection connection = null;  //初始化 一个JMS客户端到JMS Provider的连接
 
 
@@ -35,7 +32,6 @@ public class Consumer implements MessageListener {
 
 
   // 初始化
-
   private void initialize() throws JMSException, Exception {
     ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
       user, password, url);
@@ -76,9 +72,9 @@ public class Consumer implements MessageListener {
       if (message instanceof TextMessage) {
         TextMessage txtMsg = (TextMessage) message;
         String msg = txtMsg.getText();
-        System.out.println("Consumer:->Received: " + msg);
+        System.out.println("Consumer->Received: " + msg);
       } else {
-        System.out.println("Consumer:->Received: " + message);
+        System.out.println("Consumer->Received: " + message);
       }
     } catch (JMSException e) {
       e.printStackTrace();

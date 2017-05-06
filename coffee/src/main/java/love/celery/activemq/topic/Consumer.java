@@ -13,6 +13,8 @@ import javax.jms.*;
 
 public class Consumer implements MessageListener {
 
+  private String name;
+
   private String user = ActiveMQConnection.DEFAULT_USER;     //默认 用户
   private String password = ActiveMQConnection.DEFAULT_PASSWORD;    //默认 密码
 
@@ -24,10 +26,14 @@ public class Consumer implements MessageListener {
   private MessageConsumer consumer = null;   //初始化 消息消费者
 
 
+  public Consumer(String name){
+    this.name=name;
+  }
+
   // 初始化
 
   private void initialize() throws JMSException, Exception {
-    ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+    ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
       user, password, url);
     connection = connectionFactory.createConnection();
     //false 参数表示 为非事务型消息，后面的参数表示消息的确认类型（见4.消息发出去后的确认模式）
@@ -48,7 +54,6 @@ public class Consumer implements MessageListener {
   // 关闭连接
 
   public void close() throws JMSException {
-    System.out.println("Consumer:->Closing connection");
     if (consumer != null)
       consumer.close();
     if (session != null)
@@ -64,9 +69,9 @@ public class Consumer implements MessageListener {
       if (message instanceof TextMessage) {
         TextMessage txtMsg = (TextMessage) message;
         String msg = txtMsg.getText();
-        System.out.println("Consumer:->Received: " + msg);
+        System.out.println("Consumer "+name+":->Received: " + msg);
       } else {
-        System.out.println("Consumer:->Received: " + message);
+        System.out.println("Consumer "+name+":->Received: " + message);
       }
     } catch (JMSException e) {
       e.printStackTrace();

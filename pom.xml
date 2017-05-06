@@ -12,6 +12,7 @@
         <module>milk</module>
         <module>util</module>
         <module>coffee</module>
+        <module>papa</module>
     </modules>
 
     <properties>

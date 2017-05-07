@@ -8,14 +8,15 @@ import java.util.Vector;
  */
 public class EventSource {
     private Vector repository = new Vector();//监听自己的监听器队列
-    public EventSource(){}
+
     public void addDemoListener(DemoListener dl) {
         repository.addElement(dl);
     }
-    public void notifyDemoEvent() {//通知所有的监听器
+
+    public void notifyDemoEvent() {
         Enumeration elements = repository.elements();
-        while(elements.hasMoreElements()) {
-            DemoListener dl = (DemoListener)elements.nextElement();
+        while (elements.hasMoreElements()) {
+            DemoListener dl = (DemoListener) elements.nextElement();
             dl.handleEvent(new DemoEvent(this));
         }
     }

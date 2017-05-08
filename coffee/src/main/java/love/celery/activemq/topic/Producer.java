@@ -43,14 +43,12 @@ public class Producer {
     connection.start();
     System.out.println("Producer:->Sending message: " + message);
     producer.send(msg);
-    System.out.println("Producer:->Message sent complete!");
   }
 
 
   // 关闭连接
 
   public void close() throws JMSException {
-    System.out.println("Producer:->Closing connection");
     if (producer != null)
       producer.close();
     if (session != null)

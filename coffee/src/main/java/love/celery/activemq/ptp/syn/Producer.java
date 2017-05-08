@@ -1,4 +1,4 @@
-package love.celery.activemq.ptp.listenermodel;
+package love.celery.activemq.ptp.syn;
 
 /**
  * User: lovemooner
@@ -44,7 +44,6 @@ public class Producer {
         connection.start();
         System.out.println("Producer:->Sending message: " + message);
         producer.send(msg);
-        System.out.println("Producer:->Message sent complete!");
     }
 
 

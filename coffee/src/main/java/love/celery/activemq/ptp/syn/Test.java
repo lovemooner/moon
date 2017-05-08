@@ -1,4 +1,4 @@
-package love.celery.activemq.ptp.listenermodel;
+package love.celery.activemq.ptp.syn;
 
 /**
  * User: lovemooner

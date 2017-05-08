@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>coffee</artifactId>
     <packaging>war</packaging>
-    <name>coffee Maven Webapp</name>
+    <name>coffee</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <!--hadoop-->

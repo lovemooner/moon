@@ -4,16 +4,17 @@ import org.apache.zookeeper.*;
 
 import java.io.IOException;
 
+import static love.celery.zookeeper.Client.ADDRESS;
+
 /**
  * Author: lovemooner
  * Date: 2017/5/5 15:45
  */
 public class ZooKeeperClient {
-    public static final String ADDRESS="slc11fsp.us.oracle.com:2181";
 
     public static void main(String[] args) throws KeeperException, InterruptedException, IOException {
         // 创建一个与服务器的连接
-        ZooKeeper zk = new ZooKeeper(ADDRESS,5000, new Watcher() {
+        ZooKeeper zk = new ZooKeeper(ADDRESS,50000, new Watcher() {
             // 监控所有被触发的事件
             public void process(WatchedEvent event) {
                 System.out.println("已经触发了" + event.getType() + "事件！");
@@ -35,6 +36,7 @@ public class ZooKeeperClient {
         zk.create("/testRootPath/testChildPathTwo", "testChildDataTwo".getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);
         System.out.println(new String(zk.getData("/testRootPath/testChildPathTwo",true,null)));
+        System.out.println(zk.getChildren("/",false));
         // 删除子目录节点
         zk.delete("/testRootPath/testChildPathTwo",-1);
         zk.delete("/testRootPath/testChildPathOne",-1);

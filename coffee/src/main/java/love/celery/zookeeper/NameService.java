@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static love.celery.zookeeper.Client.ADDRESS;
+import static love.celery.zookeeper.demo.ZooKeeperClient.ADDRESS;
+
 
 /**
  * Author: lovemooner
@@ -23,7 +24,6 @@ public class NameService {
     public static void main(String[] args) throws InterruptedException, IOException, KeeperException {
         NameService service = new NameService(ADDRESS);
         System.out.println(service.ReadAll());
-
     }
 
     /**

@@ -32,16 +32,16 @@ public class MySubject implements Subject {
     @Override
     public void notifyObservers(Object object) {
         // temp list
-        List<Observer> tempObservers = null;
-        synchronized (mutex) {
-            if (!changed)
-                return;
-            tempObservers = new ArrayList<>(this.observers);
-            this.changed = false;
-        }
-        for(Observer obj : tempObservers) {
-            obj.update(this,object);
-        }
+//        List<Observer> tempObservers = null;
+//        synchronized (mutex) {
+//            if (!changed)
+//                return;
+//            tempObservers = new ArrayList<>(this.observers);
+//            this.changed = false;
+//        }
+//        for(Observer obj : tempObservers) {
+//            obj.update(this,object);
+//        }
     }
     //主题类发布新消息
     public void publish(String message) {

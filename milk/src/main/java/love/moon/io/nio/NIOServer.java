@@ -31,10 +31,11 @@ public class NIOServer {
     private Selector selector;
 
     public NIOServer(int port) throws IOException {
+        selector = Selector.open();
+        System.out.println(selector.select());
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress(8888));
-        selector = Selector.open();
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port 8888:");
     }
@@ -71,15 +72,15 @@ public class NIOServer {
         } else if (selectionKey.isWritable()) {
             int capacity = sendBuffer.capacity();
             sendBuffer.clear();
-            SocketChannel client = (SocketChannel) selectionKey.channel();
+            SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
             String sendText = "message from server" + flag++;
             if (sendText.length() > capacity) {
                 sendText = sendText.substring(0, capacity);
             }
             sendBuffer.put(sendText.getBytes());
             sendBuffer.flip();
-            client.write(sendBuffer);
-            client.register(selector, SelectionKey.OP_READ);
+            socketChannel.write(sendBuffer);
+            socketChannel.register(selector, SelectionKey.OP_READ);
         }
     }
 

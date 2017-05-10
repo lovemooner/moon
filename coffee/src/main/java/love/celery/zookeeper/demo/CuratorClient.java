@@ -1,4 +1,4 @@
-package love.celery.zookeeper;
+package love.celery.zookeeper.demo;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

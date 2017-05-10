@@ -8,6 +8,8 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * 每个成功连接后的Channel的所有操作由同一个线程处理。
@@ -16,9 +18,13 @@ import java.util.Set;
  * Date: 17-4-11
  * Time: 下午3:54
  */
-public class Reactor implements Runnable{
-    final Selector selector;
-    final ServerSocketChannel serverSocketChannel;
+public class Reactor implements Runnable {
+
+    private Executor executor = Executors.newCachedThreadPool();
+
+    private final Selector selector;
+    private final ServerSocketChannel serverSocketChannel;
+
     Reactor(int port) throws IOException {
         // 初始化ServerSocketChannel，以非阻塞模式运行
         serverSocketChannel = ServerSocketChannel.open();
@@ -31,6 +37,7 @@ public class Reactor implements Runnable{
         // 在SelectionKey上绑定一个附属对象Acceptor
         selectionKey.attach(new Acceptor());
     }
+
     @Override
     public void run() {
         try {
@@ -41,32 +48,34 @@ public class Reactor implements Runnable{
                 Iterator it = selected.iterator();
                 while (it.hasNext()) {
                     // 分发
-                    dispatch((SelectionKey)(it.next()));
+                    dispatch((SelectionKey) (it.next()));
                 }
                 // 需要自己清除selectedKeys
                 selected.clear();
             }
-        }catch (IOException ex) {
+        } catch (IOException ex) {
         }
     }
+
     void dispatch(SelectionKey k) {
         /**
          * 获取SelectionKey中的attachment，并执行该attachment的run()方法
          * 拿第一个到达的socket连接来看，该attachment为一个Acceptor实例
          */
-        Runnable r = (Runnable)(k.attachment());
+        Runnable r = (Runnable) (k.attachment());
         if (r != null) {
             r.run();
         }
     }
-    class Acceptor implements Runnable{
+
+    class Acceptor implements Runnable {
         public void run() {
             try {
                 // 获取新连接的SocketChannel
                 SocketChannel socketChannel = serverSocketChannel.accept();
                 if (socketChannel != null) {
                     // 具体的处理逻辑
-                    new Handler(selector, socketChannel);
+                    executor.execute(new Handler(selector, socketChannel));
                 }
             } catch (IOException ex) {
             }

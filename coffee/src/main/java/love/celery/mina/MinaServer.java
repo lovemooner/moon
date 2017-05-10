@@ -11,6 +11,7 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.Date;
 
+import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
@@ -25,8 +26,9 @@ import org.slf4j.LoggerFactory;
 
 public class MinaServer {
     private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
+    private int count=5;
 
-    private static final int PORT = 9725;
+    public static final int PORT = 9725;
 
     public static void main(String[] args) throws Exception {
         MinaServer server=new MinaServer();
@@ -38,7 +40,7 @@ public class MinaServer {
         // 创建一个非阻塞的server端的Socket，因为这里是服务端所以用IoAcceptor
         IoAcceptor acceptor = new NioSocketAcceptor();
         // 添加一个日志过滤器
-        acceptor.getFilterChain().addLast("logger", new LoggingFilter());
+//        acceptor.getFilterChain().addLast("logger", new IoFilterAdapter());
         // 添加一个编码过滤器
         acceptor.getFilterChain().addLast("codec",
                 new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"),
@@ -63,19 +65,22 @@ public class MinaServer {
 
         @Override
         public void messageReceived(IoSession session, Object message)throws Exception {
+            if(count--<0){
+                throw new NullPointerException();
+            }
             String str = message.toString();
+            LOG.info("server-> receive message: "+message);
             if( str.trim().equalsIgnoreCase("quit") ) {
                 session.close(Boolean.TRUE);
                 return;
             }
             Date date = new Date();
-            session.write( date.toString() );
-            LOG.info("server -消息已经接收到!"+message);
+            session.write( message.toString()+ date.toString() );
         }
 
         @Override
         public void messageSent(IoSession session, Object message) throws Exception {
-            LOG.info("server -消息已经发出");
+//            LOG.info("server -消息已经发出");
         }
 
         @Override
@@ -85,17 +90,17 @@ public class MinaServer {
 
         @Override
         public void sessionCreated(IoSession session) throws Exception {
-            LOG.info("server-session创建，建立连接");
+//            LOG.info("server-session创建，建立连接");
         }
 
         @Override
         public void sessionIdle(IoSession session, IdleStatus status)throws Exception {
-            LOG.info("server-服务端进入空闲状态..");
+//            LOG.info("server-服务端进入空闲状态..");
         }
 
         @Override
         public void sessionOpened(IoSession session) throws Exception {
-            LOG.info("server-服务端与客户端连接打开...");
+//            LOG.info("server-服务端与客户端连接打开...");
         }
     }
 }

@@ -31,16 +31,16 @@ public class MyPublisher implements Producer {
     @Override
     public void notifyObservers() {
         // temp list
-        List<MessageListener> tempObservers = null;
-        synchronized (mutex) {
-            if (!changed)
-                return;
-            tempObservers = new ArrayList<>(this.observers);
-            this.changed = false;
-        }
-        for(MessageListener obj : tempObservers) {
-            obj.update();
-        }
+//        List<MessageListener> tempObservers = null;
+//        synchronized (mutex) {
+//            if (!changed)
+//                return;
+//            tempObservers = new ArrayList<>(this.observers);
+//            this.changed = false;
+//        }
+//        for(MessageListener obj : tempObservers) {
+//            obj.update();
+//        }
     }
     //主题类发布新消息
     public void publish(String message) {

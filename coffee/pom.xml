@@ -10,7 +10,38 @@
     <packaging>war</packaging>
     <name>coffee</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <spring.version>4.0.4.RELEASE</spring.version>
+        <hibernate.version>4.3.5.Final</hibernate.version>
+        <mysql.jdbc.version>5.1.13</mysql.jdbc.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>8.1.0.RC5</version>
+        </dependency>
+
+        <!-- springframe start -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- springframe end -->
+         <!--hibernate-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
         <!--hadoop-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -72,10 +103,24 @@
             <artifactId>zookeeper</artifactId>
             <version>3.4.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.18.1-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.jdbc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
 
     </dependencies>
 
-    <build>
-        <finalName>coffee</finalName>
-    </build>
+
 </project>

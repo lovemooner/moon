@@ -21,12 +21,12 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static love.celery.mina.MinaServer.PORT;
+
 
 public class MinaClient {
     private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
-
     private static String HOST = "localhost";
-    private static int PORT = 9725;
 
     public static void main(String[] args) {
         MinaClient client = new MinaClient();
@@ -50,7 +50,10 @@ public class MinaClient {
             ConnectFuture future = conn.connect(new InetSocketAddress(HOST, PORT));// 创建连接
             future.awaitUninterruptibly();// 等待连接创建完成
             session = future.getSession();// 获得session
-            session.write("Hello World!");// 发送消息
+            while (true) {
+                session.write("Hello World!");// 发送消息
+                Thread.sleep(5000);
+            }
         } catch (Exception e) {
             LOG.error("客户端链接异常...", e);
         }
@@ -68,12 +71,13 @@ public class MinaClient {
 
         @Override
         public void messageReceived(IoSession session, Object message) throws Exception {
-            LOG.info("client消息接收到" + message);
+
+            LOG.info("Client-> Receive Message" + message);
         }
 
         @Override
         public void messageSent(IoSession session, Object message) throws Exception {
-            LOG.info("client-消息已经发送" + message);
+//            LOG.info("client-消息已经发送" + message);
         }
 
         @Override
@@ -83,17 +87,17 @@ public class MinaClient {
 
         @Override
         public void sessionCreated(IoSession session) throws Exception {
-            System.out.println("client -创建session");
+//            System.out.println("client -创建session");
         }
 
         @Override
         public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-            System.out.println("client-系统空闲中...");
+//            System.out.println("client-系统空闲中...");
         }
 
         @Override
         public void sessionOpened(IoSession session) throws Exception {
-            System.out.println("client-session打开");
+//            System.out.println("client-session打开");
         }
     }
 }

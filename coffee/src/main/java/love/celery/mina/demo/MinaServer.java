@@ -1,4 +1,4 @@
-package love.celery.mina;
+package love.celery.mina.demo;
 
 /**
  * User: lovemooner
@@ -11,7 +11,6 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
@@ -19,7 +18,6 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.LineDelimiter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
-import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +26,7 @@ public class MinaServer {
     private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
     private int count=5;
 
-    public static final int PORT = 9725;
+    public static final int PORT = 8888;
 
     public static void main(String[] args) throws Exception {
         MinaServer server=new MinaServer();
@@ -65,9 +63,9 @@ public class MinaServer {
 
         @Override
         public void messageReceived(IoSession session, Object message)throws Exception {
-            if(count--<0){
-                throw new NullPointerException();
-            }
+//            if(count--<0){
+//                throw new NullPointerException();
+//            }
             String str = message.toString();
             LOG.info("server-> receive message: "+message);
             if( str.trim().equalsIgnoreCase("quit") ) {

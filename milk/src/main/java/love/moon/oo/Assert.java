@@ -1,4 +1,4 @@
-package love.moon.abstact;
+package love.moon.oo;
 
 /**
  * Author: lovemooner

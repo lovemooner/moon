@@ -1,6 +1,7 @@
-package love.moon.io.nio;
+package love.moon.io.nio.demo;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,7 +20,7 @@ import java.util.Set;
  * Time: 下午5:25
  */
 public class NIOServer {
-    private static Logger LOGGER = Logger.getLogger(NIOServer.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(NIOServer.class);
     /*标识数字*/
     private static int flag = 0;
     private static int PORT = 8888;
@@ -32,12 +33,11 @@ public class NIOServer {
 
     public NIOServer(int port) throws IOException {
         selector = Selector.open();
-        System.out.println(selector.select());
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress(8888));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        LOGGER.info("Server: Start at port 8888:");
+        LOGGER.info("Server: Start at port: {}",port);
     }
 
     private void listen() throws IOException {
@@ -57,8 +57,10 @@ public class NIOServer {
             ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) selectionKey.channel();
             SocketChannel socketChannel = acceptServerSocketChannel.accept();
             socketChannel.configureBlocking(false);
-            LOGGER.info("Accept request from {}" + socketChannel.getRemoteAddress());
+            LOGGER.info("Accept request from {}" , socketChannel.getRemoteAddress());
+            LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
             socketChannel.register(selector, SelectionKey.OP_READ);
+            LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
         } else if (selectionKey.isReadable()) {
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
             ByteBuffer buffer = ByteBuffer.allocate(1024);
@@ -68,20 +70,21 @@ public class NIOServer {
                 selectionKey.cancel();
                 LOGGER.info("Received invalide data, close the connection");
             }
-            LOGGER.info("Received message {}" + new String(buffer.array()));
-        } else if (selectionKey.isWritable()) {
-            int capacity = sendBuffer.capacity();
-            sendBuffer.clear();
-            SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-            String sendText = "message from server" + flag++;
-            if (sendText.length() > capacity) {
-                sendText = sendText.substring(0, capacity);
-            }
-            sendBuffer.put(sendText.getBytes());
-            sendBuffer.flip();
-            socketChannel.write(sendBuffer);
-            socketChannel.register(selector, SelectionKey.OP_READ);
+            LOGGER.info("Server-> Received message {}" , new String(buffer.array()));
         }
+//        else if (selectionKey.isWritable()) {
+//            int capacity = sendBuffer.capacity();
+//            sendBuffer.clear();
+//            SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+//            String sendText = "message from server" + flag++;
+//            if (sendText.length() > capacity) {
+//                sendText = sendText.substring(0, capacity);
+//            }
+//            sendBuffer.put(sendText.getBytes());
+//            sendBuffer.flip();
+//            socketChannel.write(sendBuffer);
+//            socketChannel.register(selector, SelectionKey.OP_READ);
+//        }
     }
 
     public static void main(String[] args) throws IOException {

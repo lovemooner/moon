@@ -1,4 +1,4 @@
-package love.celery.mina;
+package love.celery.mina.demo;
 
 /**
  * User: lovemooner
@@ -20,8 +20,6 @@ import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static love.celery.mina.MinaServer.PORT;
 
 
 public class MinaClient {
@@ -47,7 +45,7 @@ public class MinaClient {
         conn.setHandler(new MinaClientHandler());
         IoSession session = null;
         try {
-            ConnectFuture future = conn.connect(new InetSocketAddress(HOST, PORT));// 创建连接
+            ConnectFuture future = conn.connect(new InetSocketAddress(HOST, MinaServer.PORT));// 创建连接
             future.awaitUninterruptibly();// 等待连接创建完成
             session = future.getSession();// 获得session
             while (true) {

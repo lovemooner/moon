@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
  * Time: 下午2:52
  */
 public class LogDemo {
-            private static final Logger LOG = LoggerFactory.getLogger(LogDemo.class);
-    public static void main(String[]args){
-            LOG.debug("info-------------");
+    private static final Logger LOG = LoggerFactory.getLogger(LogDemo.class);
+
+    public static void main(String[] args) {
+        LOG.debug("info-------------");
     }
 }

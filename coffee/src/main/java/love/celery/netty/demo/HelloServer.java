@@ -1,4 +1,4 @@
-package love.celery.netty;
+package love.celery.netty.demo;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.*;

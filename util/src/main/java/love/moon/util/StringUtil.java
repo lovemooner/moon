@@ -14,6 +14,11 @@ public class StringUtil extends StringUtils {
         return String.valueOf(obj);
     }
 
+    public static String test(){
+        System.out.println("test");
+        return "test";
+    }
+
     /**
      * String数组有空值
      *

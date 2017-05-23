@@ -16,6 +16,12 @@
             <groupId>love.moon</groupId>
             <artifactId>util</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

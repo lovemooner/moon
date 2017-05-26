@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
  */
 public abstract class AbstractConfig {
     protected int flag = 0;
-    public static int PORT = 8888;
+    public static int PORT = 8877;
 
 
     protected void sendMsg(SocketChannel sc) throws IOException {

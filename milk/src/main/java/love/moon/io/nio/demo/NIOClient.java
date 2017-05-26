@@ -99,7 +99,7 @@ public class NIOClient extends AbstractConfig {
     }
 
     public static void main(String[] args) throws IOException {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 1; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

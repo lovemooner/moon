@@ -1,5 +1,6 @@
 package love.moon.io.nio.demo;
 
+import love.moon.io.IOConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,6 @@ public class NIOServer {
     private static Logger LOGGER = LoggerFactory.getLogger(NIOServer.class);
     /*标识数字*/
     private static int flag = 0;
-    private static int PORT = 8888;
     /*缓冲区大小*/
     private static int BLOCK = 4;
     /*接受数据缓冲区*/
@@ -35,7 +35,7 @@ public class NIOServer {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.bind(new InetSocketAddress(8888));
+        serverSocketChannel.bind(new InetSocketAddress(port));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }
@@ -88,7 +88,7 @@ public class NIOServer {
     }
 
     public static void main(String[] args) throws IOException {
-        NIOServer selector = new NIOServer(PORT);
+        NIOServer selector = new NIOServer(IOConfig.PORT);
         selector.listen();
 
     }

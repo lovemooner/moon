@@ -13,6 +13,7 @@
         <module>util</module>
         <module>coffee</module>
         <module>papa</module>
+        <module>load</module>
     </modules>
 
     <properties>

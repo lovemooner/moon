@@ -1,36 +1,28 @@
 package love.moon.spring.model;
 
 
-import javax.persistence.*;
-import java.io.Serializable;
+import love.moon.spring.model.base.LongIdentifier;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by nadong on 2017/4/20.
  */
 @Entity
-@Table(name="user")
-public class User implements Serializable {
+@Table(name = "CA_USER")
+public class User extends LongIdentifier{
 
 
-    private int id;
-    private String username;
+    private String userName;
 
-    @Id
-    @GeneratedValue
-    public int getId() {
-        return id;
+    @Column(name = "USER_NAME")
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Column(name="username")
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -1,20 +1,11 @@
-package love.moon.spring;
+package love.moon;
 
-import love.moon.spring.model.Cart;
-import love.moon.spring.model.CartItem;
-import love.moon.spring.service.CartStatus;
 import love.moon.spring.service.ShoppingCartService;
-import love.moon.spring.service.ShoppingCartServiceImp;
-import love.moon.util.JsonUtil;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,9 +21,21 @@ public class CartConfig {
 
     public void insertData() {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring\\infrastructure.xml", "spring\\applicationContext.xml"});
-        ShoppingCartService cartService = (ShoppingCartService) context.getBean("shoppingCartServiceImp");
+        final ShoppingCartService cartService = (ShoppingCartService) context.getBean("shoppingCartServiceImp");
         cartService.initData();
-    }
+//        for (int i = 0; i < 20; i++) {
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    for (int i = 0; i < 100000; i++) {
+//                        cartService.initProduct();
+//                    }
+//                }
+//            }).start();
+//
+//        }
+
+        }
 
     public static void main(String[] args) {
         CartConfig cartConfig = new CartConfig();

@@ -14,4 +14,6 @@ public interface ShoppingCartService  {
 
     void initData();
 
+    void initProduct();
+
 }

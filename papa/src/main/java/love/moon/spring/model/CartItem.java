@@ -20,7 +20,7 @@ public class CartItem extends LongIdentifier {
     private Double itemSum;
 
 
-    @Column(name = "CART_ID")
+    @Column(name = "CART_ID",unique = true)
     public Long getCartId() {
         return cartId;
     }

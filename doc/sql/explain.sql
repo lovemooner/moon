@@ -34,7 +34,7 @@ EXPLAIN select * from  ld_cart c where c.id in(select i.cart_id  from ld_cart_it
 -- ====================== type ============================
 --all，index，range，ref，eq_ref，const，system，NULL
 --ALL，即full table scan，遍历全表
---index为full index scan，只遍历索引树。
+--index为full index scan，只遍历索引树。order by 索引列，比如：SELECT summary FROM ld_cart c  order by  summary;
 --range:常见于between，<，>的查询
 --ref: Normal Index
 --eq_ref: 常见于PRIMARY KEY或者unique index

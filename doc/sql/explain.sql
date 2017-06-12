@@ -29,6 +29,7 @@ EXPLAIN select * from  ld_cart c  join ld_cart_item i on c.id=i.cart_id  join ld
 EXPLAIN select * from  ld_cart c,ld_cart_item i where c.id=i.cart_id ;
 EXPLAIN select * from  ld_cart c where c.id in(select i.cart_id  from ld_cart_item i)
 
+update ld_cart set sf='mm' where id=11763714;
 -- ====================== select_type =====================
 --simple，primary，subquery，derived，union，unionresult
 -- ====================== type ============================

@@ -6,16 +6,16 @@ package love.moon.design.Singleton;
  * Author: lovemooner
  * Date: 2017/6/14 10:59
  */
-public class LazeAndSafe {
+public class Lazy {
 
-    private static LazeAndSafe instance;
+    private static Lazy instance;
 
-    private LazeAndSafe() {
+    private Lazy() {
     }
 
-    public static synchronized LazeAndSafe getInstance() {
+    public static synchronized Lazy getInstance() {
         if (instance == null) {
-            instance = new LazeAndSafe();
+            instance = new Lazy();
         }
         return instance;
     }

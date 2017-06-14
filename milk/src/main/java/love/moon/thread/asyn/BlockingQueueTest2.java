@@ -1,4 +1,4 @@
-package love.moon.thread.concurrent;
+package love.moon.thread.asyn;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;

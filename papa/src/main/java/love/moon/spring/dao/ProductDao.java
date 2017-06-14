@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductDao extends BaseDao<Product> {
 
     public ProductDao() {
-        super(ProductDao.class);
+        super(Product.class);
     }
 
     public List<Product> getProducts(int start, int limit) {

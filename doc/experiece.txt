@@ -1,9 +1,22 @@
+The last packet successfully received from the server is longer than the server configured value of 'wait_timeout
+1.大量数据访问情况下，mysql connection连接有可能失效。服务器数据库的瓶颈
+    1)show processlist
+    2)CPU MEM
+2.长时间不访问，connection会失效
+   1)调整wait_timeout
+   2）Spring中使用连接池 validationQuery和testOnBorrow
+   3）在JDBC URL上添加?autoReconnect=true
+   4）连接池调大
+   5)maxIdleTime idleConnectionTestPeriod
+   kill 事务 /重启数据库
+
+事务
+select * from information_schema.innodb_trx;
+show engine innodb status --查看被锁的表
+
 Lock wait timeout exceeded; try restarting transaction
 跟新商品-->
 
-1.连接池调大
-2.kill 事务 /重启数据库
-2.数据库的瓶颈
-  执行太慢
-  CPU
-  MEM
+
+
+

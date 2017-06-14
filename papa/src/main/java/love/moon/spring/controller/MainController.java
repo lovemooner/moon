@@ -21,7 +21,7 @@ import java.util.Random;
  * Created by nadong on 2017/4/20.
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/test")
 public class MainController {
     private Logger LOG = LoggerFactory.getLogger(MainController.class);
     @Autowired
@@ -41,7 +41,7 @@ public class MainController {
         return sb.toString();
     }
 
-    @RequestMapping(value = "/cart",method = RequestMethod.GET)
+    @RequestMapping(value = "/testCart",method = RequestMethod.GET)
     @ResponseBody
     public Object cart(){
 

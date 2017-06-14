@@ -16,7 +16,7 @@ import java.util.List;
 public class UserDAO extends BaseDao<User> {
 
     public UserDAO() {
-        super(UserDAO.class);
+        super(User.class);
     }
 
     @Autowired

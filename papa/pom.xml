@@ -168,7 +168,8 @@
                     <uriEncoding>UTF-8</uriEncoding>
                     <server>tomcat7</server>
                     <systemProperties>
-                        <JAVA_OPTS>-Xms256m -Xmx1024m -XX:MaxPermSize=256m </JAVA_OPTS>
+                        <!--<JAVA_OPTS>-Xms256m -Xmx1024m -XX:MaxPermSize=256m </JAVA_OPTS>-->
+                        <JAVA_OPTS>-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m;-Duser.timezone=GMT+08 </JAVA_OPTS>
                     </systemProperties>
                 </configuration>
             </plugin>

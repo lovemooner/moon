@@ -55,6 +55,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+ <listener>
+        <listener-class>love.moon.listener.ListenerDemo</listener-class>
+    </listener>
 
     <!--session过滤器-->
     <!--<filter>-->

@@ -24,7 +24,7 @@ public class CartController {
     private CartService cartService;
 
     private void startThread() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             ThreadRunnable tt = new ThreadRunnable();
             Thread t = new Thread(tt);
             t.start();

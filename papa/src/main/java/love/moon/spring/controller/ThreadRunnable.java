@@ -6,13 +6,11 @@ package love.moon.spring.controller;
  */
 public class ThreadRunnable implements Runnable{
     public void run() {
-        while (true){
             System.out.println("I'm running! "+Thread.currentThread().getName());
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(30000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
     }
 }

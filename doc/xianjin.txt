@@ -1,22 +1,6 @@
 ﻿http://blog.csdn.net/kingmax54212008/article/details/52050497
 http://www.cnblogs.com/zhrxidian/p/5432886.html
 
-岗位说明
-1.参与产品需求的分析、系统开发设计和数据库设计等工作；
-2.根据任务的进度要求，独立完成子系统/模块的代码开发、测试和和相关技术文档的编写
-3.根据团队任务分配承担项目核心代码的编写，配合技术经理进行技术难点攻关；
-4.配合技术经理对初中级工程师技术培训和日常工作指导；
-5.协助技术经理做团队任务分解、计划制定，技术方案的设计和评审，参加技术选型。
-
-
-职位要求
-1.具有5年以上Java研发工作经验；
-2.精通Spring4、Freemarker、mybatis，熟悉MVC设计模式；熟悉rest风格架构；
-3.精通web前端技术，包括HTML/CSS/Javascript/JQuery等；
-4.熟练使用Tomcat、Apache，Nginx等应用和服务器配置；
-5.了解redis，hbase，kafka，storm，Memc
-
-
 
 
 首先感谢贵公司给我一个展示自我的机会。我本科是，

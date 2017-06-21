@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 public class DataSourceInterceptor {
 
 
-    @Before("execution(* love.moon.spring.controller.mysql.*.*(..))")
+    @Before("execution(* love.moon.spring.service.*Impl.*(..))")
     public void setDataSourceMysql(JoinPoint jp) {
         DatabaseContextHolder.setCustomerType("dataSourceMySql");
     }
 
-    @Before("execution(* love.moon.spring.controller.oracle.*.*(..))")
+    @Before("execution(* love.moon.spring.service.Test*.*(..))")
     public void setDataSourceOracle(JoinPoint jp) {
-        DatabaseContextHolder.setCustomerType("dataSourceOracle");
+        DatabaseContextHolder.setCustomerType("dataSourceMySql2");
     }
 }

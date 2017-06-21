@@ -25,15 +25,14 @@ public class SampleInterceptor {
         LOG.debug("doAfterReturnningTask:{}",retVal);
     }
 
-    public Object doAroundTask(ProceedingJoinPoint pjp) {
+    public Object doAroundTask(ProceedingJoinPoint pjp) throws Throwable {
         Object returnVal = null;
         try {
             returnVal = pjp.proceed();
-            LOG.info(pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName() + " end ");
+            LOG.info("Sample Interceptor:{}",pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName());
             return returnVal;
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
-            return null;
+            throw  throwable;
         }
     }
 

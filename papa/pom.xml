@@ -74,7 +74,7 @@
             <groupId>tomcat</groupId>
             <artifactId>servlet-api</artifactId>
             <version>5.5.23</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>tomcat</groupId>
@@ -100,6 +100,18 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>7.0.37</version>
+        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -152,6 +164,7 @@
             <version>1.0</version>
         </dependency>
 
+
     </dependencies>
 
     <build>
@@ -169,7 +182,8 @@
                     <server>tomcat7</server>
                     <systemProperties>
                         <!--<JAVA_OPTS>-Xms256m -Xmx1024m -XX:MaxPermSize=256m </JAVA_OPTS>-->
-                        <JAVA_OPTS>-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m;-Duser.timezone=GMT+08 </JAVA_OPTS>
+                        <JAVA_OPTS>-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m;-Duser.timezone=GMT+08
+                        </JAVA_OPTS>
                     </systemProperties>
                 </configuration>
             </plugin>

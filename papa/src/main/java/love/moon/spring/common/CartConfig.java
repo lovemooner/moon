@@ -1,4 +1,4 @@
-package love.moon;
+package love.moon.spring.common;
 
 import love.moon.spring.service.ShoppingCartService;
 import org.slf4j.Logger;

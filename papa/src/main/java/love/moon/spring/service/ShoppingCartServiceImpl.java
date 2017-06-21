@@ -27,8 +27,8 @@ import java.util.Random;
  * Date: 2017/5/27 15:13
  */
 @Component
-public class ShoppingCartServiceImp implements ShoppingCartService {
-    private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartServiceImp.class);
+public class ShoppingCartServiceImpl implements ShoppingCartService {
+    private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
     @Autowired
     private ShoppingCartDao cartDao;
     @Autowired

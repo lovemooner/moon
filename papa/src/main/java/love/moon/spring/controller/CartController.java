@@ -1,7 +1,9 @@
 package love.moon.spring.controller;
 
+import love.moon.spring.common.ServiceException;
 import love.moon.spring.model.User;
 import love.moon.spring.service.CartService;
+import love.moon.spring.service.ProductService;
 import love.moon.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ProductService productService;
 
     private void startThread() {
         for (int i = 0; i < 100; i++) {
@@ -44,9 +48,15 @@ public class CartController {
     }
 
     @RequestMapping(value = "/updateCart", method = RequestMethod.GET)
-    public String updateCart(){
+    public String updateCart() throws ServiceException {
         cartService.updateCart();
         return "updateCart";
+    }
+
+    @RequestMapping(value = "/updateProduct", method = RequestMethod.GET)
+    public String updateProduct() throws ServiceException {
+        productService.updateProduct();
+        return "updateProduct";
     }
 
     @RequestMapping(value = "/saveCart", method = RequestMethod.GET)

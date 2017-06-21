@@ -4,10 +4,10 @@ import love.moon.spring.common.ServiceException;
 
 /**
  * Author: lovemooner
- * Date: 2017/6/14 9:42
+ * Date: 2017/6/20 14:54
  */
-public interface CartService {
+public interface ProductService {
 
-    void updateCart() throws ServiceException;
+    void updateProduct() ;
 
 }

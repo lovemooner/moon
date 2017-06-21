@@ -35,6 +35,16 @@
         <property name="testConnectionOnCheckout" value="true"/>
     </bean>
 
+    <bean id="dataSourceMySql2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc2.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.miniPoolSize}"/>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+    </bean>
+
     <bean id="dataSourceOracle" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${oracle.jdbc.driver}"/>
         <property name="jdbcUrl" value="${oracle.jdbc.url}"/>
@@ -49,6 +59,7 @@
         <property name="targetDataSources">
             <map key-type="java.lang.String">
                 <entry key="dataSourceMySql" value-ref="dataSourceMySql"/>
+                <entry key="dataSourceMySql2" value-ref="dataSourceMySql2"/>
                 <entry key="dataSourceOracle" value-ref="dataSourceOracle"/>
             </map>
         </property>
@@ -62,7 +73,7 @@
     <!-- session工厂 -->
     <!-- spring与hibernate整合配置，扫描所有dao -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceMySql"/>
+        <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="love.moon.spring.model"/>
         <property name="namingStrategy" ref="improvedNamingStrategy"/>
         <property name="entityInterceptor">
@@ -80,6 +91,7 @@
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"></property>
+        <property name="nestedTransactionAllowed" value="true"></property>
     </bean>
 
     <!-- ==========================下面使用aop切面的方式来实现================================== -->
@@ -104,7 +116,7 @@
     </aop:config>
 
     <!-- =========使用annotation定义事务======================================= -->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 
 

@@ -1,6 +1,7 @@
 package love.moon.spring.controller;
 
 import love.moon.spring.common.ServiceException;
+import love.moon.spring.controller.mock.ThreadRunnable;
 import love.moon.spring.model.User;
 import love.moon.spring.service.CartService;
 import love.moon.spring.service.ProductService;
@@ -8,6 +9,7 @@ import love.moon.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  * Author: lovemooner
  * Date: 2017/6/12 17:26
  */
-@RestController
+@Controller
+@RequestMapping("/cart")
 public class CartController {
     private Logger LOG = LoggerFactory.getLogger(CartController.class);
 

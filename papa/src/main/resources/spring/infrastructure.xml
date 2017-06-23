@@ -73,7 +73,7 @@
     <!-- session工厂 -->
     <!-- spring与hibernate整合配置，扫描所有dao -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dataSourceMySql"/>
         <property name="packagesToScan" value="love.moon.spring.model"/>
         <property name="namingStrategy" ref="improvedNamingStrategy"/>
         <property name="entityInterceptor">

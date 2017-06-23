@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
  * Single Thread
- * 1.accept
- * 2.handle IO
+ * 单线程逐个处理所有请求，同一时间只能处理一个请求，等待I/O的过程浪费大量CPU资源，同时无法充分使用多CPU的优势
  * User: lovemooner
  * Date: 17-3-28
  * Time: 上午11:02
@@ -41,9 +41,12 @@ public class BioServer {
                 byte[] readBuf = new byte[1024];
                 InputStream in = socket.getInputStream();
                 OutputStream out = socket.getOutputStream();
+                PrintStream ps = new PrintStream(out);
                 int readSize=0;
                 while ((readSize = in.read(readBuf)) != -1) {   //block at here
+                    String msg=new String(readBuf);
                     LOG.info("Server-> Receiver Msg:{}",new String(readBuf));
+                    ps.println(msg);
                 }
             } catch (IOException e) {
                 LOG.error("Client is Exception");

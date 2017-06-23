@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class ServiceInterceptor {
-    private Logger LOG = LoggerFactory.getLogger(ServiceInterceptor.class);
+public class LogInterceptor {
+    private Logger LOG = LoggerFactory.getLogger(LogInterceptor.class);
 
     @Pointcut("execution(* love.moon.spring.controller.*.*(..))")
     private void businessService() {}

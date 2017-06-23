@@ -1,0 +1,11 @@
+1.启动操作
+nginx -c /usr/local/nginx/conf/nginx.conf
+2.停止操作
+从容停止Nginx
+快速停止Nginx：
+kill -TERM 主进程号
+
+强制停止Nginx：
+kill -9 主进程号
+3.
+nginx -s reload

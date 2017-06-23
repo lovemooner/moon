@@ -9,13 +9,12 @@ import java.net.Socket;
  * Author: lovemooner
  * Date: 2017/5/25 15:43
  */
-public class IOClient {
+public class IOClient extends Thread{
 
 
-    @Test
-    public void connect() {
+    public void run() {
         try {
-            Socket socket = new Socket("127.0.0.1", IOConfig.PORT);
+            Socket socket = new Socket(IOConfig.HOST, IOConfig.PORT);
             InputStream is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -36,5 +35,10 @@ public class IOClient {
         }
     }
 
+    public static void main(String[] args) {
+        for(int i=0;i<1;i++){
+            new IOClient().start();
+        }
+    }
 
 }

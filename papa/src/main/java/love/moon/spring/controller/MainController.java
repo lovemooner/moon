@@ -6,6 +6,7 @@ import love.moon.spring.service.CartStatus;
 import love.moon.spring.service.ShoppingCartService;
 import love.moon.spring.service.UserService;
 import love.moon.util.JsonUtil;
+import love.moon.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,26 +30,19 @@ public class MainController {
     @Autowired
     private ShoppingCartService cartService;
 
-    Random random = new Random();
-    String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     String[] yes = {"YES", "NO"};
 
-    private String randomChars(int len) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < len; i++) {
-            sb.append(chars.charAt(random.nextInt(52)));
-        }
-        return sb.toString();
-    }
+
 
     @RequestMapping(value = "/testCart",method = RequestMethod.GET)
     @ResponseBody
     public Object cart(){
-
+        Random random = new Random();
         Cart cart = new Cart();
         cart.setStatus(CartStatus.toArray()[random.nextInt(4)]);
         cart.setDiscount(yes[random.nextInt(2)]);
-        cart.setSummary(randomChars(15));
+        cart.setSummary(RandomUtil.randomChars(15));
          return "good";
     }
 

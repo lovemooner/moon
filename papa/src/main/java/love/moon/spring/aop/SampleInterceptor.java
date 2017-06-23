@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SampleInterceptor {
-    private Logger LOG = LoggerFactory.getLogger(ServiceInterceptor.class);
+    private Logger LOG = LoggerFactory.getLogger(SampleInterceptor.class);
 
     public void doBeforeTask(){
         LOG.debug("doBeforeTask");

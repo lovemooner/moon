@@ -74,7 +74,7 @@
             <groupId>tomcat</groupId>
             <artifactId>servlet-api</artifactId>
             <version>5.5.23</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>tomcat</groupId>
@@ -110,6 +110,7 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
             <version>7.0.37</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

@@ -1,4 +1,4 @@
-package love.moon.spring.controller;
+package love.moon.spring.controller.mock;
 
 /**
  * Author: lovemooner
@@ -6,9 +6,9 @@ package love.moon.spring.controller;
  */
 public class ThreadRunnable implements Runnable{
     public void run() {
-            System.out.println("I'm running! "+Thread.currentThread().getName());
+            System.out.println("Create thread: "+Thread.currentThread().getName());
             try {
-                Thread.sleep(30000L);
+                Thread.sleep(3600000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

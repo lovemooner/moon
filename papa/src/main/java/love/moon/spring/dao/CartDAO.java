@@ -1,9 +1,13 @@
 package love.moon.spring.dao;
 
 import love.moon.spring.model.Cart;
+import love.moon.spring.model.Product;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Author: lovemooner
@@ -17,5 +21,11 @@ public class CartDAO extends BaseDao<Cart> {
 
     public SessionFactory getSessionFactory(){
      return sessionFactory;
+    }
+
+    public List<Cart> getCarts(int start, int limit) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from Cart")
+                .setFirstResult(start).setMaxResults(limit);
+        return query.list();
     }
 }

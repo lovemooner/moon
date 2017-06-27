@@ -9,3 +9,10 @@ kill -TERM 主进程号
 kill -9 主进程号
 3.
 nginx -s reload
+
+mysql
+#启动服务 service mysqld start
+#连接 ./mysql/bin/mysql -uroot
+DDL
+show databases/tables
+desc table_name;

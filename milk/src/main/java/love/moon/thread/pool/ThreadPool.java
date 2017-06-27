@@ -10,13 +10,15 @@ import java.util.concurrent.Executors;
  */
 public class ThreadPool {
 
-    public static void main(String[] args) {
-        Executor cachedThreadPool = Executors.newCachedThreadPool();
-            cachedThreadPool.execute(new Runnable() {
-                @Override
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService pool = Executors.newCachedThreadPool();
+        for (int i = 0; i < 10; i++) {
+            Thread.sleep(1000);
+            pool.execute(new Runnable() {   //复用执行第一个任务的线程
                 public void run() {
-                    System.out.println(Thread.currentThread().getName());
+                    System.out.println(Thread.currentThread().getName()+":Hi");
                 }
             });
+        }
     }
 }

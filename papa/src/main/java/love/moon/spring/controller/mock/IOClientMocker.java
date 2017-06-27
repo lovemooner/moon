@@ -26,7 +26,9 @@ public class IOClientMocker extends Thread {
             br = new BufferedReader(new InputStreamReader(is));
             ps = new PrintStream(os);
             while (true) {
-                ps.println("Hi Service;" + RandomUtil.random());//服务器端简单处理一下。
+                String str=RandomUtil.random();
+                System.out.println("client->send msg:"+str);
+                ps.println("Hi Service;" +str );//服务器端简单处理一下。
 //                Thread.sleep(1000L);
             }
 

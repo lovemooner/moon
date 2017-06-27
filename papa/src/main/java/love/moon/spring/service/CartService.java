@@ -1,6 +1,9 @@
 package love.moon.spring.service;
 
 import love.moon.spring.common.ServiceException;
+import love.moon.spring.model.Cart;
+
+import java.util.List;
 
 /**
  * Author: lovemooner
@@ -9,5 +12,7 @@ import love.moon.spring.common.ServiceException;
 public interface CartService {
 
     void updateCart() throws ServiceException;
+
+    List<Cart> getCarts(int start, int limit);
 
 }

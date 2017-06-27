@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10000</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <longProp name="ThreadGroup.start_time">1495784060000</longProp>
         <longProp name="ThreadGroup.end_time">1495784060000</longProp>
@@ -28,7 +28,7 @@
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
           <stringProp name="dataSource">myDatabase</stringProp>
-          <stringProp name="query">select * from ld_product where product_name=&apos;iHcHwXBfgOAHvKp&apos;;</stringProp>
+          <stringProp name="query">select * from ld_cart where sf=&apos;anan1&apos;;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -43,11 +43,11 @@
           <stringProp name="checkQuery">Select 1</stringProp>
           <stringProp name="connectionAge">5000</stringProp>
           <stringProp name="dataSource">myDatabase</stringProp>
-          <stringProp name="dbUrl">jdbc:mysql://localhost:3306/bigdata</stringProp>
+          <stringProp name="dbUrl">jdbc:mysql://slc11fsp.us.oracle.com:3306/bigdata</stringProp>
           <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
           <boolProp name="keepAlive">true</boolProp>
-          <stringProp name="password">root</stringProp>
-          <stringProp name="poolMax">20</stringProp>
+          <stringProp name="password">123456</stringProp>
+          <stringProp name="poolMax">40</stringProp>
           <stringProp name="timeout">10000</stringProp>
           <stringProp name="transactionIsolation">DEFAULT</stringProp>
           <stringProp name="trimInterval">60000</stringProp>

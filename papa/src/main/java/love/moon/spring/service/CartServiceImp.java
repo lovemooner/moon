@@ -17,6 +17,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -35,13 +36,17 @@ public class CartServiceImp implements CartService {
     @Autowired
     private ApplicationContext ctx;
 
+    public List<Cart> getCarts(int start, int limit) {
+        return cartDAO.getCarts(start, limit);
+    }
+
     public void updateCart() throws ServiceException {
         System.out.println("updateCart start");
         Cart cart = cartDAO.getById(11763713L);
         Random random = new Random();
-        String remark=cart.getRemark();
+        String remark = cart.getRemark();
         cart.setRemark(String.valueOf(random.nextInt(100)));
-        System.out.println("Old remark:"+remark+" New remark:"+cart.getRemark());
+        System.out.println("Old remark:" + remark + " New remark:" + cart.getRemark());
         cartDAO.update(cart);
         productService.updateProduct();
         System.out.println("updateCart");
@@ -63,13 +68,13 @@ public class CartServiceImp implements CartService {
             session.update(cart);
             try {
                 productService.updateProduct();
-            }catch (Exception e){
-                LOG.error(e.getMessage(),e);
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
             }
             txManager.commit(status);
         } catch (Exception e) {
             txManager.rollback(status);
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -91,8 +96,9 @@ public class CartServiceImp implements CartService {
             txManager.commit(status);
         } catch (Exception e) {
             txManager.rollback(status);
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
     }
+
 
 }

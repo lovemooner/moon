@@ -7,45 +7,29 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:component-scan base-package="love.moon.spring" >
+    <context:component-scan base-package="love.moon.spring">
         <!--<context:exclude-filter type="annotation" expression="love.moon.spring.config.*.*"/>-->
     </context:component-scan>
 
     <!-- ==============================Sample=======================   -->
-    <aop:aspectj-autoproxy  proxy-target-class="false" expose-proxy="true"/>
+    <aop:aspectj-autoproxy proxy-target-class="false" expose-proxy="true"/>
     <aop:config>
         <aop:aspect id="sampleAspect" ref="sampleInterceptor">
             <aop:pointcut id="samplePointcut" expression="execution(* love.moon.spring.service.*.*(..))"/>
             <aop:before method="doBeforeTask" pointcut-ref="samplePointcut"/>
             <aop:after method="doAfterTask" pointcut-ref="samplePointcut"/>
-            <aop:after-returning  method="doAfterReturnningTask" returning="retVal" pointcut-ref="samplePointcut"/>
+            <aop:after-returning method="doAfterReturnningTask" returning="retVal" pointcut-ref="samplePointcut"/>
             <aop:around method="doAroundTask" pointcut-ref="samplePointcut"/>
         </aop:aspect>
     </aop:config>
 
 
-    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
-    <!--<property name="messageConverters">-->
-    <!--<list>-->
-    <!--<bean id="jsonHttpMessageConverter"-->
-    <!--class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">-->
-    <!--&lt;!&ndash;<property name="objectMapper" ref="customObjectMapper" />&ndash;&gt;-->
-    <!--</bean>-->
 
-    <!--<bean id="formHttpMessageConverter"-->
-    <!--class="org.springframework.http.converter.FormHttpMessageConverter"/>-->
-
-    <!--<bean id="stringHttpMessageConverter"-->
-    <!--class="org.springframework.http.converter.StringHttpMessageConverter"/>-->
-    <!--</list>-->
-    <!--</property>-->
-    <!--</bean>-->
-
-    <!--<bean id="taskExecutor"-->
-    <!--class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
-    <!--<property name="corePoolSize" value="20"/>-->
-    <!--<property name="maxPoolSize" value="20"/>-->
-    <!--<property name="WaitForTasksToCompleteOnShutdown" value="true"/>-->
-    <!--</bean>-->
+    <bean id="taskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="20"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+    </bean>
 
 </beans>

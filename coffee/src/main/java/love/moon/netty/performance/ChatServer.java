@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 
-import love.moon.log.LogDemo;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.DynamicChannelBuffer;
@@ -33,7 +32,7 @@ public class ChatServer {
     private static final Logger LOG = LoggerFactory.getLogger(ChatServer.class);
     private static Random random = new Random();
     private static int max = 0;
-    private final static Map<Integer, Channel> channel = new HashMap<Integer, Channel>();
+    private final static Map<Integer, Channel> channels = new HashMap<Integer, Channel>();
 
     public static void main(String[] args) throws Exception {
         if(args.length <1){
@@ -60,7 +59,7 @@ public class ChatServer {
         while (true) {
             String command = br.readLine();
             if ("dump".equals(command)) {
-                System.out.println("当前活着的数量:" + channel.size());
+                System.out.println("当前活着的数量:" + channels.size());
             } else if ("help".equals(command)) {
                 System.out.println("命令列表:");
                 System.out.println("dump:打印当前情况");
@@ -75,12 +74,12 @@ public class ChatServer {
         public void run() {
             while (true) {
                 try {
-                    if(max < channel.size()){
-                        max = channel.size() ;
-                        System.out.println("live:"+channel.size());
+                    if(max < channels.size()){
+                        max = channels.size() ;
+                        System.out.println("live:"+channels.size());
                     }
 
-                    for (Channel channel : channel.values()) {
+                    for (Channel channel : channels.values()) {
                         if (random.nextInt(100)>70) {
                             ChannelBuffer buffer = new DynamicChannelBuffer(256);
                             buffer.writeBytes("Hey!有人来找你了!".getBytes());
@@ -105,7 +104,7 @@ public class ChatServer {
             ChannelBuffer cb = new DynamicChannelBuffer(256);
             cb.writeBytes("Hell!你来了啊!".getBytes());
             ch.write(cb);
-            channel.put(e.getChannel().getId(), e.getChannel());
+            channels.put(e.getChannel().getId(), e.getChannel());
         }
 
 
@@ -116,7 +115,7 @@ public class ChatServer {
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
             e.getCause().printStackTrace();
-            channel.remove(e.getChannel().getId());
+            channels.remove(e.getChannel().getId());
             LOG.warn("remove channel by exception! id:" + e.getChannel().getId());
 
             e.getChannel().close();
@@ -125,7 +124,7 @@ public class ChatServer {
         @Override
         public void channelDisconnected(ChannelHandlerContext ctx,
                                         ChannelStateEvent e) throws Exception {
-            channel.remove(e.getChannel().getId());
+            channels.remove(e.getChannel().getId());
             LOG.warn("remove channel by exception! id:" + e.getChannel().getId());
 
         }

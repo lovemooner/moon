@@ -1,4 +1,4 @@
-package love.moon.spring.controller.mock;
+package love.moon.mock;
 
 /**
  * Author: lovemooner

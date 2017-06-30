@@ -1,7 +1,6 @@
-package love.moon.spring.controller.mock;
+package love.moon.mock;
 
 import love.moon.util.RandomUtil;
-import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;

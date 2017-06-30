@@ -1,7 +1,7 @@
 package love.moon.spring.controller;
 
 import love.moon.spring.common.ServiceException;
-import love.moon.spring.controller.mock.ThreadRunnable;
+import love.moon.mock.ThreadRunnable;
 import love.moon.spring.model.Cart;
 import love.moon.spring.model.User;
 import love.moon.spring.service.CartService;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -51,6 +50,11 @@ public class CartController {
         user.setUserName("userName");
 //        request.getSession().setAttribute("UserName", JsonUtil.objectToJson(user));
         return "cart";
+    }
+    @RequestMapping(value = "/list2", method = RequestMethod.GET)
+    @ResponseBody
+    public String listCart2() throws ServiceException {
+        return "list2";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)

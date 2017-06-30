@@ -74,7 +74,7 @@
             <groupId>tomcat</groupId>
             <artifactId>servlet-api</artifactId>
             <version>5.5.23</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>tomcat</groupId>
@@ -198,8 +198,7 @@
                     <uriEncoding>UTF-8</uriEncoding>
                     <server>tomcat7</server>
                     <systemProperties>
-                        <!--<JAVA_OPTS>-Xms256m -Xmx1024m -XX:MaxPermSize=256m </JAVA_OPTS>-->
-                        <JAVA_OPTS>-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m;-Duser.timezone=GMT+08
+                        <JAVA_OPTS>-Xms1024m -Xmx1024m -Xss512K -XX:PermSize=64M -XX:MaxPermSize=128m
                         </JAVA_OPTS>
                     </systemProperties>
                 </configuration>

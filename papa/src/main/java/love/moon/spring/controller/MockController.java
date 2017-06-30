@@ -1,7 +1,8 @@
 package love.moon.spring.controller;
 
-import love.moon.spring.controller.mock.BioServer;
-import love.moon.spring.controller.mock.ThreadRunnable;
+import love.moon.mock.BioServer;
+import love.moon.mock.ThreadRunnable;
+import love.moon.util.JmxUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: lovemooner
@@ -47,4 +50,29 @@ public class MockController {
         return "start ioService";
     }
 
+    @RequestMapping(value = "/maxThreadNum", method = RequestMethod.GET)
+    public void calMaxThreadNum() {
+        JmxUtil.getMemoryMXBean();
+        for (int i = 0; ; i++) {
+            System.out.println("i = " + i);
+            new Thread(new HoldThread()).start();
+        }
+    }
+
+
+}
+
+class HoldThread extends Thread {
+    CountDownLatch cdl = new CountDownLatch(1);
+
+    public HoldThread() {
+        this.setDaemon(true);
+    }
+
+    public void run() {
+        try {
+            cdl.await();
+        } catch (InterruptedException e) {
+        }
+    }
 }

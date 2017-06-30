@@ -1,4 +1,4 @@
-package love.moon.spring.controller.mock;
+package love.moon.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

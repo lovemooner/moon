@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class InvokeServiceB {
 
+
     @Autowired
     private ComDao comDao;
 

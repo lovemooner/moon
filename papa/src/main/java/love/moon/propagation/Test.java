@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Test {
 
+    
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring\\jdbc-template.xml"});
         InvokeService ins = (InvokeService) context.getBean("invokeService");

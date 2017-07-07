@@ -14,6 +14,7 @@ import java.util.Random;
 @Repository
 public class ComDao {
 
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

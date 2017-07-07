@@ -44,43 +44,18 @@ public class JConsoleMockRemote {
     public static void main(String[] args) {
         try {
 
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:8989/jmxrmi");
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://slc11fsp.us.oracle.com:8989/jmxrmi");
             JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
             MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
 
             //端口最好是动态取得
-            ObjectName threadObjName = new ObjectName("Catalina:name=\"ajp-apr-8009\",type=ThreadPool");
+            ObjectName threadObjName = new ObjectName("Catalina:type=ThreadPool,name=http-8080");
             MBeanInfo mbInfo = mbsc.getMBeanInfo(threadObjName);
 
             String attrName = "currentThreadCount";//tomcat的线程数对应的属性值
             MBeanAttributeInfo[] mbAttributes = mbInfo.getAttributes();
             System.out.println("currentThreadCount:" + mbsc.getAttribute(threadObjName, attrName));
 
-            System.out.println("====================JVM===========================");
-            //堆使用率
-            ObjectName heapObjName = new ObjectName("java.lang:type=Memory");
-            MemoryUsage usage = MemoryUsage.from((CompositeDataSupport) mbsc.getAttribute(heapObjName,
-                    "HeapMemoryUsage"));
-            System.out.println("INIT HEAP: " + convert(usage.getInit()));
-            System.out.println("MAX HEAP: " + convert(usage.getMax()));
-            System.out.println("USE HEAP: " + convert(usage.getUsed()));
-            long maxMemory = usage.getMax();//堆最大
-            long commitMemory = usage.getCommitted();//堆当前分配
-            long usedMemory = usage.getUsed();
-            System.out.println("heap usage:"+ (double) usedMemory * 100 / commitMemory + "%");//堆使用率
-
-            MemoryUsage nonheapMemoryUsage = MemoryUsage.from((CompositeDataSupport) mbsc.getAttribute(heapObjName,
-                    "NonHeapMemoryUsage"));
-            long noncommitMemory = nonheapMemoryUsage.getCommitted();
-            long nonusedMemory = nonheapMemoryUsage.getUsed();
-            System.out.println("NON USE HEAP: " + convert(usage.getUsed()));
-            System.out.println("nonheap:" + (double) nonusedMemory * 100 / noncommitMemory + "%");
-
-//            ObjectName permObjName = new ObjectName("java.lang:type=MemoryPool,name=Perm Gen");
-//            MemoryUsage permGenUsage = MemoryUsage.from((CompositeDataSupport) mbsc.getAttribute(permObjName, "Usage"));
-//            long committed = permGenUsage.getCommitted();//持久堆大小
-//            long used = heapMemoryUsage.getUsed();//
-//            System.out.println("perm gen:" + (double) used * 100 / committed + "%");//持久堆使用率
 
             System.out.println("====================Session===========================");
             ObjectName managerObjName = new ObjectName("Catalina:type=Manager,*");
@@ -93,18 +68,7 @@ public class JConsoleMockRemote {
                         +" 活动会话数:" + mbsc.getAttribute(objname, "sessionCounter"));
             }
 
-            System.out.println("====================Thread Pool===========================");
-            ObjectName threadpoolObjName = new ObjectName("Catalina:type=ThreadPool,*");
-            Set<ObjectName> s2 = mbsc.queryNames(threadpoolObjName, null);
-            for (ObjectName obj : s2) {
-                System.out.println("端口名:" + obj.getKeyProperty("name"));
-                ObjectName objname = new ObjectName(obj.getCanonicalName());
-                System.out.println("maxThreads:" + mbsc.getAttribute(objname, "maxThreads"));
-                System.out.println("当前线程数:" + mbsc.getAttribute(objname, "currentThreadCount"));
-                System.out.println("繁忙线程数:" + mbsc.getAttribute(objname, "currentThreadsBusy"));
-                System.out.println("connectionCount:" + mbsc.getAttribute(objname, "connectionCount"));
-                System.out.println("maxConnections:" + mbsc.getAttribute(objname, "maxConnections"));
-            }
+
 
             System.out.println("====================system===========================");
             ObjectName runtimeObjName = new ObjectName("java.lang:type=Runtime");

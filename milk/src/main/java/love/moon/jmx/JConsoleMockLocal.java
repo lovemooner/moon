@@ -14,16 +14,6 @@ public class JConsoleMockLocal {
     }
 
     public static void main(String[] args) {
-        MemoryMXBean memorymbean = ManagementFactory.getMemoryMXBean();
-        MemoryUsage usage = memorymbean.getHeapMemoryUsage();
-        System.out.println("INIT HEAP: " + convert(usage.getInit()));
-        System.out.println("MAX HEAP: " + convert(usage.getMax()));
-        System.out.println("USE HEAP: " + convert(usage.getUsed()));
-        System.out.println("\nFull Information:");
-        System.out.println("Heap Memory Usage: "
-                + memorymbean.getHeapMemoryUsage());
-        System.out.println("Non-Heap Memory Usage: "
-                + memorymbean.getNonHeapMemoryUsage());
 
         List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
         System.out.println("===================java options=============== ");

@@ -7,6 +7,7 @@ import love.moon.spring.model.User;
 import love.moon.spring.service.CartService;
 import love.moon.spring.service.ProductService;
 import love.moon.util.JsonUtil;
+import love.moon.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class CartController {
     @RequestMapping(value = "/list2", method = RequestMethod.GET)
     @ResponseBody
     public String listCart2() throws ServiceException {
-        return "list2";
+        return RandomUtil.random();
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)

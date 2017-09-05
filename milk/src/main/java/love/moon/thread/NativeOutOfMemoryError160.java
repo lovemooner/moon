@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
  * Author: lovemooner
  * Date: 2017/6/30 17:36
  */
-public class TestNativeOutOfMemoryError {
+public class NativeOutOfMemoryError160 {
 
     public static void main(String[] args) {
 

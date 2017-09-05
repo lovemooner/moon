@@ -1,4 +1,4 @@
-package love.moon.thread.asyn;
+package love.moon.thread;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Author: lovemooner
  * Date: 2017/6/14 16:54
  */
-public class AtomicIntegerSample {
+public class AtomicInteger130 {
     public AtomicInteger inc = new AtomicInteger();
 
     public void increase() {
@@ -14,7 +14,7 @@ public class AtomicIntegerSample {
     }
 
     public static void main(String[] args) {
-        final AtomicIntegerSample test = new AtomicIntegerSample();
+        final AtomicInteger130 test = new AtomicInteger130();
         for (int i = 0; i < 10; i++) {
             new Thread() {
                 public void run() {

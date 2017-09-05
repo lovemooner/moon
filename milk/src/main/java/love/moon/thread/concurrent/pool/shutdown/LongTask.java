@@ -12,6 +12,6 @@ public class LongTask implements Callable {
     public Object call() throws Exception {
         System.out.println("长时间任务");
         TimeUnit.SECONDS.sleep(5);
-        return null;
+        return "return long task";
     }
 }

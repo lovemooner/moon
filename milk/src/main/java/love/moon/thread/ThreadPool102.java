@@ -1,4 +1,4 @@
-package love.moon.thread.concurrent;
+package love.moon.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
  * Author: lovemooner
  * Date: 2017/6/29 14:01
  */
-public class ThreadPool2 {
+public class ThreadPool102 {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());

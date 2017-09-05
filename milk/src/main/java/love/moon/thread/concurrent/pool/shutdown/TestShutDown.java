@@ -1,8 +1,6 @@
 package love.moon.thread.concurrent.pool.shutdown;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Author: lovemooner
@@ -10,15 +8,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestShutDown {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
 
         service.submit(new Task());
         service.submit(new Task());
-        service.submit(new LongTask());
+        Future<String> fs=  service.submit(new LongTask());
         service.submit(new Task());
 
-
+        System.out.println(fs.get());
         service.shutdown();
 
         while (!service.awaitTermination(1, TimeUnit.SECONDS)) {

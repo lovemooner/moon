@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  * Author: lovemooner
  * Date: 2017/6/28 16:44
  */
-public class DaemonThread {
+public class DaemonThread155 {
     public static void main(String[] args) throws InterruptedException {
 
         Thread t1 = new Thread(new Runnable() {

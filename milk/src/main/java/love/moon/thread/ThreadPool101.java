@@ -1,4 +1,4 @@
-package love.moon.thread.concurrent;
+package love.moon.thread;
 
 import java.util.concurrent.*;
 
@@ -6,7 +6,7 @@ import java.util.concurrent.*;
  * Author: lovemooner
  * Date: 2017/5/10 14:07
  */
-public class ThreadPool {
+public class ThreadPool101 {
 
     /**
      * 定长线程池
@@ -79,7 +79,7 @@ public class ThreadPool {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPool pool = new ThreadPool();
+        ThreadPool101 pool = new ThreadPool101();
 //        pool.testScheduledThreadPool();
         pool.testSingleThreadExecutor();
     }

@@ -110,6 +110,8 @@
         <aop:pointcut id="bizMethods" expression="execution(* love.moon.spring.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>
     </aop:config>
+
+
     <aop:config>
         <aop:pointcut id="baseBizMethods" expression="execution(* love.moon.spring.service.base.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>

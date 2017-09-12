@@ -1,4 +1,4 @@
-package love.moon.mina.demo;
+package love.moon.mina.simple;
 
 /**
  * User: lovemooner
@@ -6,12 +6,6 @@ package love.moon.mina.demo;
  * Time: 下午2:59
  */
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.nio.charset.Charset;
-import java.util.Date;
-
-import love.moon.mina.demo.handler.MinaServerHandler;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
@@ -22,6 +16,11 @@ import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.util.Date;
 
 public class MinaServer {
     private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
@@ -56,5 +55,50 @@ public class MinaServer {
     }
 
 
+    class MinaServerHandler extends IoHandlerAdapter {
+        @Override
+        public void exceptionCaught(IoSession session, Throwable cause)throws Exception {
+            cause.printStackTrace();
+        }
 
+        @Override
+        public void messageReceived(IoSession session, Object message)throws Exception {
+//            if(count--<0){
+//                throw new NullPointerException();
+//            }
+            String str = message.toString();
+            LOG.info("server-> receive message: "+message);
+            if( str.trim().equalsIgnoreCase("quit") ) {
+                session.close(Boolean.TRUE);
+                return;
+            }
+            Date date = new Date();
+            session.write( "Hi Client"+ date.toString() );
+        }
+
+        @Override
+        public void messageSent(IoSession session, Object message) throws Exception {
+            LOG.info("server ->消息已经发出");
+        }
+
+        @Override
+        public void sessionClosed(IoSession session) throws Exception {
+            LOG.info("server ->server-session关闭连接断开");
+        }
+
+        @Override
+        public void sessionCreated(IoSession session) throws Exception {
+            LOG.info("server ->server-session创建，建立连接");
+        }
+
+        @Override
+        public void sessionIdle(IoSession session, IdleStatus status)throws Exception {
+            LOG.info("server ->server-服务端进入空闲状态..");
+        }
+
+        @Override
+        public void sessionOpened(IoSession session) throws Exception {
+            LOG.info("server->服务端与客户端连接打开...");
+        }
+    }
 }

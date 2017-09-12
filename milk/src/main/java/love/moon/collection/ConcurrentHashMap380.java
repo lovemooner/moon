@@ -1,4 +1,4 @@
-package love.moon.thread.concurrent;
+package love.moon.collection;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Author: lovemooner
  * Date: 2017/6/14 16:58
  */
-public class ConcurrentHashMapTest {
+public class ConcurrentHashMap380 {
 
     private static ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<Integer, Integer>();
     public static void main(String[] args) {

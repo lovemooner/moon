@@ -60,7 +60,9 @@ public class CartController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public List<Cart> listCart() throws ServiceException {
+    public List<Cart> listCart(HttpServletRequest request) throws ServiceException {
+        request.getSession().setAttribute("isLogin","true");
+        System.out.println("isLogin:"+request.getSession().getAttribute("isLogin"));
         List<Cart> carts = cartService.getCarts(0, 10);
         return carts;
     }

@@ -69,4 +69,17 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+
+
+
+
+   <servlet>
+        <servlet-name>RequestDemo01</servlet-name>
+        <servlet-class>love.moon.servlet.RequestDemo01</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RequestDemo01</servlet-name>
+        <url-pattern>/RequestDemo01</url-pattern>
+    </servlet-mapping>
+
 </web-app>

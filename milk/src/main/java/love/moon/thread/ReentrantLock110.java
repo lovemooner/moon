@@ -12,8 +12,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * Date: 2017/6/14 16:55
  */
 public class ReentrantLock110 {
-    public int inc = 0;
-    Lock lock = new ReentrantLock();
+    private int inc = 0;
+    private Lock lock = new ReentrantLock();
 
     public void increase() {
         lock.lock();

@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.reentrant;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

@@ -4,10 +4,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <!-- session设置 -->
     <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="3600"></property>
+        <property name="maxInactiveIntervalInSeconds" value="1800"></property>
     </bean>
     <!-- redis连接池 -->
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig"/>
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="100" />
+        <property name="maxIdle" value="10" />
+    </bean>
 
     <!-- redis连接工厂 -->
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -15,6 +18,6 @@
         <property name="port" value="${redis_port}"/>
         <property name="password" value="${redis_password}"/>
         <property name="timeout" value="${redis_timeout}"/>
-        <property name="poolConfig" ref="poolConfig"></property>
+        <property name="poolConfig" ref="jedisPoolConfig"></property>
     </bean>
 </beans>

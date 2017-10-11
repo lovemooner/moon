@@ -21,6 +21,15 @@ public class TestRuntimeException {
         }
     }
 
+    /**
+     * throw了不用return，runtimeException不用在方法签名处显示抛出
+     * @return
+     */
+    public String test2()  {
+        System.out.println("START =======");
+        throw new RuntimeException("test2");
+    }
+
     public static void main(String[] args) {
         TestRuntimeException test = new TestRuntimeException();
         try {

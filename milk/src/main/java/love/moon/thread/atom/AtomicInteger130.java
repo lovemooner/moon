@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.atom;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,5 +29,9 @@ public class AtomicInteger130 {
         while (Thread.activeCount() > 1)  //保证前面的线程都执行完
             Thread.yield();
         System.out.println(test.inc);
+
+
+
+
     }
 }

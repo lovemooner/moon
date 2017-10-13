@@ -1,5 +1,8 @@
 package love.moon.spring.aop;
 
+import love.moon.common.exception.AppException;
+import love.moon.common.exception.DaoException;
+import love.moon.spring.common.ServiceException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -16,7 +19,8 @@ public class LogInterceptor {
     private Logger LOG = LoggerFactory.getLogger(LogInterceptor.class);
 
     @Pointcut("execution(* love.moon.spring.controller.*.*(..))")
-    private void businessService() {}
+    private void businessService() {
+    }
 
     @AfterReturning(pointcut = "businessService()", returning = "retVal")
     public void doAfterReturnningTask(Object retVal) {
@@ -31,11 +35,18 @@ public class LogInterceptor {
     @Around("businessService()")
     public Object doAroundTask(ProceedingJoinPoint pjp) {
         try {
-            Long current = System.currentTimeMillis();
-            LOG.info(pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName() + " start");
             Object returnVal = pjp.proceed();
-            LOG.info(pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName() + " end,AOP_END:用时:{} ms ",System.currentTimeMillis() - current);
             return returnVal;
+        } catch (AppException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        } catch (ServiceException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+            //send the ERROR info to DB manager
+            return null;
         } catch (Throwable e) {
             LOG.error(e.getMessage(), e);
             return null;

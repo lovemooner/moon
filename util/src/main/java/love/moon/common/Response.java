@@ -1,18 +1,30 @@
-package love.moon.common.exception;
+package love.moon.common;
+
+import java.io.Serializable;
 
 /**
- * Created by lovemooner on 2017/4/25.
+ * Author: lovemooner
+ * Date: 2017/10/13 17:32
  */
-public enum MyExceptionType {
-
-    UserNotFound(10002L, "User not found.");
-
+public class Response implements Serializable {
+    private String status;
     private long code;
     private String message;
 
-    MyExceptionType(long code, String message) {
+    public Response() {
+    }
+
+    public Response(long code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public long getCode() {

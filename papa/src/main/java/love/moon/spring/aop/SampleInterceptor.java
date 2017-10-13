@@ -26,10 +26,12 @@ public class SampleInterceptor {
     }
 
     public Object doAroundTask(ProceedingJoinPoint pjp) throws Throwable {
-        Object returnVal = null;
         try {
-            returnVal = pjp.proceed();
+            Long current = System.currentTimeMillis();
+            LOG.info(pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName() + " start");
+            Object returnVal = pjp.proceed();
             LOG.info("Sample Interceptor:{}",pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName());
+            LOG.info(pjp.getSignature().getDeclaringType().getName() + ":" + pjp.getSignature().getName() + " end,AOP_END:用时:{} ms ", System.currentTimeMillis() - current);
             return returnVal;
         } catch (Throwable throwable) {
             throw  throwable;

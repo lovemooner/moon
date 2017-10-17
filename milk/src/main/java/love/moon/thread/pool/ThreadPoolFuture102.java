@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.pool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.concurrent.*;
  * Author: lovemooner
  * Date: 2017/6/28 13:13
  */
-public class CallableFuture103 {
+public class ThreadPoolFuture102 {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();

@@ -1,7 +1,7 @@
 package love.moon.exception;
 
 import love.moon.common.exception.DaoException;
-import love.moon.common.exception.ExceptionType;
+import love.moon.common.exception.MessageCode;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ public class TestDao {
         try {
             is = url.openStream();
         } catch (IOException e) {
-            throw new DaoException(ExceptionType.UserNotFound);
+            throw new DaoException(MessageCode.UserNotFound);
         }
         return "Hi";
     }

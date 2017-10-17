@@ -1,4 +1,4 @@
-package love.moon.thread.asyn;
+package love.moon.thread;
 
 /**
  * 通过wait和notify实现的生产者消费者demo

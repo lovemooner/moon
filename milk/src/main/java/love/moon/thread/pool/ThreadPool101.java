@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.pool;
 
 import java.util.concurrent.*;
 

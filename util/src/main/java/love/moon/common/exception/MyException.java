@@ -20,14 +20,14 @@ public class MyException extends Exception {
         super(cause);
     }
 
-    public MyException(ExceptionType type) {
+    public MyException(MessageCode type) {
         this(type.getMessage());
         this.type = type;
     }
 
-    ExceptionType type;
+    MessageCode type;
 
-    public ExceptionType getType() {
+    public MessageCode getType() {
         return type;
     }
 }

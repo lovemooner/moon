@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.pool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 public class ThreadPoolShutdown102 {
 
     public static void main(String[] args) throws InterruptedException {
-        System.out.println(Thread.currentThread().getName());
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -23,12 +22,12 @@ public class ThreadPoolShutdown102 {
             }
         });
         t1.setDaemon(true);
-        final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-        cachedThreadPool.execute(t1);
+        final ExecutorService pool = Executors.newCachedThreadPool();
+        pool.execute(t1);
         System.out.println("end");
         while (true){
             Thread.sleep(1000L);
-            cachedThreadPool.shutdown();
+            pool.shutdown();
         }
     }
 }

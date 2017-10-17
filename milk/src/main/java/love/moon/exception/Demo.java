@@ -1,7 +1,7 @@
 package love.moon.exception;
 
 import love.moon.common.exception.DaoException;
-import love.moon.common.exception.ExceptionType;
+import love.moon.common.exception.MessageCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ public class Demo {
         try {
             throw new SQLException();
         } catch (SQLException e) {
-            throw new DaoException(ExceptionType.UserNotFound);
+            throw new DaoException(MessageCode.UserNotFound);
         }
     }
 

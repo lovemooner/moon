@@ -21,8 +21,6 @@ public class AtomicInteger130 {
                     for (int j = 0; j < 1000; j++)
                         test.increase();
                 }
-
-                ;
             }.start();
         }
 

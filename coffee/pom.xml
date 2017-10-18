@@ -18,6 +18,21 @@
     </properties>
 
     <dependencies>
+        <!--xmemcached-->
+        <dependency>
+            <groupId>com.googlecode.xmemcached</groupId>
+            <artifactId>xmemcached</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <!--danga-->
+        <dependency>
+            <groupId>com.danga</groupId>
+            <artifactId>memcached</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+
+        <!--jmeter-->
         <dependency>
             <groupId>org.apache.jmeter</groupId>
             <artifactId>ApacheJMeter_java</artifactId>

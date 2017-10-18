@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Author: lovemooner
  * Date: 2017/6/14 16:55
  */
-public class ReentrantLock110 {
+public class ReentrantLockIncrease102 {
     private int inc = 0;
     private Lock lock = new ReentrantLock();
 
@@ -25,7 +25,7 @@ public class ReentrantLock110 {
     }
 
     public static void main(String[] args) {
-        final ReentrantLock110 test = new ReentrantLock110();
+        final ReentrantLockIncrease102 test = new ReentrantLockIncrease102();
         for (int i = 0; i < 10; i++) {
             new Thread() {
                 public void run() {

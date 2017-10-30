@@ -96,7 +96,7 @@
 
     <!-- ==========================下面使用aop切面的方式来实现================================== -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <!--配置事务传播性，隔离级别以及超时回滚等问题 -->
+        <!--配置事务传播性，隔离级别以及超时回滚等问题 -->`
         <tx:attributes>
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>

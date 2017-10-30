@@ -3,6 +3,7 @@ package love.moon.thread.reentrant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -12,6 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReentrantLock100 {
     private Logger LOG = LoggerFactory.getLogger(ReentrantLock100.class);
+
+    private Lock lock = new ReentrantLock();
 
     public void testSleepState() throws InterruptedException {
         Thread t1 = new Thread(new Runnable() {
@@ -59,11 +62,8 @@ public class ReentrantLock100 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        while (true) {
-//        }
     }
 
-    private Lock lock = new ReentrantLock();
 
     public void lockWithReentrantLock1() {
         try {
@@ -71,13 +71,25 @@ public class ReentrantLock100 {
             LOG.info("lockWithReentrantLock1 currentThread:" + Thread.currentThread().getName());
             Thread.sleep(3000l);
         } catch (InterruptedException e) {
-//            LOG.error(e.getMessage());
+            LOG.error(e.getMessage());
         } finally {
             lock.unlock();
         }
     }
 
-    public void lockWithReentrantLock2() throws InterruptedException {
+    public void lockWithTryLock() {
+        try {
+            lock.tryLock(2000l, TimeUnit.SECONDS);
+            LOG.info("lockWithReentrantLock1 currentThread:" + Thread.currentThread().getName());
+            Thread.sleep(10000l);
+        } catch (InterruptedException e) {
+            LOG.error(e.getMessage());
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void lockWithLockInterruptibly() throws InterruptedException {
         try {
             lock.lockInterruptibly();
             LOG.info("lockWithReentrantLock2 currentThread:" + Thread.currentThread().getName());
@@ -109,6 +121,31 @@ public class ReentrantLock100 {
         System.out.println("after interrupt, State->" + "t1:" + t1.getState() + ",t2:" + t2.getState() + ",t2 isInterrupted:" + t2.isInterrupted());
     }
 
+    public void testTryLock() throws InterruptedException {
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lockWithTryLock();
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lockWithTryLock();
+            }
+        });
+        t1.start();
+        t2.start();
+        LOG.info("TryLock============");
+        while (!Thread.State.TERMINATED.equals(t1.getState())) {
+            Thread.sleep(1000l);
+            LOG.info("State->" + "t1:" + t1.getState() + ",t2:" + t2.getState());
+        }
+        t2.interrupt();
+        Thread.sleep(3000l);
+        System.out.println("After interrupt-->" + "t1:" + t1.getState() + ",t2:" + t2.getState() + ",t2 isInterrupted:" + t2.isInterrupted());
+    }
+
     public void testReentrantLock() throws InterruptedException {
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -136,7 +173,7 @@ public class ReentrantLock100 {
             @Override
             public void run() {
                 try {
-                    lockWithReentrantLock2();
+                    lockWithLockInterruptibly();
                 } catch (InterruptedException e) {
                     LOG.error(e.getMessage(), e);
                 }
@@ -146,7 +183,7 @@ public class ReentrantLock100 {
             @Override
             public void run() {
                 try {
-                    lockWithReentrantLock2();
+                    lockWithLockInterruptibly();
                 } catch (Exception e) {
                     LOG.error(e.getMessage());
                 }
@@ -174,8 +211,9 @@ public class ReentrantLock100 {
 //        System.out.println("currentThread state :" + state);
 //        demo.testWaitState();
 //        demo.testSleepState();
-        demo.testSynchronized();
+//        demo.testSynchronized();
 //        demo.testReentrantLock();
+        demo.testTryLock();
     }
 
 }

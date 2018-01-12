@@ -64,7 +64,7 @@ public class Reactor {
         public void run() {
             try {
                 serverSocketChannel = ServerSocketChannel.open();
-                serverSocketChannel.bind(socketAddress);
+//                serverSocketChannel.bind(socketAddress);
                 serverSocketChannel.configureBlocking(false);
                 serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
                 while (selectable) {
@@ -81,7 +81,7 @@ public class Reactor {
                                 if (socketChannel == null) {
                                     continue;
                                 }
-                                LOGGER.info("Server->establish connect,Client IP:{}", socketChannel.getRemoteAddress());
+//                                LOGGER.info("Server->establish connect,Client IP:{}", socketChannel.getRemoteAddress());
                                 synchronized (this) {
                                     executor.execute(new Processor(socketChannel));
                                 }

@@ -29,4 +29,8 @@ public class DoubleCheckedLockingPattern {
         return instance;
     }
 
+    public static void main(String[] args) {
+        DoubleCheckedLockingPattern o=DoubleCheckedLockingPattern.getSingleton();
+    }
+
 }

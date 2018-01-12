@@ -6,10 +6,19 @@ package love.moon;
  */
 public class StringTester {
 
+
+    public void test(){
+        int a;
+        int b;
+        String s;
+    }
+
     public static void main(String[] args) {
         String a = "a";
         String param = new String("param" + a);
         String paramSame = param.intern();
         System.out.println(param == paramSame);
+        StringTester t=new StringTester();
+        t.test();
     }
 }

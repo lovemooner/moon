@@ -35,7 +35,7 @@ public class NIOServer {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.bind(new InetSocketAddress(port));
+//        serverSocketChannel.bind(new InetSocketAddress(port));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }
@@ -57,7 +57,7 @@ public class NIOServer {
             ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) selectionKey.channel();
             SocketChannel socketChannel = acceptServerSocketChannel.accept();
             socketChannel.configureBlocking(false);
-            LOGGER.info("Accept request from {}" , socketChannel.getRemoteAddress());
+//            LOGGER.info("Accept request from {}" , socketChannel.getRemoteAddress());
             LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
             socketChannel.register(selector, SelectionKey.OP_READ);
             LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());

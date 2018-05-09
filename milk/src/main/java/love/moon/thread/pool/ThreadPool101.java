@@ -80,7 +80,11 @@ public class ThreadPool101 {
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPool101 pool = new ThreadPool101();
+        pool.testCachedThreadPool();
 //        pool.testScheduledThreadPool();
-        pool.testSingleThreadExecutor();
+//        pool.testSingleThreadExecutor();
     }
+
+
+
 }

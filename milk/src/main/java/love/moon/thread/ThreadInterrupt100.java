@@ -4,7 +4,7 @@ package love.moon.thread;
  * Author: lovemooner
  * Date: 2017/9/15 14:39
  */
-public class Thread100 implements  Runnable{
+public class ThreadInterrupt100 implements  Runnable{
 
     @Override
     public void run() {
@@ -17,7 +17,7 @@ public class Thread100 implements  Runnable{
 
     public static void main(String[] args) {
         //put thread to group
-        Thread100 tt=new Thread100();
+        ThreadInterrupt100 tt=new ThreadInterrupt100();
         Thread thread=new Thread(tt);
         thread.start();
         thread.interrupt();

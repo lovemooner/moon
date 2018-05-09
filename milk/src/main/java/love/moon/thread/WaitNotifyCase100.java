@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Author: lovemooner
  * Date: 2017/9/19 15:50
  */
-public class WaitNotifyCase {
+public class WaitNotifyCase100 {
     public static void main(String[] args) {
          final Object lock = new Object();
         new Thread(new Runnable() {

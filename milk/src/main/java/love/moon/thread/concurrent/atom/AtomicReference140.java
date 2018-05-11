@@ -1,6 +1,4 @@
-package love.moon.thread.atom;
-
-import java.util.concurrent.atomic.AtomicReference;
+package love.moon.thread.concurrent.atom;
 
 /**
  * Author: lovemooner

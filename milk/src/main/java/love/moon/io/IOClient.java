@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Vector;
 
 /**
  * Author: lovemooner
@@ -39,6 +40,15 @@ public class IOClient extends Thread{
         for(int i=0;i<1;i++){
             new IOClient().start();
         }
+
+
+        Vector v=new Vector(10);
+        for (int i=1;i<100; i++){
+            Object o=new Object();
+            v.add(o);
+            o=null;
+        }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package love.moon.thread.atom;
+package love.moon.thread.concurrent.atom;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

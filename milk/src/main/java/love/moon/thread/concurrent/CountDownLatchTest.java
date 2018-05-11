@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

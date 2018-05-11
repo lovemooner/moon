@@ -1,4 +1,4 @@
-package love.moon.thread.reentrant;
+package love.moon.thread.concurrent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +65,7 @@ public class ReentrantLock100 {
     }
 
 
-    public void lockWithReentrantLock1() {
+    private void lockWithReentrantLock1() {
         try {
             lock.lock();
             LOG.info("lockWithReentrantLock1 currentThread:" + Thread.currentThread().getName());
@@ -80,7 +80,7 @@ public class ReentrantLock100 {
     public void lockWithTryLock() {
         try {
             lock.tryLock(2000l, TimeUnit.SECONDS);
-            LOG.info("lockWithReentrantLock1 currentThread:" + Thread.currentThread().getName());
+            LOG.info("lockWithTryLock currentThread:" + Thread.currentThread().getName());
             Thread.sleep(10000l);
         } catch (InterruptedException e) {
             LOG.error(e.getMessage());
@@ -152,17 +152,15 @@ public class ReentrantLock100 {
             public void run() {
                 lockWithReentrantLock1();
             }
-        });
+        },"T1");
         Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
                 lockWithReentrantLock1();
             }
-        });
+        },"T1");
         t1.start();
         t2.start();
-        t1.setName("T1");
-        t2.setName("T2");
         Thread.sleep(1000l);
         LOG.info("ReentrantLock======");
         LOG.info("State->" + "t1:" + t1.getState() + ",t2:" + t2.getState());
@@ -209,10 +207,10 @@ public class ReentrantLock100 {
         ReentrantLock100 demo = new ReentrantLock100();
 //        Thread.State state = Thread.currentThread().getState();
 //        System.out.println("currentThread state :" + state);
-//        demo.testWaitState();
-//        demo.testSleepState();
-//        demo.testSynchronized();
-//        demo.testReentrantLock();
+        demo.testWaitState();
+        demo.testSleepState();
+        demo.testSynchronized();
+        demo.testReentrantLock();
         demo.testTryLock();
     }
 

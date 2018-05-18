@@ -22,48 +22,6 @@ public class Synchronized100 {
         System.out.println("end========");
     }
 
-    public void test1() {
-        final ReentrantLock lock = new ReentrantLock();
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    lock.lock();
-                    Thread.sleep(3000l);
-                    System.out.println("wakeup");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    lock.unlock();
-                }
-            }
-        });
-        t.start();
-        t.interrupt();
-        System.out.println("end");
-    }
-
-    public void test2() {
-        final ReentrantLock lock = new ReentrantLock();
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    lock.lockInterruptibly();
-                    Thread.sleep(3000l);
-                    System.out.println("wakeup");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    lock.unlock();
-                }
-            }
-        });
-        t.start();
-        t.interrupt();
-        System.out.println("end");
-    }
-
 
     public static void main(String[] args) {
         Synchronized100 demo = new Synchronized100();

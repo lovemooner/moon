@@ -12,6 +12,5 @@ public class HashMap381 {
     public static void main(String[] args) {
         HashMap map=new HashMap();
         map.put("key","value");
-
     }
 }

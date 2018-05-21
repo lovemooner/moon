@@ -12,8 +12,8 @@ public class Main {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Singleton singleton = Singleton.getInstance();
-                    singleton.test();
+//                    Singleton singleton = Singleton.getInstance();
+//                    singleton.test();
                 }
             }).start();
         }

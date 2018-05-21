@@ -4,16 +4,19 @@ package love.moon.jvm;
  * Author: lovemooner
  * Date: 2017/11/1 15:57
  */
-public class ShowByteCode {
+public final class ShowByteCode  {
 
+    public static String str1="str";
+   private static Example example=new Example();
+//    public ShowByteCode(String test){
+//
+//    }
 
 
     public static void main(String[] args) {
 //        String str1 = new String("abc");
 //        String str2=str1.intern();
-        String str1="a";
-        String str2="b";
-        String str3=str1+str2;
+//        String str3=str1+str2;
 
 
 //        String str2 = new String("str")+new String("01");
@@ -27,6 +30,8 @@ public class ShowByteCode {
 //        String s3 = "bc";
 //        String s4 = s2 + s3;
 //        System.out.println(s1 == s4);
+
+        String b=ShowByteCode.str1;
     }
 
 }

@@ -16,7 +16,7 @@ public class Example {
     }
 
     static {
-        System.out.println("static");
+//        System.out.println("static");
 
     }
 

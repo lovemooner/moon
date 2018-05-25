@@ -11,6 +11,7 @@ public class ClassClinit100 {
 //    private static ClassClinit100 example1 = new ClassClinit100();
     private ClassClinit100 example2 = new ClassClinit100();
 
+
     public static void main(String[] args) {
 //        String b = ClassClinit100.str1;
         ClassClinit100 s =new ClassClinit100();

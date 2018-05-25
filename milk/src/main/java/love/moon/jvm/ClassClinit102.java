@@ -8,6 +8,8 @@ public class ClassClinit102 {
 
     private static Example example1 = new Example();
     private Example example2 = new Example();
+    private int b=2;
+    private Integer c=3;
 
     public ClassClinit102() {
         int a = 1;

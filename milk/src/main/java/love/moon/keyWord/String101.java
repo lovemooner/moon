@@ -7,9 +7,7 @@ package love.moon.keyWord;
 public class String101 {
 
     public static void main(String[] args) {
-        String str1=new String("a");
-
-        String str2 = "b";
-        boolean flag = str2 == "b";
+        String str2 = "a";
+        str2="b";
     }
 }

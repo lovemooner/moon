@@ -13,6 +13,7 @@ public class ClassClinit102 {
 
     public ClassClinit102() {
         int a = 1;
+        Example example3=new Example();
     }
 
     public static void main(String[] args) {

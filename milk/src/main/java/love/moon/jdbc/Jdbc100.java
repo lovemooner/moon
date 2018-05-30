@@ -1,4 +1,4 @@
-package love.moon.jdbc.simple;
+package love.moon.jdbc;
 
 import java.sql.*;
 
@@ -6,7 +6,7 @@ import java.sql.*;
  * Author: lovemooner
  * Date: 2017/5/22 13:27
  */
-public class Sample {
+public class Jdbc100 {
     private static final String URL = "jdbc:mysql://localhost:3306/test";
     private static final String NAME = "root";
     private static final String PASSWORD = "root";

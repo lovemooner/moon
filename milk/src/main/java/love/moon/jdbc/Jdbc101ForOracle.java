@@ -10,18 +10,18 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.sql.*;
 
-public class OracleChecker {
+public class Jdbc101ForOracle {
 
     private static final String URL = "jdbc:oracle:thin:@slc01boa.us.oracle.com:1522:slc01boa";
     private static final String NAME = "fusion";
     private static final String PASSWORD = "fusion";
 
-    public OracleChecker() throws ClassNotFoundException {
+    public Jdbc101ForOracle() throws ClassNotFoundException {
         Class.forName("oracle.jdbc.driver.OracleDriver");
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        OracleChecker checker=new OracleChecker();
+        Jdbc101ForOracle checker=new Jdbc101ForOracle();
         checker.validateIsolated();
     }
 

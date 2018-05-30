@@ -8,7 +8,7 @@ package love.moon.thread;
  */
 public class ThreadLocal150 extends Thread{
 
-    private static int sum=0;
+//    private static int sum=0;
     // 通过匿名内部类覆盖ThreadLocal的initialValue()方法，指定初始值
     private static ThreadLocal<Integer> seqNum = new ThreadLocal<Integer>() {
         public Integer initialValue() {
@@ -24,7 +24,7 @@ public class ThreadLocal150 extends Thread{
     }
 
     public int getNextNum() {
-        System.out.println("getNextNum,this:"+this);
+//        System.out.println("getNextNum,this:"+this);
         seqNum.set(seqNum.get() + 1);
         return seqNum.get();
     }

@@ -14,12 +14,11 @@ public class WaitNotifyCase100 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("A is waiting to get lock");
+                System.out.println("A Running...");
                 synchronized (lock) {
                     try {
                         System.out.println("A get lock");
                         TimeUnit.SECONDS.sleep(3);
-                        System.out.println("A do wait method");
                         lock.wait();
                         System.out.println("A wait end");
                     } catch (InterruptedException e) {
@@ -32,7 +31,7 @@ public class WaitNotifyCase100 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("B is waiting to get lock");
+                System.out.println("B Running...");
                 synchronized (lock) {
                     System.out.println("B get lock");
                     try {
@@ -42,6 +41,12 @@ public class WaitNotifyCase100 {
                     }
                     System.out.println("B do notify method");
                     lock.notify();
+                    try {
+                        Thread.sleep(10000L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("B return");
                 }
 
             }

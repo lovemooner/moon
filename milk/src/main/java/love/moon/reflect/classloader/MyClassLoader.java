@@ -90,7 +90,7 @@ public class MyClassLoader extends ClassLoader {
     }
 
     public static void showClassLoader(ClassLoader loader) throws Exception {
-        System.out.println();
+        System.out.println(loader.getParent());
         Class clazz = loader.loadClass("love.moon.reflect.Sample");
         System.out.println(clazz.getClassLoader());
         Sample sample =(Sample)clazz.newInstance();
@@ -98,7 +98,7 @@ public class MyClassLoader extends ClassLoader {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(        Thread.currentThread().getContextClassLoader());
+        System.out.println(Thread.currentThread().getContextClassLoader());
         String path = "D:\\object\\";
         MyClassLoader loader1 = new MyClassLoader("loader1");
         loader1.setPath(path);

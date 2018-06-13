@@ -13,4 +13,8 @@ public class Sample {
     public String sayHello(){
         return "Hi loader";
     }
+
+    public static void main(String[] args) {
+        System.out.println("Hi");
+    }
 }

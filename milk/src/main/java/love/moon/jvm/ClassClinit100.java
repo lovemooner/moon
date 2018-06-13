@@ -4,7 +4,8 @@ package love.moon.jvm;
  * Author: lovemooner
  * Date: 2018/5/21 14:56
  */
-public class ClassClinit100 {
+public class
+ClassClinit100 {
 
 //    public static String str1 = "str";
 

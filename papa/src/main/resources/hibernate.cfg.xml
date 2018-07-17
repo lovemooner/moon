@@ -18,6 +18,7 @@
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <mapping class="love.moon.spring.model.User"/>
+        <mapping class="love.moon.spring.model.CaUser" />
 
     </session-factory>
 

@@ -151,6 +151,12 @@
             <version>2.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
         <!--redis-->
         <dependency>
             <groupId>org.springframework.session</groupId>
@@ -180,6 +186,8 @@
             <artifactId>util</artifactId>
             <version>1.0</version>
         </dependency>
+
+
 
 
 

@@ -22,6 +22,7 @@ public class List100 {
     public static void main(String[] args) {
         List100 list100=new List100();
         list100.test();
+
     }
 
     class Elem{

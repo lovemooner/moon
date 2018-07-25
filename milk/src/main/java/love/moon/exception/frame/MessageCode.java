@@ -35,7 +35,7 @@ public enum MessageCode {
     public static ApiResponse toApiResponse(MessageCode code) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setStatus(code.getStatus());
-        apiResponse.setErrorCode(code.getCode());
+        apiResponse.setCode(code.getCode());
         apiResponse.setMessage(code.getValue());
         return apiResponse;
     }
@@ -43,7 +43,7 @@ public enum MessageCode {
     public static ApiResponse toApiResponse(MessageCode code, String reason) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setStatus(code.getStatus());
-        apiResponse.setErrorCode(code.getCode());
+        apiResponse.setCode(code.getCode());
         apiResponse.setMessage(MessageFormat.format(code.getValue(), reason));
         return apiResponse;
     }

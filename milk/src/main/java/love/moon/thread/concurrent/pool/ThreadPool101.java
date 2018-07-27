@@ -13,15 +13,17 @@ public class ThreadPool101 {
      * @throws InterruptedException
      */
     public void testFixedThreadPool() throws InterruptedException {
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10; i++) {
-            Thread.sleep(1000);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
+        for (int i = 0; i < 50; i++) {
+//            Thread.sleep(1000);
+            System.out.println("i="+i);
             fixedThreadPool.execute(new Runnable() {   //复用执行第一个任务的线程
                 public void run() {
                     System.out.println(Thread.currentThread().getName() + ":Hi");
                 }
             });
         }
+        System.out.println("end===================");
     }
 
     /**
@@ -80,7 +82,8 @@ public class ThreadPool101 {
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPool101 pool = new ThreadPool101();
-        pool.testCachedThreadPool();
+//        pool.testCachedThreadPool();
+        pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
 //        pool.testSingleThreadExecutor();
     }

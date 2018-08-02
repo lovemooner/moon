@@ -5,6 +5,7 @@ package love.moon.io;
  * Date: 2017/5/25 15:56
  */
 public class IOConfig {
-    public static final int PORT=8877;
+    public static final int PORT=8001;
     public static final String HOST="slc11fsp.us.oracle.com";
+//    public static final String HOST="127.0.0.1";
 }

@@ -1,6 +1,6 @@
-package love.moon.io;
+package love.moon.io.bio.simple;
 
-import org.junit.Test;
+import love.moon.io.IOConfig;
 
 import java.io.*;
 import java.net.Socket;

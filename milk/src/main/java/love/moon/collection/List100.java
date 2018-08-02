@@ -10,7 +10,7 @@ import java.util.List;
 public class List100 {
 
     public void  test(){
-        ArrayList l=new ArrayList();
+        ArrayList list=new ArrayList();
         Elem elem1=new Elem();
         elem1.setName("elem1");
         Elem elem2=elem1;

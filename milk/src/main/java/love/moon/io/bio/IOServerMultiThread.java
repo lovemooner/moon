@@ -39,10 +39,6 @@ public class IOServerMultiThread implements Runnable {
         }
     }
 
-    public int getPort() {
-        return port;
-    }
-
     public static void main(String[] args) {
         new Thread(new IOServerMultiThread(9001)).start();
     }

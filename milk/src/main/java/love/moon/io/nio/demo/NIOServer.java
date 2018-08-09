@@ -34,8 +34,8 @@ public class NIOServer {
     public NIOServer(int port) throws IOException {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.configureBlocking(false);
-//        serverSocketChannel.bind(new InetSocketAddress(port));
+        serverSocketChannel.configureBlocking(true);
+        serverSocketChannel.bind(new InetSocketAddress(port));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }
@@ -63,12 +63,12 @@ public class NIOServer {
             LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
         } else if (selectionKey.isReadable()) {
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteBuffer buffer = ByteBuffer.allocate(5);
             int count = socketChannel.read(buffer);
             if (count <= 0) {
                 socketChannel.close();
                 selectionKey.cancel();
-                LOGGER.info("Received invalide data, close the connection");
+                LOGGER.info("Received invalid data, close the connection");
             }
             LOGGER.info("Server-> Received message {}" , new String(buffer.array()));
         }

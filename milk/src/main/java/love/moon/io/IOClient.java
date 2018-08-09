@@ -10,7 +10,7 @@ import java.util.Vector;
  * Author: lovemooner
  * Date: 2017/5/25 15:43
  */
-public class IOClient extends Thread{
+public class IOClient extends Thread {
 
 
     public void run() {
@@ -20,10 +20,13 @@ public class IOClient extends Thread{
             OutputStream os = socket.getOutputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             PrintStream ps = new PrintStream(os);
+            int count = 0;
             while (true) {
-                ps.println("Hi Service");//服务器端简单处理一下。
+                ps.println("Hi Service" + count);//服务器端简单处理一下。
+                count++;
                 String temp = br.readLine();//读取客户端输入的消息
-                if (temp.equals("bye")) {
+                System.out.println("recv:"+temp);
+                if ("Bye".equals(temp)) {
                     //如果客户端输入bye,推出循环结束。
                     break;
                 }
@@ -37,7 +40,7 @@ public class IOClient extends Thread{
     }
 
     public static void main(String[] args) {
-        for(int i=0;i<1;i++){
+        for (int i = 0; i < 1; i++) {
             new IOClient().start();
         }
     }

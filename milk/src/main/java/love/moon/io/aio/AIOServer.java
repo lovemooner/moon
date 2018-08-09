@@ -1,99 +1,180 @@
-package love.moon.io.aio;//package aio;
-//
-///**
-// * User: lovemooner
-// * Date: 17-4-7
-// * Time: 下午3:53
-// */
-//import java.io.IOException;
-//import java.net.InetSocketAddress;
-//import java.nio.ByteBuffer;
-//import java.nio.channels.AsynchronousServerSocketChannel;
-//import java.nio.channels.AsynchronousSocketChannel;
-//import java.nio.channels.CompletionHandler;
-//import java.util.concurrent.ExecutionException;
-//import java.util.concurrent.Future;
-//import java.util.concurrent.TimeUnit;
-//import java.util.concurrent.TimeoutException;
-//
-///**
-// *
-// * @author noname
-// */
-//public class AIOServer {
-//    public final static int PORT = 9888;
-//    private AsynchronousServerSocketChannel server;
-//
-//    public AIOServer() throws IOException {
-//        server = AsynchronousServerSocketChannel.open().bind(
-//                new InetSocketAddress(PORT));
-//    }
-//
-//    public void startWithFuture() throws InterruptedException,
-//            ExecutionException, TimeoutException {
-//        System.out.println("Server listen on " + PORT);
-//        Future<AsynchronousSocketChannel> future = server.accept();
-//        AsynchronousSocketChannel socket = future.get();
-//        ByteBuffer readBuf = ByteBuffer.allocate(1024);
-//        readBuf.clear();
-//        socket.read(readBuf).get(100, TimeUnit.SECONDS);
-//        readBuf.flip();
-//        System.out.printf("received message:" + new String(readBuf.array()));
-//        System.out.println(Thread.currentThread().getName());
-//
-//    }
-//
-//    public void startWithCompletionHandler() throws InterruptedException,
-//            ExecutionException, TimeoutException {
-//        System.out.println("Server listen on " + PORT);
-//        //注册事件和事件完成后的处理器
-//        server.accept(null,
-//                new CompletionHandler<AsynchronousSocketChannel, Object>() {
-//                    final ByteBuffer buffer = ByteBuffer.allocate(1024);
-//
-//                    public void completed(AsynchronousSocketChannel result,
-//                            Object attachment) {
-//                        System.out.println(Thread.currentThread().getName());
-//                        System.out.println("start");
-//                        try {
-//                            buffer.clear();
-//                            result.read(buffer).get(100, TimeUnit.SECONDS);
-//                            buffer.flip();
-//                            System.out.println("received message: "
-//                                    + new String(buffer.array()));
-//                        } catch (InterruptedException e) {
-//                            System.out.println(e.toString());
-//                        } catch (TimeoutException e) {
-//                            e.printStackTrace();
-//                        } catch (ExecutionException e) {
-//                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//                        } finally {
-//
-//                            try {
-//                                result.close();
-//                                server.accept(null, this);
-//                            } catch (Exception e) {
-//                                System.out.println(e.toString());
-//                            }
-//                        }
-//
-//                        System.out.println("end");
-//                    }
-//
-//                    @Override
-//                    public void failed(Throwable exc, Object attachment) {
-//                        System.out.println("failed: " + exc);
-//                    }
-//                });
-//        // 主线程继续自己的行为
-//        while (true) {
-//            System.out.println("main thread");
-//            Thread.sleep(1000);
-//        }
-//
-//    }
-//
-//    public static void main(String args[]) throws Exception {
-//        new AIOServer().startWithCompletionHandler();
-//    }
-//}
+package love.moon.io.aio;
+
+/**
+ * User: lovemooner
+ * Date: 17-4-7
+ * Time: 下午3:53
+ */
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+
+/**
+ * @author noname
+ */
+public class AIOServer {
+    public static int PORT = 9888;
+    static int BUFFER_SIZE = 1024;
+    static String CHARSET = "utf-8"; //默认编码
+    static CharsetDecoder decoder = Charset.forName(CHARSET).newDecoder(); //解码
+
+    int port;
+    //ByteBuffer buffer;
+    AsynchronousServerSocketChannel serverChannel;
+
+    public AIOServer(int port) throws IOException {
+        this.port = port;
+        //this.buffer = ByteBuffer.allocate(BUFFER_SIZE);
+        this.decoder = Charset.forName(CHARSET).newDecoder();
+    }
+
+    private void listen() throws Exception {
+        this.serverChannel = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(port), 100);
+        this.serverChannel.accept(this, new AcceptHandler());
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println("运行中...");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
+
+    }
+
+
+    /**
+     * accept到一个请求时的回调
+     */
+    private class AcceptHandler implements CompletionHandler<AsynchronousSocketChannel, AIOServer> {
+        @Override
+        public void completed(final AsynchronousSocketChannel client, AIOServer attachment) {
+            try {
+                System.out.println("远程地址：" + client.getRemoteAddress());
+                //tcp各项参数
+                client.setOption(StandardSocketOptions.TCP_NODELAY, true);
+                client.setOption(StandardSocketOptions.SO_SNDBUF, 1024);
+                client.setOption(StandardSocketOptions.SO_RCVBUF, 1024);
+
+                if (client.isOpen()) {
+                    System.out.println("client.isOpen：" + client.getRemoteAddress());
+                    final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
+                    buffer.clear();
+                    client.read(buffer, client, new ReadHandler(buffer));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                attachment.serverChannel.accept(attachment, this);// 监听新的请求，递归调用。
+            }
+        }
+
+        @Override
+        public void failed(Throwable exc, AIOServer attachment) {
+            try {
+                exc.printStackTrace();
+            } finally {
+                attachment.serverChannel.accept(attachment, this);// 监听新的请求，递归调用。
+            }
+        }
+    }
+
+    /**
+     * Read到请求数据的回调
+     */
+    private class ReadHandler implements CompletionHandler<Integer, AsynchronousSocketChannel> {
+
+        private ByteBuffer buffer;
+
+        public ReadHandler(ByteBuffer buffer) {
+            this.buffer = buffer;
+        }
+
+        @Override
+        public void completed(Integer result, AsynchronousSocketChannel attachment) {
+            try {
+                if (result < 0) {// 客户端关闭了连接
+                    AIOServer.close(attachment);
+                } else if (result == 0) {
+                    System.out.println("空数据"); // 处理空数据
+                } else {
+                    // 读取请求，处理客户端发送的数据
+                    buffer.flip();
+                    CharBuffer charBuffer = AIOServer.decoder.decode(buffer);
+                    System.out.println(charBuffer.toString()); //接收请求
+
+                    //响应操作，服务器响应结果
+                    buffer.clear();
+                    String res = "HTTP/1.1 200 OK" + "\r\n\r\n" + "hellworld";
+                    buffer = ByteBuffer.wrap(res.getBytes());
+                    attachment.write(buffer, attachment, new WriteHandler(buffer));//Response：响应。
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void failed(Throwable exc, AsynchronousSocketChannel attachment) {
+            exc.printStackTrace();
+            AIOServer.close(attachment);
+        }
+    }
+
+    /**
+     * Write响应完请求的回调
+     */
+    private class WriteHandler implements CompletionHandler<Integer, AsynchronousSocketChannel> {
+        private ByteBuffer buffer;
+
+        public WriteHandler(ByteBuffer buffer) {
+            this.buffer = buffer;
+        }
+
+        @Override
+        public void completed(Integer result, AsynchronousSocketChannel attachment) {
+            buffer.clear();
+            AIOServer.close(attachment);
+        }
+
+        @Override
+        public void failed(Throwable exc, AsynchronousSocketChannel attachment) {
+            exc.printStackTrace();
+            AIOServer.close(attachment);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("正在启动服务...");
+            AIOServer server = new AIOServer(PORT);
+            server.listen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void close(AsynchronousSocketChannel client) {
+        try {
+            client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

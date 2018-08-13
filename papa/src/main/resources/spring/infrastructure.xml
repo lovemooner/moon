@@ -35,32 +35,32 @@
         <property name="testConnectionOnCheckout" value="true"/>
     </bean>
 
-    <bean id="dataSourceMySql2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${jdbc2.url}"/>
-        <property name="user" value="${jdbc.user}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
-        <property name="minPoolSize" value="${jdbc.miniPoolSize}"/>
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
-    </bean>
+    <!--<bean id="dataSourceMySql2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+        <!--<property name="driverClass" value="${jdbc.driver}"/>-->
+        <!--<property name="jdbcUrl" value="${jdbc2.url}"/>-->
+        <!--<property name="user" value="${jdbc.user}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+        <!--<property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>-->
+        <!--<property name="minPoolSize" value="${jdbc.miniPoolSize}"/>-->
+        <!--<property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>-->
+    <!--</bean>-->
 
-    <bean id="dataSourceOracle" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${oracle.jdbc.driver}"/>
-        <property name="jdbcUrl" value="${oracle.jdbc.url}"/>
-        <property name="user" value="${oracle.jdbc.user}"/>
-        <property name="password" value="${oracle.jdbc.password}"/>
-        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
-        <property name="minPoolSize" value="${jdbc.miniPoolSize}"/>
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
-    </bean>
+    <!--<bean id="dataSourceOracle" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+        <!--<property name="driverClass" value="${oracle.jdbc.driver}"/>-->
+        <!--<property name="jdbcUrl" value="${oracle.jdbc.url}"/>-->
+        <!--<property name="user" value="${oracle.jdbc.user}"/>-->
+        <!--<property name="password" value="${oracle.jdbc.password}"/>-->
+        <!--<property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>-->
+        <!--<property name="minPoolSize" value="${jdbc.miniPoolSize}"/>-->
+        <!--<property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>-->
+    <!--</bean>-->
 
     <bean id="dataSource" class="love.moon.spring.config.datasource.DynamicDataSource">
         <property name="targetDataSources">
             <map key-type="java.lang.String">
                 <entry key="dataSourceMySql" value-ref="dataSourceMySql"/>
-                <entry key="dataSourceMySql2" value-ref="dataSourceMySql2"/>
-                <entry key="dataSourceOracle" value-ref="dataSourceOracle"/>
+                <!--<entry key="dataSourceMySql2" value-ref="dataSourceMySql2"/>-->
+                <!--<entry key="dataSourceOracle" value-ref="dataSourceOracle"/>-->
             </map>
         </property>
         <property name="defaultTargetDataSource" ref="dataSourceMySql"/>

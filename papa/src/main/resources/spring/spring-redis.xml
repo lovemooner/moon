@@ -3,21 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <!-- session设置 -->
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="1800"></property>
-    </bean>
-    <!-- redis连接池 -->
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="100" />
-        <property name="maxIdle" value="10" />
-    </bean>
+    <!--<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">-->
+        <!--<property name="maxInactiveIntervalInSeconds" value="1800"></property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; redis连接池 &ndash;&gt;-->
+    <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+        <!--<property name="maxTotal" value="100" />-->
+        <!--<property name="maxIdle" value="10" />-->
+    <!--</bean>-->
 
-    <!-- redis连接工厂 -->
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="hostName" value="${redis_hostName}"/>
-        <property name="port" value="${redis_port}"/>
-        <property name="password" value="${redis_password}"/>
-        <property name="timeout" value="${redis_timeout}"/>
-        <property name="poolConfig" ref="jedisPoolConfig"></property>
-    </bean>
+    <!--&lt;!&ndash; redis连接工厂 &ndash;&gt;-->
+    <!--<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">-->
+        <!--<property name="hostName" value="${redis_hostName}"/>-->
+        <!--<property name="port" value="${redis_port}"/>-->
+        <!--<property name="password" value="${redis_password}"/>-->
+        <!--<property name="timeout" value="${redis_timeout}"/>-->
+        <!--<property name="poolConfig" ref="jedisPoolConfig"></property>-->
+    <!--</bean>-->
 </beans>

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class InvokeServiceA {
 
 
-    @Autowired
+//    @Autowired
     private ComDao comDao;
 
     @Transactional(propagation= Propagation.NESTED,rollbackFor = {ServiceException.class})

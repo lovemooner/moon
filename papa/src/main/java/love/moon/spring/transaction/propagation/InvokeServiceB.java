@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class InvokeServiceB {
 
 
-    @Autowired
+//    @Autowired
     private ComDao comDao;
 
     @Transactional(propagation = Propagation.REQUIRED)

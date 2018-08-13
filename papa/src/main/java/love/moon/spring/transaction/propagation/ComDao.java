@@ -15,7 +15,7 @@ import java.util.Random;
 public class ComDao {
 
 
-    @Autowired
+//    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void jdbcExceptionInsertTest() throws ServiceException {

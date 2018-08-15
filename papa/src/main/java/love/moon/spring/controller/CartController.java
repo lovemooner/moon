@@ -63,7 +63,7 @@ public class CartController {
     public List<Cart> listCart(HttpServletRequest request) throws ServiceException {
         request.getSession().setAttribute("isLogin","true");
         System.out.println("isLogin:"+request.getSession().getAttribute("isLogin"));
-        List<Cart> carts = cartService.getCarts(0, 50);
+        List<Cart> carts = cartService.getCarts(0, 500);
         return carts;
     }
 

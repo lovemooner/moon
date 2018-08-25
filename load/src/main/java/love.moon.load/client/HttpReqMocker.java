@@ -1,23 +1,49 @@
-package love.moon.util;
+package love.moon.load.client;
+
+
+import love.moon.load.jload.bean.Config;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Author: lovemooner
- * Date: 2017/7/3 11:29
+ * Date: 2017/6/28 18:27
  */
-public class HttpUtil {
+public class HttpReqMocker {
+
+
+
+    public static class Request implements Runnable{
+
+        public void run() {
+            while (true) {
+                String responseStr=sendGet(Config.URL_SLC11FSP, null);
+                System.out.println(responseStr);
+//                try {
+//                    Thread.sleep(6000L);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        }
+    }
+
+    public void test(HttpURLConnection connection){
+        StringBuilder sb=new StringBuilder();
+
+    }
 
     public static String sendGet(String url, String param) {
         BufferedReader in = null;
 //        HttpURLConnection  connection=null;
-        HttpURLConnection  connection=null;
+        HttpURLConnection connection=null;
         StringBuilder result = new StringBuilder();
         try {
             if (param == null) {
@@ -26,7 +52,7 @@ public class HttpUtil {
             String urlNameString = url + "?" + param;
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
-             connection = (HttpURLConnection)realUrl.openConnection();
+            connection = (HttpURLConnection)realUrl.openConnection();
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
@@ -55,15 +81,24 @@ public class HttpUtil {
         } finally {
             try {
                 if (in != null) {
-                    in.close();
+//                    in.close();
                 }
                 if(connection!=null){
-                    connection.disconnect();
+//                    connection.disconnect();
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
         }
         return result.toString();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+        for (int i = 0; i < 10; i++) {
+            Thread.sleep(10L);
+            cachedThreadPool.execute(new Thread(new Request()));
+        }
     }
 }

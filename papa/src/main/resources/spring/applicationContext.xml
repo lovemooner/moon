@@ -15,7 +15,7 @@
     <aop:aspectj-autoproxy proxy-target-class="false" expose-proxy="true"/>
     <aop:config>
         <aop:aspect id="sampleAspect" ref="sampleInterceptor">
-            <aop:pointcut id="samplePointcut" expression="execution(* love.moon.spring.service.*.*(..))"/>
+            <aop:pointcut id="samplePointcut" expression="execution(* love.moon.spring.service1.*.*(..))"/>
             <aop:before method="doBeforeTask" pointcut-ref="samplePointcut"/>
             <aop:after method="doAfterTask" pointcut-ref="samplePointcut"/>
             <aop:after-returning method="doAfterReturnningTask" returning="retVal" pointcut-ref="samplePointcut"/>

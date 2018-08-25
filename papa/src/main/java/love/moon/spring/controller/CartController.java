@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,19 +53,30 @@ public class CartController {
 //        request.getSession().setAttribute("UserName", JsonUtil.objectToJson(user));
         return "cart";
     }
+
+
+    @RequestMapping(value = "/list/{param}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Cart> list(HttpServletRequest request,@PathVariable String param) throws ServiceException, InterruptedException {
+//        request.getSession().setAttribute("isLogin","true");
+//        System.out.println("isLogin:"+request.getSession().getAttribute("isLogin"));
+        System.out.println("Param:"+param);
+        List<Cart> carts = cartService.getCarts(0, 500);
+//        Thread.sleep(5000L);
+        return carts;
+    }
+
     @RequestMapping(value = "/list2", method = RequestMethod.GET)
     @ResponseBody
     public String listCart2() throws ServiceException {
         return RandomUtil.random();
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list3", method = RequestMethod.GET)
     @ResponseBody
-    public List<Cart> listCart(HttpServletRequest request) throws ServiceException {
-        request.getSession().setAttribute("isLogin","true");
-        System.out.println("isLogin:"+request.getSession().getAttribute("isLogin"));
-        List<Cart> carts = cartService.getCarts(0, 500);
-        return carts;
+    public String listCart3(HttpServletRequest request) throws ServiceException {
+        System.out.println("ThreadName:"+Thread.currentThread().getName());
+        return RandomUtil.random();
     }
 
     @RequestMapping(value = "/updateCart", method = RequestMethod.GET)

@@ -7,7 +7,15 @@
 <body>
 <h2>Hello Worlqd!</h2>
 <div>
-   <input type="button" name="sendGet" id="sendGet" />
+   <input type="button" value="sendGet" id="sendGet" />
+</div>
+<div>
+   <input type="button" value="sendMultiReq" id="sendMultiReq" />
+</div>
+
+<h2>RESULT</h2>
+<div>
+<div id="resultDIV">
 </div>
 </body>
 </html>

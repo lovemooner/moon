@@ -6,7 +6,7 @@ import java.util.concurrent.*;
  * Author: lovemooner
  * Date: 2017/5/10 14:07
  */
-public class ThreadPool101 {
+public class ExecutorFactory100 {
 
     /**
      * 定长线程池
@@ -81,11 +81,11 @@ public class ThreadPool101 {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPool101 pool = new ThreadPool101();
+        ExecutorFactory100 pool = new ExecutorFactory100();
 //        pool.testCachedThreadPool();
-        pool.testFixedThreadPool();
+//        pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
-//        pool.testSingleThreadExecutor();
+        pool.testSingleThreadExecutor();
     }
 
 

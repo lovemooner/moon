@@ -20,7 +20,7 @@ public class JConsoleMockLocal {
         System.out.println(inputArguments);
 
 
-        System.out.println("=======================通过java来获取相关系统状态============================ ");
+        System.out.println("=======================通过java来       获取相关系统状态============================ ");
         int i = (int) Runtime.getRuntime().totalMemory() / 1024;//Java 虚拟机中的内存总量,以字节为单位
         System.out.println("总的内存量 i is " + i);
         int j = (int) Runtime.getRuntime().freeMemory() / 1024;//Java 虚拟机中的空闲内存量

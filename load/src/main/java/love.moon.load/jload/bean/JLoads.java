@@ -34,16 +34,17 @@ public class JLoads {
 
     public void run() {
         for(int i=0;i<Config.threadNum;i++){
-            new Thread(new Runnable() {
+            executor.execute(new Runnable() {
                 public void run() {
                     client.request();
                 }
-            }).start();
-//            executor.execute(new Runnable() {
+            });
+//            new Thread(new Runnable() {
 //                public void run() {
 //                    client.request();
 //                }
-//            });
+//            }).start();
+
         }
 
         for (IMonitor monitor : monitors) {

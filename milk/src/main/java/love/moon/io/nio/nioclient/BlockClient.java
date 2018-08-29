@@ -1,4 +1,4 @@
-package love.moon.io.nio.configureBlocking;
+package love.moon.io.nio.nioclient;
 
 import love.moon.io.IOConfig;
 
@@ -11,7 +11,7 @@ import java.nio.channels.SocketChannel;
  * Author: lovemooner
  * Date: 2018/8/2 16:48
  */
-public class NetClient {
+public class BlockClient {
 
 
 

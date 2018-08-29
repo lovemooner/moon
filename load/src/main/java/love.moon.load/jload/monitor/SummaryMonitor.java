@@ -55,7 +55,7 @@ public class SummaryMonitor implements IMonitor {
         setStart(System.currentTimeMillis());
         LoadCache cache = JLoads.getLoadCache();
         while (cache.getSamples()==0){
-            System.out.println("monitoring...");
+//            System.out.println("monitoring...");
             try {
                 Thread.sleep(Config.MONITOR_INTERVAL);
             } catch (InterruptedException e) {

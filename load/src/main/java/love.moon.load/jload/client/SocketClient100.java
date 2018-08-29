@@ -12,7 +12,7 @@ import java.net.Socket;
  * Author: lovemooner
  * Date: 2018/8/26 1:05
  */
-public class BioClient100 implements IClient{
+public class SocketClient100 implements IClient{
 
     public static String host = Config.URL_SLC11FSP_HOST;
     public static int port = 7878;

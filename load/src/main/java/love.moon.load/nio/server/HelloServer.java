@@ -7,36 +7,37 @@ package love.moon.load.nio.server;
 
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-public class HelloServer {
+import love.moon.load.jload.bean.Config;
+import love.moon.load.nio.server.handler.HelloServerInitializer;
 
-    /**
-     * 服务端监听的端口地址
-     */
-    private static final int portNumber = 7878;
+public class HelloServer implements INioServer{
 
-    public static void main(String[] args) throws InterruptedException {
+    public void start() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup);
-            b.channel(NioServerSocketChannel.class);
-            b.childHandler(new HelloServerInitializer());
-
-            // 服务器绑定端口监听
-            ChannelFuture f = b.bind(portNumber).sync();
-            // 监听服务器关闭监听
-            f.channel().closeFuture().sync();
-
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+                    .childHandler(new HelloServerInitializer());
+            bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
+            ChannelFuture f = bootstrap.bind(Config.NIO_HTTP_PORT).sync();
+            System.out.println("Server start,at port:"+Config.NIO_HTTP_PORT);
+            System.out.println(f.channel());
+            Channel ch= f.channel().closeFuture().sync().channel();
             // 可以简写为
             /* b.bind(portNumber).sync().channel().closeFuture().sync(); */
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
+
 }

@@ -1,8 +1,5 @@
 package love.moon.load.jload.bean;
 
-import love.moon.load.jload.client.AbsClient;
-import love.moon.load.jload.client.IClient;
-
 /**
  * Author: lovemooner
  * Date: 2018/8/23 13:20

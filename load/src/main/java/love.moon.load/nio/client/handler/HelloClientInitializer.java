@@ -1,8 +1,8 @@
-package love.moon.load.nio.server;
+package love.moon.load.nio.client.handler;
 
 /**
  * Author: lovemooner
- * Date: 2018/8/26 0:09
+ * Date: 2018/8/26 0:12
  */
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -12,18 +12,14 @@ import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
-public class HelloServerInitializer extends ChannelInitializer<SocketChannel> {
+public class HelloClientInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-
-        // 以("\n")为结尾分割的 解码器
         pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-        // 字符串解码 和 编码
         pipeline.addLast("decoder", new StringDecoder());
         pipeline.addLast("encoder", new StringEncoder());
-        // 自己的逻辑Handler
-        pipeline.addLast("handler", new HelloServerHandler());
+        pipeline.addLast("handler", new HelloClientHandler());
     }
 }

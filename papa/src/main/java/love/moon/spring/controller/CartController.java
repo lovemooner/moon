@@ -91,6 +91,18 @@ public class CartController {
         return "updateProduct";
     }
 
+
+    /**
+     * 测试手动开启事务
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/updateCart2", method = RequestMethod.GET)
+    public String updateCart2() throws ServiceException {
+        cartService.updateCart2();
+        return "updateCart";
+    }
+
     @RequestMapping(value = "/saveCart", method = RequestMethod.GET)
     public String saveCart(HttpServletRequest request) {
         String userString = request.getSession().getAttribute("UserName").toString();

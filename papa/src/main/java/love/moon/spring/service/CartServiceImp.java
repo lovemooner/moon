@@ -52,6 +52,20 @@ public class CartServiceImp implements CartService {
         System.out.println("updateCart");
     }
 
+    public void updateCart2() throws ServiceException {
+        System.out.println("updateCart start");
+        Long cartId=11763713L;
+        Session session= cartDAO.getSessionFactory().openSession();
+        session.beginTransaction();
+        Cart cart= (Cart) session.get(Cart.class, cartId);
+        Random random = new Random();
+        String remark = cart.getRemark();
+        cart.setRemark(String.valueOf(random.nextInt(100)));
+        System.out.println("Old remark:" + remark + " New remark:" + cart.getRemark());
+        session.update(cart);
+//        session.getTransaction().commit();
+    }
+
     public void updateCart1() {
         System.out.println("updateCart start");
         HibernateTransactionManager txManager = (HibernateTransactionManager) ctx.getBean("transactionManager");

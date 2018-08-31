@@ -18,7 +18,7 @@ import java.io.IOException;
  * Author: lovemooner
  * Date: 2017/5/26 14:16
  */
-public class SlcConsumer extends AbstractJavaSamplerClient {
+public class JHttpRequest101 extends AbstractJavaSamplerClient {
 
     private HttpClientGet clientGet;
 
@@ -39,15 +39,25 @@ public class SlcConsumer extends AbstractJavaSamplerClient {
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult sr = new SampleResult();
         String url = context.getParameter("req_url");
-        sr.sampleStart();
-        clientGet.doSend(url);
-        // 暂停
-        // sampleResult.samplePause();
-        // 重启
-        // sampleResult.sampleResume();
-//            sr.setResponseData("from Response", null);
-//            sr.setDataType(SampleResult.TEXT);
-        sr.sampleEnd();
+        HttpClientGet clientGet = new HttpClientGet();
+        try {
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+            HttpGet httpget = new HttpGet(url);
+            System.out.println("executing request " + httpget.getURI());
+            // 执行get请求.
+//            while (true) {
+            sr.sampleStart();
+            clientGet.getResult(httpclient.execute(httpget));
+            Thread.sleep(100l);
+            sr.sampleEnd();
+//            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         sr.setSuccessful(true);
         return sr;
     }
@@ -58,7 +68,6 @@ public class SlcConsumer extends AbstractJavaSamplerClient {
     }
 
     class HttpClientGet {
-
 
 
         public void doSend(String url) {
@@ -95,7 +104,7 @@ public class SlcConsumer extends AbstractJavaSamplerClient {
                 if (entity != null) {
 //                    System.out.println("Response content length: " + entity.getContentLength());
 //                    System.out.println("Response content: " + EntityUtils.toString(entity)); // 打印响应内容
-                    System.out.println("receive response,time:"+System.currentTimeMillis());
+                    System.out.println("receive response,time:" + System.currentTimeMillis());
                 }
                 System.out.println("-----------------end-------------------");
             } finally {

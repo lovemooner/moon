@@ -106,7 +106,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <!--<mainClass>love.moon.load.jmeter.java.SlcReq</mainClass>-->
+                            <!--<mainClass>love.moon.load.jmeter.java.JHttpRequest100</mainClass>-->
                             <mainClass>love.moon.load.nio.NioServer</mainClass>
                         </manifest>
                     </archive>

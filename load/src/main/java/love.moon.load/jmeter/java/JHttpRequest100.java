@@ -7,6 +7,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
@@ -18,9 +19,10 @@ import java.io.IOException;
  * Author: lovemooner
  * Date: 2017/5/26 14:16
  */
-public class SlcReq extends AbstractJavaSamplerClient {
+public class JHttpRequest100 extends AbstractJavaSamplerClient {
 
-    private HttpClientGet clientGet;
+    private HttpRequester requester;
+    public static ThreadLocal< CloseableHttpClient> httpClients = new ThreadLocal<CloseableHttpClient>();
 
     public Arguments getDefaultParameters() {
         Arguments args = new Arguments();
@@ -32,32 +34,26 @@ public class SlcReq extends AbstractJavaSamplerClient {
     @Override
     public void setupTest(JavaSamplerContext context) {
         super.setupTest(context);
-        clientGet = new HttpClientGet();
+        requester = new HttpRequester();
         ;
     }
 
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult sr = new SampleResult();
         String url = context.getParameter("req_url");
-        // 暂停
-        // sampleResult.samplePause();
-        // 重启
-        // sampleResult.sampleResume();
-//            sr.setResponseData("from Response", null);
-//            sr.setDataType(SampleResult.TEXT);
-        HttpClientGet clientGet=new HttpClientGet();
+        CloseableHttpClient httpClient= httpClients.get();
+        if(httpClient==null){
+            httpClient=HttpClients.createDefault();
+            httpClients.set(httpClient);
+        }
         try {
-            CloseableHttpClient httpclient = HttpClients.createDefault();
-            // 创建httpget.
             HttpGet httpget = new HttpGet(url);
             System.out.println("executing request " + httpget.getURI());
-            // 执行get请求.
-            while (true) {
-                sr.sampleStart();
-                clientGet.getResult(httpclient.execute(httpget));
-                Thread.sleep(100l);
-                sr.sampleEnd();
-            }
+            sr.sampleStart();
+            requester.getResult(httpClient.execute(httpget));
+            Thread.sleep(100l);
+            sr.sampleEnd();
+            sr.setSuccessful(true);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,44 +61,30 @@ public class SlcReq extends AbstractJavaSamplerClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        // sampleResult.samplePause();
+        // sampleResult.sampleResume();
+//            sr.setResponseData("from Response", null);
+//            sr.setDataType(SampleResult.TEXT);
 
-
-        sr.setSuccessful(true);
         return sr;
     }
 
     @Override
     public void teardownTest(JavaSamplerContext context) {
-        this.clientGet.close();  // 关闭连接
+        this.requester.close();  // 关闭连接
     }
 
-    class HttpClientGet {
+    public class HttpRequester {
 
+         CloseableHttpClient httpClient;
 
-
-        public void doSend(String url) {
-
-            try {
-                CloseableHttpClient httpclient = HttpClients.createDefault();
-                // 创建httpget.
-                HttpGet httpget = new HttpGet(url);
-                System.out.println("executing request " + httpget.getURI());
-                // 执行get请求.
-                while (true) {
-                    getResult(httpclient.execute(httpget));
-                    Thread.sleep(100l);
-                }
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
         public void close() {
-
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         public void getResult(CloseableHttpResponse response) throws IOException {
@@ -113,12 +95,12 @@ public class SlcReq extends AbstractJavaSamplerClient {
                 System.out.println(response.getStatusLine());
                 if (entity != null) {
 //                    System.out.println("Response content length: " + entity.getContentLength());
-//                    System.out.println("Response content: " + EntityUtils.toString(entity)); // 打印响应内容
-                    System.out.println("receive response,time:"+System.currentTimeMillis());
+                    System.out.println("Response content: " + EntityUtils.toString(entity)); // 打印响应内容
+//                    System.out.println("receive response,time:" + System.currentTimeMillis());
                 }
                 System.out.println("-----------------end-------------------");
             } finally {
-                response.close();
+//                response.close();
             }
         }
 

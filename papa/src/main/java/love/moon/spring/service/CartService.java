@@ -13,6 +13,8 @@ public interface CartService {
 
     void updateCart() throws ServiceException;
 
+    void updateCart2() throws ServiceException;
+
     List<Cart> getCarts(int start, int limit);
 
 }

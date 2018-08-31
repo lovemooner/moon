@@ -5,7 +5,7 @@
 </head>
 <html>
 <body>
-<h2>Hello Worlqd!</h2>
+<h2>do Test!</h2>
 <div>
    <input type="button" value="sendGet" id="sendGet" />
 </div>

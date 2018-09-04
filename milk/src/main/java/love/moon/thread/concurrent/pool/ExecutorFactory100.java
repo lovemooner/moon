@@ -1,6 +1,9 @@
 package love.moon.thread.concurrent.pool;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Author: lovemooner
@@ -10,16 +13,20 @@ public class ExecutorFactory100 {
 
     /**
      * 定长线程池
+     *
      * @throws InterruptedException
      */
     public void testFixedThreadPool() throws InterruptedException {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 50; i++) {
-//            Thread.sleep(1000);
-            System.out.println("i="+i);
             fixedThreadPool.execute(new Runnable() {   //复用执行第一个任务的线程
                 public void run() {
                     System.out.println(Thread.currentThread().getName() + ":Hi");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -28,6 +35,7 @@ public class ExecutorFactory100 {
 
     /**
      * 可缓存线程池
+     *
      * @throws InterruptedException
      */
     public void testCachedThreadPool() throws InterruptedException {
@@ -70,7 +78,7 @@ public class ExecutorFactory100 {
             singleThreadExecutor.execute(new Runnable() {
                 public void run() {
                     try {
-                        System.out.println(Thread.currentThread().getName()+": thread index-"+index);
+                        System.out.println(Thread.currentThread().getName() + ": thread index-" + index);
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -83,11 +91,10 @@ public class ExecutorFactory100 {
     public static void main(String[] args) throws InterruptedException {
         ExecutorFactory100 pool = new ExecutorFactory100();
 //        pool.testCachedThreadPool();
-//        pool.testFixedThreadPool();
+        pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
-        pool.testSingleThreadExecutor();
+//        pool.testSingleThreadExecutor();
     }
-
 
 
 }

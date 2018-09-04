@@ -1,9 +1,8 @@
-package love.moon.spring.service;
+package love.moon.spring.service.impl;
 
-import love.moon.spring.common.ServiceException;
 import love.moon.spring.dao.ProductDao;
 import love.moon.spring.model.Product;
-import love.moon.util.JsonUtil;
+import love.moon.spring.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.Random;
  * Date: 2017/6/20 14:53
  */
 @Component
-public class ProductServiceImpl implements ProductService {
+public class ProductService implements IProductService {
 
     @Autowired
     private ProductDao productDao;

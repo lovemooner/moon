@@ -1,4 +1,4 @@
-package love.moon.spring.service;
+package love.moon.spring.common;
 
 /**
  * Author: lovemooner

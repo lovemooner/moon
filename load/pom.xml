@@ -107,7 +107,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <!--<mainClass>love.moon.load.jmeter.java.JHttpRequest100</mainClass>-->
-                            <mainClass>love.moon.load.nio.NioServer</mainClass>
+                            <!--<mainClass>love.moon.load.nio.NioServer</mainClass>-->
                         </manifest>
                     </archive>
                     <outputDirectory> ${build.output.directory}/nioServer</outputDirectory>

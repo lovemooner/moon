@@ -1,4 +1,6 @@
-package love.moon.thread.concurrent.pool;
+package love.moon.thread.concurrent.ReentrantLock;
+
+import love.moon.thread.concurrent.pool.ThreadPoolMonitor100;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,22 +22,13 @@ public class ThreadPoolMonitor101 {
             @Override
             public void run() {
                 while (true) {
-                    int queueSize = ((ThreadPoolExecutor) executor).getQueue().size();
-                    int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();
-                    long completedTaskCount = ((ThreadPoolExecutor) executor).getCompletedTaskCount();
-                    long taskCount = ((ThreadPoolExecutor) executor).getTaskCount();
-                    // 总线程数（排队线程数 + 活动线程数 +  执行完成线程数）
-//                    System.out.println("总线程数:" + taskCount);
-                    System.out.println("排队线程数:" + queueSize
-                            + " 活动线程数:" + activeCount
-                            + " 执行完成线程数:" + completedTaskCount
-                    );
+                    ThreadPoolMonitor100.status(executor);
                     try {
                         Thread.sleep(100L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (completedTaskCount == 10) break;
+                    if (((ThreadPoolExecutor) executor).getCompletedTaskCount() == 10) break;
                 }
             }
         }).start();
@@ -65,6 +58,8 @@ public class ThreadPoolMonitor101 {
 
     class Active {
 
+        private Lock lock = new ReentrantLock();
+
         public synchronized void synFun() {
             try {
                 Thread.sleep(1000L);
@@ -74,7 +69,7 @@ public class ThreadPoolMonitor101 {
 
         }
 
-        private Lock lock = new ReentrantLock();
+
         public void testReentrantLock() {
             try {
                 lock.lock();

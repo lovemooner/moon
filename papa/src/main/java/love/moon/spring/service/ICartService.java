@@ -9,7 +9,7 @@ import java.util.List;
  * Author: lovemooner
  * Date: 2017/6/14 9:42
  */
-public interface CartService {
+public interface ICartService {
 
     void updateCart() throws ServiceException;
 

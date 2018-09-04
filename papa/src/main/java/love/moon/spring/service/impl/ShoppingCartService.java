@@ -1,4 +1,4 @@
-package love.moon.spring.service;
+package love.moon.spring.service.impl;
 
 import love.moon.spring.dao.ProductDao;
 import love.moon.spring.dao.ShoppingCartDao;
@@ -6,16 +6,13 @@ import love.moon.spring.dao.ShoppingCartItemDao;
 import love.moon.spring.model.Cart;
 import love.moon.spring.model.CartItem;
 import love.moon.spring.model.Product;
-import love.moon.util.JsonUtil;
+import love.moon.spring.common.CartStatus;
+import love.moon.spring.service.IShoppingCartService;
 import love.moon.util.NumberUtil;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -27,8 +24,8 @@ import java.util.Random;
  * Date: 2017/5/27 15:13
  */
 @Component
-public class ShoppingCartServiceImpl implements ShoppingCartService {
-    private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
+public class ShoppingCartService implements IShoppingCartService {
+    private static final Logger LOG = LoggerFactory.getLogger(ShoppingCartService.class);
     @Autowired
     private ShoppingCartDao cartDao;
     @Autowired

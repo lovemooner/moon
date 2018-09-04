@@ -1,7 +1,7 @@
 package love.moon.spring.controller.oracle;
 
 import love.moon.spring.model.Student;
-import love.moon.spring.service.StudentService;
+import love.moon.spring.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import java.util.List;
 public class OracleController {
 
     @Autowired
-    private StudentService studentService;
+    private IStudentService studentService;
 
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     @ResponseBody

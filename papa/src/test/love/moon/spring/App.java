@@ -1,7 +1,7 @@
 package love.moon.spring;
 
-import love.moon.spring.common.ServiceException;
-import love.moon.spring.service.CartService;
+import love.moon.spring.service.impl.CartService;
+import love.moon.spring.service.impl.FundService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,12 +15,8 @@ public class App {
     public static void main(String[] args) throws IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring\\infrastructure.xml","spring\\applicationContext.xml"});
 
-        CartService cartService = (CartService) context.getBean("cartServiceImp");
-        try {
-            cartService.updateCart();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        FundService fundService = (FundService) context.getBean("fundService");
+        fundService.initData();
         System.in.read();
     }
 }

@@ -1,11 +1,11 @@
 package love.moon.spring.controller;
 
-import love.moon.spring.common.ServiceException;
 import love.moon.mock.ThreadRunnable;
+import love.moon.spring.common.ServiceException;
 import love.moon.spring.model.Cart;
 import love.moon.spring.model.User;
-import love.moon.spring.service.CartService;
-import love.moon.spring.service.ProductService;
+import love.moon.spring.service.IProductService;
+import love.moon.spring.service.impl.CartService;
 import love.moon.util.JsonUtil;
 import love.moon.util.RandomUtil;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     private void startThread() {
         for (int i = 0; i < 100; i++) {

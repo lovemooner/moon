@@ -1,7 +1,8 @@
-package love.moon.spring.service;
+package love.moon.spring.service.impl;
 
 import love.moon.spring.dao.UserDAO;
 import love.moon.spring.model.User;
+import love.moon.spring.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
@@ -14,8 +15,8 @@ import java.util.List;
  * Created by nadong on 2017/4/20.
  */
 @Component
-public class UserServiceImpl implements UserService {
-    private Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+public class UserService implements IUserService {
+    private Logger LOG = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private UserDAO userDao;
 
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void testAopExposeProxy(){
-        ((UserServiceImpl) AopContext.currentProxy()).test();
+        ((UserService) AopContext.currentProxy()).test();
     }
 
     public List<User> getAllUsernames() {

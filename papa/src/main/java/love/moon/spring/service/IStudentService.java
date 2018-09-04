@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 2017/5/23 17:54
  */
 @Component
-public interface StudentService {
+public interface IStudentService {
 
     List<Student> getStudent();
 }

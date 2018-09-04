@@ -1,16 +1,16 @@
-package love.moon.spring.service;
+package love.moon.spring.service.impl;
 
 import love.moon.spring.common.ServiceException;
-import love.moon.spring.controller.CartController;
 import love.moon.spring.dao.CartDAO;
 import love.moon.spring.model.Cart;
+import love.moon.spring.service.ICartService;
+import love.moon.spring.service.IProductService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionDefinition;
@@ -25,13 +25,13 @@ import java.util.Random;
  * Date: 2017/6/14 9:43
  */
 @Component
-public class CartServiceImp implements CartService {
-    private Logger LOG = LoggerFactory.getLogger(CartServiceImp.class);
+public class CartService implements ICartService {
+    private Logger LOG = LoggerFactory.getLogger(CartService.class);
 
     @Autowired
     private CartDAO cartDAO;
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
 
     @Autowired
     private ApplicationContext ctx;
@@ -54,16 +54,21 @@ public class CartServiceImp implements CartService {
 
     public void updateCart2() throws ServiceException {
         System.out.println("updateCart start");
-        Long cartId=11763713L;
-        Session session= cartDAO.getSessionFactory().openSession();
-        session.beginTransaction();
-        Cart cart= (Cart) session.get(Cart.class, cartId);
-        Random random = new Random();
-        String remark = cart.getRemark();
-        cart.setRemark(String.valueOf(random.nextInt(100)));
-        System.out.println("Old remark:" + remark + " New remark:" + cart.getRemark());
-        session.update(cart);
+        for (int i = 0; i < 6; i++) {
+            if (i == 5) {
+                System.out.println("begin");
+            }
+            Long cartId = 11763713L;
+            Session session = cartDAO.getSessionFactory().openSession();
+            session.beginTransaction();
+            Cart cart = (Cart) session.get(Cart.class, cartId);
+            Random random = new Random();
+            String remark = cart.getRemark();
+            cart.setRemark(String.valueOf(random.nextInt(100)));
+            System.out.println("Old remark:" + remark + " New remark:" + cart.getRemark());
+            session.update(cart);
 //        session.getTransaction().commit();
+        }
     }
 
     public void updateCart1() {

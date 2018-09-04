@@ -9,7 +9,7 @@ import java.util.List;
  * Author: lovemooner
  * Date: 2017/5/27 15:17
  */
-public interface ShoppingCartService  {
+public interface IShoppingCartService  {
     List<Cart> getCarts();
 
     void initData();

@@ -103,10 +103,8 @@ public class ExecutorsUtil extends ThreadPoolExecutor {
     /**
      * 创建固定线程池，代码源于Executors.newFixedThreadPool方法，这里增加了poolName
      *
-     * @param nThreads
-     *            线程数量
-     * @param poolName
-     *            线程池名称
+     * @param nThreads 线程数量
+     * @param poolName 线程池名称
      * @return ExecutorService对象
      */
     public static ExecutorService newFixedThreadPool(int nThreads, String poolName) {

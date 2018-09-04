@@ -23,7 +23,7 @@ public class RandomUtil {
         return randomChars(5);
     }
 
-    public static int nextInt(int n){
+    public static int randomInt(int n){
         Random random = new Random();
         return random.nextInt(n);
     }

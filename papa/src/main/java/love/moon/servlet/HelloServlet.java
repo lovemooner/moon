@@ -1,8 +1,7 @@
 package love.moon.servlet;
 
-import love.moon.spring.service.UserService;
-import love.moon.spring.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import love.moon.spring.service.IUserService;
+import love.moon.spring.service.impl.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,7 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserService userService = new UserServiceImpl();
+        IUserService userService = new UserService();
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");

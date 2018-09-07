@@ -1,6 +1,4 @@
-package love.moon.thread;
-
-import java.util.concurrent.locks.ReentrantLock;
+package love.moon.thread.object;
 
 /**
  * Author: lovemooner

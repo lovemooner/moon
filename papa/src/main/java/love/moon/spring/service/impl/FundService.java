@@ -76,6 +76,10 @@ public class FundService implements IFundService {
                    fundHistory.setAttr5(RandomUtil.randomChars(10));
                    fundHistory.setAttr6(RandomUtil.randomChars(10));
                    session.save(fundHistory);
+                   if(j%100==0){
+                       session.flush();
+                       System.out.println("session flush,"+DateUtil.convertDateLongToString(System.currentTimeMillis(),DateUtil.ALL));
+                   }
                }
                session.getTransaction().commit();
                System.out.println("commit on fund Data,i_name=" + name + ",times:" + (System.currentTimeMillis() - start) + "ms");
@@ -88,10 +92,10 @@ public class FundService implements IFundService {
 
     public void initData() {
         ExecutorService executor = Executors.newFixedThreadPool(20);
-        for (int i = 80; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println("start round i="+i);
             long start=System.currentTimeMillis();
-            for(int j=0;j<10;j++){
+            for(int j=0;j<20;j++){
                 executor.execute(new FundDataIniter(i));
             }
             int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();

@@ -6,10 +6,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * Author: lovemooner
  * Date: 2017/10/17 14:29
  */
-public class AtomicReference140 {
+public class AtomicReference100 {
 
     public static void main(String[] args) {
-        AtomicReference140 demo = new AtomicReference140();
+        AtomicReference100 demo = new AtomicReference100();
         demo.test1();
     }
 
@@ -22,7 +22,7 @@ public class AtomicReference140 {
         System.out.println("getAndSet:" + atom.getAndSet(user2));
         System.out.println("调用后值变为：" + atom);
 
-        System.out.println("compareAndSet:" + atom.compareAndSet(user2, user1));
+        System.out.println("compareAndSet:" + atom.compareAndSet(user2, user1)); //（expert）
         System.out.println("调用后值为：" + atom);
     }
 

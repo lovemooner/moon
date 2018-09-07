@@ -5,6 +5,7 @@ import love.moon.spring.model.User;
 import love.moon.spring.service.IFundService;
 import love.moon.spring.service.IShoppingCartService;
 import love.moon.spring.service.IUserService;
+import love.moon.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,31 +33,39 @@ public class MainController {
     String[] yes = {"YES", "NO"};
 
 
-
-    @RequestMapping(value = "/mockHand",method = RequestMethod.GET)
+    @RequestMapping(value = "/getFundData", method = RequestMethod.GET)
     @ResponseBody
-    public FundDTO mockHand(){
-         return fundService.mockHand();
+    public FundDTO mockHand() {
+        return fundService.mockHand();
     }
 
-    @RequestMapping(value = "/initFundData",method = RequestMethod.GET)
+    @RequestMapping(value = "/initFundData", method = RequestMethod.GET)
     @ResponseBody
-    public Object initFundData(){
+    public Object initFundData() {
         fundService.initData();
         return "good-initFundData";
     }
 
+    @RequestMapping(value = "/mockBlockRequest", method = RequestMethod.GET)
+    @ResponseBody
+    public String mockBlockRequest() {
+        String url = "http://localhost:8001/test";
+        String result = HttpUtil.sendGet(url, null);
+        System.out.println(result);
+        return "Back"+result;
+    }
+
 
     @RequestMapping("")
-    public String home(){
+    public String home() {
         return "index";
     }
 
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> user(){
+    public List<User> user() {
         LOG.info("User...");
-         return userService.getAllUsernames();
+        return userService.getAllUsernames();
     }
 
 }

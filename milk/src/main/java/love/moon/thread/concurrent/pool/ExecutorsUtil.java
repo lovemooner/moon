@@ -49,7 +49,7 @@ public class ExecutorsUtil extends ThreadPoolExecutor {
     public ExecutorsUtil(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,
                          String poolName) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new EventThreadFactory(poolName));
-        this.startTimes = new ConcurrentHashMap<>();
+        this.startTimes = new ConcurrentHashMap<String,Date>();
         this.poolName = poolName;
     }
 

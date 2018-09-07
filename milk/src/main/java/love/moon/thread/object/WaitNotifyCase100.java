@@ -1,4 +1,4 @@
-package love.moon.thread;
+package love.moon.thread.object;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

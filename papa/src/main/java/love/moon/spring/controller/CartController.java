@@ -4,8 +4,8 @@ import love.moon.mock.ThreadRunnable;
 import love.moon.spring.common.ServiceException;
 import love.moon.spring.model.Cart;
 import love.moon.spring.model.User;
+import love.moon.spring.service.ICartService;
 import love.moon.spring.service.IProductService;
-import love.moon.spring.service.impl.CartService;
 import love.moon.util.JsonUtil;
 import love.moon.util.RandomUtil;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class CartController {
     private Logger LOG = LoggerFactory.getLogger(CartController.class);
 
     @Autowired
-    private CartService cartService;
+    private ICartService cartService;
     @Autowired
     private IProductService productService;
 

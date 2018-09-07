@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">400</stringProp>
+        <stringProp name="ThreadGroup.num_threads">300</stringProp>
         <stringProp name="ThreadGroup.ramp_time"></stringProp>
         <longProp name="ThreadGroup.start_time">1534761001000</longProp>
         <longProp name="ThreadGroup.end_time">1534761001000</longProp>
@@ -36,13 +36,17 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="req_url" elementType="Argument">
                   <stringProp name="Argument.name">req_url</stringProp>
-                  <stringProp name="Argument.value">http://192.168.1.111:8080/papa/cart/list2</stringProp>
+                  <stringProp name="Argument.value">http://slc11fsp.us.oracle.com:8080/papa/cart/list/2</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
             <stringProp name="classname">love.moon.load.jmeter.java.JHttpRequest100</stringProp>
           </JavaSampler>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="固定定时器" enabled="false">
+            <stringProp name="ConstantTimer.delay">3000</stringProp>
+          </ConstantTimer>
           <hashTree/>
         </hashTree>
         <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="聚合报告" enabled="true">

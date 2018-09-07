@@ -43,15 +43,15 @@ public class ClassReLoader extends ClassLoader {
     }
 
     public static void main(String[] args) {
-        try {
-            String path = "D:\\project\\moon\\milk\\target\\classes\\love\\moon\\reflect\\";
-            ClassReLoader reLoader = new ClassReLoader(path);
-            Class r = reLoader.findClass("Sample.class");
-            System.out.println(r.newInstance());
-            Class r2 = reLoader.findClass("Sample.class");
-            System.out.println(r2.newInstance());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String path = "D:\\project\\moon\\milk\\target\\classes\\love\\moon\\reflect\\";
+//            ClassReLoader reLoader = new ClassReLoader(path);
+//            Class r = reLoader.findClass("Sample.class");
+//            System.out.println(r.newInstance());
+//            Class r2 = reLoader.findClass("Sample.class");
+//            System.out.println(r2.newInstance());
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
     }
 }

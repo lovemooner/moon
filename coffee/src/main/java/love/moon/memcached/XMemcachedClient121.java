@@ -27,7 +27,7 @@ public class XMemcachedClient121 {
         if (!client.set("hello", 0, "world")) {
             System.err.println("set error");
         }
-        System.out.println(client.get("hello"));
+//        System.out.println(client.get("hello"));
         if (client.add("hello", 0, "dennis")) {
             System.err.println("Add error,key is existed");
         }
@@ -36,9 +36,9 @@ public class XMemcachedClient121 {
         }
         client.append("hello", " good");
         client.prepend("hello", "hello ");
-        System.out.println(client.get("hello"));
+//        System.out.println(client.get("hello"));
         client.deleteWithNoReply("hello");
-        System.out.println(client.get("hello"));
+//        System.out.println(client.get("hello"));
     }
 
     public void testCAS() throws InterruptedException, MemcachedException, TimeoutException {

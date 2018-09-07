@@ -8,7 +8,7 @@ import love.moon.spring.model.FundDTO;
  */
 public interface IFundService {
 
-    void initData();
+    void  initData();
 
     FundDTO mockHand();
 }

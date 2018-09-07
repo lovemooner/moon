@@ -31,7 +31,7 @@ import javax.management.remote.JMXServiceURL;
 
 
 public class ListenerDemo implements ServletContextListener {
-    private static final Logger LOG = LoggerFactory.getLogger(love.moon.web.context.DBConfigListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ListenerDemo.class);
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 

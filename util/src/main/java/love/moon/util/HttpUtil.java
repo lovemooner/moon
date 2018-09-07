@@ -14,10 +14,14 @@ import java.util.Map;
  */
 public class HttpUtil {
 
+    public static String sendGet(String url) {
+        return sendGet(url, null);
+    }
+
     public static String sendGet(String url, String param) {
         BufferedReader in = null;
 //        HttpURLConnection  connection=null;
-        HttpURLConnection  connection=null;
+        HttpURLConnection connection = null;
         StringBuilder result = new StringBuilder();
         try {
             if (param == null) {
@@ -26,7 +30,7 @@ public class HttpUtil {
             String urlNameString = url + "?" + param;
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
-             connection = (HttpURLConnection)realUrl.openConnection();
+            connection = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
@@ -37,9 +41,9 @@ public class HttpUtil {
             // 获取所有响应头字段
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
-            StringBuilder responseStr=new StringBuilder();
+            StringBuilder responseStr = new StringBuilder();
             for (String key : map.keySet()) {
-                responseStr.append (key + "--->" + map.get(key));
+                responseStr.append(key + "--->" + map.get(key));
             }
 //            System.out.println(responseStr.toString());
             // 定义 BufferedReader输入流来读取URL的响应
@@ -57,7 +61,7 @@ public class HttpUtil {
                 if (in != null) {
                     in.close();
                 }
-                if(connection!=null){
+                if (connection != null) {
                     connection.disconnect();
                 }
             } catch (Exception e2) {

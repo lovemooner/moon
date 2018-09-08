@@ -213,6 +213,7 @@
                     <server>tomcat7</server>
                     <systemProperties>
                         <JAVA_OPTS>-Xms1024m -Xmx1024m -Xss512K -XX:PermSize=64M -XX:MaxPermSize=128m
+                            -XX:+PrintCommandLineFlags -XX:+PrintFlagsFinal
                         </JAVA_OPTS>
                     </systemProperties>
                 </configuration>

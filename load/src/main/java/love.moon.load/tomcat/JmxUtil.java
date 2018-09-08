@@ -1,4 +1,4 @@
-package love.moon.util;
+package love.moon.load.tomcat;
 
 import javax.management.*;
 import javax.management.openmbean.CompositeDataSupport;
@@ -8,8 +8,6 @@ import javax.management.remote.JMXServiceURL;
 import java.io.IOException;
 import java.lang.management.*;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Author: lovemooner
@@ -193,8 +191,12 @@ public class JmxUtil {
         JMXServiceURL url = new JMXServiceURL(serviceURL);
         JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
         try {
-                JmxUtil.printMemoryMXBean(jmxc);
-            JmxUtil.garbageCollectorMXBean(jmxc);
+                try {
+                    JmxUtil.printMemoryMXBean(jmxc);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+//            JmxUtil.garbageCollectorMXBean(jmxc);
             JmxUtil.printThreadPool(jmxc);
         } finally {
             jmxc.close();

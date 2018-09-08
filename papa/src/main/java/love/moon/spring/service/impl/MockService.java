@@ -49,9 +49,28 @@ public class MockService implements IMockService {
 
     @Override
     public void maxThreadNum() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("=========== MemoryAgent ===========");
+                Long max = Runtime.getRuntime().maxMemory();
+                Long total = Runtime.getRuntime().totalMemory();
+                Long free = Runtime.getRuntime().freeMemory();
+                System.out.println("=========== MAX :"+max);
+                System.out.println("=========== TOTAL:"+total);
+                System.out.println("=========== FREE :"+free);
+            }
+        }).start();
+
          final AtomicInteger count = new AtomicInteger();
         while (true){
             (new MaxThreadNum(count)).start();
+            try {
+                Thread.sleep(10l);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

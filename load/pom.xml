@@ -17,7 +17,7 @@
         <spring.version>4.0.4.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mysql.jdbc.version>5.1.13</mysql.jdbc.version>
-        <build.output.directory>C:\Users\nadong\Desktop</build.output.directory>
+        <build.output.directory>C:\Users\nadong\Desktop\Jmx-tomcat</build.output.directory>
     </properties>
 
     <dependencies>
@@ -91,7 +91,7 @@
                         </goals>
                         <configuration>
                             <!-- ${project.build.directory}就是我们通常看到的target目录 -->
-                            <outputDirectory>${build.output.directory}/nioServer/lib</outputDirectory>
+                            <outputDirectory>${build.output.directory}/lib</outputDirectory>
                             <excludeTransitive>false</excludeTransitive>
                             <stripVersion>true</stripVersion>
                         </configuration>
@@ -108,9 +108,10 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <!--<mainClass>love.moon.load.jmeter.java.JHttpRequest100</mainClass>-->
                             <!--<mainClass>love.moon.load.nio.NioServer</mainClass>-->
+                            <mainClass>love.moon.load.tomcat.JmxUtil</mainClass>
                         </manifest>
                     </archive>
-                    <outputDirectory> ${build.output.directory}/nioServer</outputDirectory>
+                    <outputDirectory> ${build.output.directory}</outputDirectory>
                 </configuration>
             </plugin>
             <!--<plugin>-->

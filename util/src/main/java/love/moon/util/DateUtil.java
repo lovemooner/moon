@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -205,19 +206,14 @@ public class DateUtil {
         return sb.toString();
     }
 
-    public static long getQuot(String time1, String time2) {
-        long quot = 0;
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date1 = ft.parse(time1);
-            Date date2 = ft.parse(time2);
-            quot = date1.getTime() - date2.getTime();
-            quot = quot / 1000 / 60 / 60 / 24;
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return quot;
+    public static String getISO8601Time() {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+//        TimeZone tz = TimeZone.getTimeZone("Asia/Shanghai");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        return df.format(new Date());
     }
+
 
 
     //日期转换

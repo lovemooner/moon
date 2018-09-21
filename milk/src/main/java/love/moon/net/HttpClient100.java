@@ -5,7 +5,10 @@ package love.moon.net;
  * Date: 2018/8/29 17:34
  */
 
+import love.moon.common.HttpResponse;
 import love.moon.util.HttpUtil;
+
+import java.io.IOException;
 
 public class HttpClient100 {
 
@@ -21,8 +24,13 @@ public class HttpClient100 {
                 @Override
                 public void run() {
                     System.out.println(Thread.currentThread().getName()+" send...");
-                    String result = HttpUtil.sendGet(url);
-                    System.out.println("result:"+result);
+                    HttpResponse response = null;
+                    try {
+                        response = HttpUtil.sendGet(url);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("result:"+response.getContent());
                 }
             }).start();
         }

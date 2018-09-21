@@ -44,6 +44,14 @@ public class HttpUtil {
         return send(urlString, "GET", null, null);
     }
 
+    public static HttpResponse sendBrowserGet(String urlString) throws IOException {
+        Map<String,String> propertys=new HashMap<String, String>();
+        propertys.put("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36");
+        return send(urlString, "GET", null, propertys);
+    }
+
+
+
     /**
      * 发送GET请求
      *
@@ -357,7 +365,6 @@ public class HttpUtil {
             }
             urlString += param;
         }
-        LOG.info("http request,method is " + method + ",url={},params={}", urlString, parameters);
         URL url = new URL(urlString);
         urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -443,7 +450,6 @@ public class HttpUtil {
             httpResponse.setMethod(urlConnection.getRequestMethod());
             httpResponse.setConnectTimeout(urlConnection.getConnectTimeout());
             httpResponse.setReadTimeout(urlConnection.getReadTimeout());
-            LOG.info("HttpUtils response:{}", httpResponse.getContent());
             return httpResponse;
         } catch (IOException e) {
             throw e;

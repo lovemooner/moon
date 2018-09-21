@@ -19,7 +19,7 @@ public class HttpServer100 {
 
     static class TestHandler implements HttpHandler {
         @Override
-        public void handle(HttpExchange exchange) throws IOException {
+        public void handle(final HttpExchange exchange) throws IOException {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

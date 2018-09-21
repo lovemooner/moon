@@ -1,5 +1,6 @@
 package love.moon.spring.controller;
 
+import love.moon.common.HttpResponse;
 import love.moon.spring.model.FundDTO;
 import love.moon.spring.model.User;
 import love.moon.spring.service.IFundService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -71,11 +73,11 @@ public class MainController {
 
     @RequestMapping(value = "/mockBlockRequest1", method = RequestMethod.GET)
     @ResponseBody
-    public String mockBlockRequest1(@PathVariable int param) {
+    public String mockBlockRequest1(@PathVariable int param) throws IOException {
         String url = "http://192.168.1.107:8001/test";
-        String result = HttpUtil.sendGet(url);
-        System.out.println(result);
-        return "mockBlockRequest1 response:" + result;
+        HttpResponse response = HttpUtil.sendGet(url);
+        System.out.println(response.getContent());
+        return "mockBlockRequest1 response:" + response.getContent();
     }
 
     @RequestMapping(value = "/mockBlockRequest2/{param}", method = RequestMethod.GET)

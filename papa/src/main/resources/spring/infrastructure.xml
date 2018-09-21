@@ -106,7 +106,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut id="bizMethods" expression="execution(* love.moon.spring.service1.*.*(..))"/>
+        <aop:pointcut id="bizMethods" expression="execution(* love.moon.spring.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>
     </aop:config>
 

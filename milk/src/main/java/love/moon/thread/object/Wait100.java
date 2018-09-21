@@ -3,7 +3,7 @@ package love.moon.thread.object;
 public class Wait100 {
 
     public static void main(String[] args) {
-        Wait100 wait100=new Wait100();
+        final Wait100 wait100=new Wait100();
         for(int i=0;i<2;i++){
             new Thread(new Runnable() {
                 @Override

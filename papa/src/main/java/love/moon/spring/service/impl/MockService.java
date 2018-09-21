@@ -1,9 +1,11 @@
 package love.moon.spring.service.impl;
 
+import love.moon.common.HttpResponse;
 import love.moon.spring.service.IMockService;
 import love.moon.util.HttpUtil;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -21,8 +23,12 @@ public class MockService implements IMockService {
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    String result = HttpUtil.sendGet(url);
-                    System.out.println(result);
+                    try {
+                        HttpResponse response = HttpUtil.sendGet(url);
+                        System.out.println(response.getContent());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }

@@ -22,5 +22,8 @@ public class ThreadExtends extends Thread {
         t.start();
         ThreadExtends t2=new ThreadExtends();
         t2.start();
+
+
+
     }
 }

@@ -7,11 +7,12 @@ import love.moon.spring.model.HomeIP;
 import love.moon.spring.service.IHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +38,19 @@ public class HomeController {
         }
         return null;
     }
+
+
+//    @ResponseBody
+//    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+//    public String upload1(HttpServletRequest request, HttpServletResponse response,
+//                          MultipartFile files) throws IOException {
+//        System.out.println("upload");
+////        String fileName = files[0].getOriginalFilename();
+////
+////        String path="C:\\Users\\nadong\\Desktop\\"+fileName;
+////        uploadFile.transferTo(new File(path));
+//        return "aa";
+//    }
+
 
 }

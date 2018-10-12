@@ -86,6 +86,16 @@
     <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>love.moon.servlet.UploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/home/upload</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>monitoring</filter-name>
         <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>

@@ -11,7 +11,7 @@ public class ThreadRunnable implements Runnable{
 
     public static void main(String[]args){
         ThreadRunnable tt = new ThreadRunnable();
-        Thread t = new Thread(tt);
+        Thread t = new Thread(tt,"test");
         t.start();
     }
 }

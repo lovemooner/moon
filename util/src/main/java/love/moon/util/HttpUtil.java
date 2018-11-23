@@ -50,6 +50,12 @@ public class HttpUtil {
         return send(urlString, "GET", null, propertys);
     }
 
+    public static HttpResponse sendChromeGet(String urlString) throws IOException {
+        Map<String,String> propertys=new HashMap<String, String>();
+        propertys.put("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36");
+        return send(urlString, "GET", null, propertys);
+    }
+
 
 
     /**

@@ -96,7 +96,8 @@ public class MainController {
 
     @RequestMapping("")
     public String home() {
-        return "index";
+//        return "index";
+        return "redirect:https://www.google.com" ;
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)

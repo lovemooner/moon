@@ -22,7 +22,7 @@ public class ThreadPoolMonitor101 {
             @Override
             public void run() {
                 while (true) {
-                    ThreadPoolMonitor100.status(executor);
+                    ThreadPoolMonitor100.startMonitor(executor,1000l);
                     try {
                         Thread.sleep(100L);
                     } catch (InterruptedException e) {

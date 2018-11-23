@@ -214,6 +214,12 @@ public class DateUtil {
         return df.format(new Date());
     }
 
+    public static String getChinaTime(){
+        TimeZone tz = TimeZone.getTimeZone("Asia/Shanghai");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        df.setTimeZone(tz);
+        return df.format(new Date());
+    }
 
 
     //日期转换
@@ -1309,6 +1315,17 @@ public class DateUtil {
         c.add(Calendar.DATE, n);//天后的日期
         Date date_ = new Date(c.getTimeInMillis()); //将c转换成Date
         return DateUtil.convertDateStringToDateLong("yyyy-MM-dd HH:mm:ss", formatDate.format(date_));
+    }
+
+    public static long getTimeMillisByHourOfDay(int HourOfDay){
+        TimeZone curTimeZone = TimeZone.getTimeZone("GMT+8");
+        Calendar calendar = Calendar.getInstance(curTimeZone);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, HourOfDay);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
     }
 
 }

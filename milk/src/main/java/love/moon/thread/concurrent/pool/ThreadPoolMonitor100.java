@@ -13,6 +13,8 @@ public class ThreadPoolMonitor100 {
 
 
     public static void configInfo(ExecutorService executor) {
+
+
         long keepAliveTime = ((ThreadPoolExecutor) executor).getKeepAliveTime(TimeUnit.MILLISECONDS);
         int poolSize = ((ThreadPoolExecutor) executor).getPoolSize();
         int getCorePoolSize = ((ThreadPoolExecutor) executor).getCorePoolSize();
@@ -21,17 +23,27 @@ public class ThreadPoolMonitor100 {
     }
 
 
-    public static void status(ExecutorService executor) {
-
-
-        int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();
-        int queueSize = ((ThreadPoolExecutor) executor).getQueue().size();
-        long completedTaskCount = ((ThreadPoolExecutor) executor).getCompletedTaskCount();
-        long task = ((ThreadPoolExecutor) executor).getTaskCount();
-        System.out.println("排队线程数:" + queueSize
-                + ",活动线程数:" + activeCount
-                + ",执行完成线程数:" + completedTaskCount)
-        ;
+    public static void startMonitor(ExecutorService executor,long millis) {
+       new Thread(new Runnable() {
+           @Override
+           public void run() {
+               while (true){
+                   int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();
+                   int queueSize = ((ThreadPoolExecutor) executor).getQueue().size();
+                   long completedTaskCount = ((ThreadPoolExecutor) executor).getCompletedTaskCount();
+                   long task = ((ThreadPoolExecutor) executor).getTaskCount();
+                   System.out.println("排队线程数:" + queueSize
+                           + ",活动线程数:" + activeCount
+                           + ",执行完成线程数:" + completedTaskCount)
+                   ;
+                   try {
+                       Thread.sleep(millis);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+               }
+           }
+       }).start();
     }
 
     public static void main(String[] args) {

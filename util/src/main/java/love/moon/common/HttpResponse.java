@@ -32,6 +32,10 @@ public class HttpResponse {
     private int readTimeout;
     private Vector<String> contentCollection;
 
+    public HttpResponse(){}
+
+    public HttpResponse(int code){ this.code=code;}
+
     public String getUrlString() {
         return urlString;
     }

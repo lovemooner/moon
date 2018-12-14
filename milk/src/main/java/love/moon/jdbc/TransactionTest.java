@@ -26,7 +26,7 @@ public class TransactionTest {
 
     private void printData(int id) throws SQLException {
         Connection queryConnection = connectionMap.get("query");
-        String updateSQL = "select ID,USER_NAME from CA_USER  where ID= ?";
+        String updateSQL = "select ID,USER_NAME from ca_user  where ID= ?";
         PreparedStatement pStmt = queryConnection.prepareStatement(updateSQL);
         pStmt.setInt(1, id);
         ResultSet rs = pStmt.executeQuery();
@@ -66,7 +66,7 @@ public class TransactionTest {
         try {
              updateConnection =connectionMap.get("update");
             updateConnection.setAutoCommit(false);
-            String updateSQL = "update CA_USER set USER_NAME= ? where ID= ?";
+            String updateSQL = "update ca_user set USER_NAME= ? where ID= ?";
             pStmt = updateConnection.prepareStatement(updateSQL);
             pStmt.setString(1, "nan2");
             pStmt.setObject(2, 1000);
@@ -121,9 +121,9 @@ public class TransactionTest {
     }
 
     public static void main(String[] args) throws Exception {
-        String URL = "jdbc:mysql://localhost:3306/test";
+        String URL = "jdbc:mysql://slc11fsp.us.oracle.com:3306/bigdata";
         String NAME = "root";
-        String PASSWORD = "root";
+        String PASSWORD = "123456";
         TransactionTest j = new TransactionTest(URL,NAME,PASSWORD);
         j.testIsolation();
     }

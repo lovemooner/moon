@@ -42,7 +42,7 @@ public class ThreadPoolExecutor100 {
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
-            cachedThreadPool.submit(new Runnable() {   //复用执行第一个任务的线程
+            cachedThreadPool.execute(new Runnable() {   //复用执行第一个任务的线程
                 public void run() {
                     System.out.println(Thread.currentThread().getName() + ":Hi");
                 }
@@ -90,8 +90,8 @@ public class ThreadPoolExecutor100 {
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPoolExecutor100 pool = new ThreadPoolExecutor100();
-//        pool.testCachedThreadPool();
-        pool.testFixedThreadPool();
+        pool.testCachedThreadPool();
+//        pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
 //        pool.testSingleThreadExecutor();
     }

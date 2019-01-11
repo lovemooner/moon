@@ -32,6 +32,7 @@
     </bean>
 
 
+    <context:component-scan base-package="love.moon.spring.template"/>
 
 
 </beans>

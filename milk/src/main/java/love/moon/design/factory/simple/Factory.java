@@ -1,19 +1,19 @@
 package love.moon.design.factory.simple;
 
-import love.moon.design.factory.IProduct;
-import love.moon.design.factory.ProductA;
-import love.moon.design.factory.ProductB;
+import love.moon.design.factory.BusinessA;
+import love.moon.design.factory.BusinessB;
+import love.moon.design.factory.IBusiness;
 
 public class Factory {
 
-    public static IProduct create(String type) {
-        IProduct product = null;
+    public static IBusiness create(String type) {
         if ("A".equals(type)) {
-            product = new ProductA();
+            return new BusinessA();
         } else if ("B".equals(type)) {
-            product = new ProductB();
+            return new BusinessB();
+        } else {
+            return null;
         }
-        return product;
-
     }
+
 }

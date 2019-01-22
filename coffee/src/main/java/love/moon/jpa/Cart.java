@@ -1,6 +1,5 @@
 package love.moon.jpa;
 
-import love.moon.spring.model.base.LongIdentifier;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

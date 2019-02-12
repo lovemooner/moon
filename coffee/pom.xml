@@ -15,9 +15,24 @@
         <spring.version>4.0.4.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mysql.jdbc.version>5.1.13</mysql.jdbc.version>
+        <disruptor.version>3.4.0</disruptor.version>
     </properties>
 
     <dependencies>
+
+        <!--kafka-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.12</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!--disruptor-->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>${disruptor.version}</version>
+        </dependency>
         <!--mybatis-->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -59,7 +74,7 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- springframe end -->
-         <!--hibernate-->
+        <!--hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>

@@ -1,11 +1,11 @@
 package love.moon.design.factory.factoryMethod;
 
-import love.moon.design.factory.IProduct;
-import love.moon.design.factory.ProductB;
+import love.moon.design.factory.BusinessB;
+import love.moon.design.factory.IBusiness;
 
 public class FactoryB implements IFactory {
 
-    public IProduct create() {
-        return new ProductB();
+    public IBusiness create() {
+        return new BusinessB();
     }
 }

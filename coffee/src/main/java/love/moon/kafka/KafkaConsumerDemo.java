@@ -12,7 +12,7 @@ public class KafkaConsumerDemo {
 
     private KafkaConsumerDemo() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "slc11fsp.us.oracle.com:9092");
+        props.put("bootstrap.servers", KafkaConstants.BOOTSTRAP_SERVERS);
         props.put("group.id", "test");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
@@ -22,7 +22,7 @@ public class KafkaConsumerDemo {
     }
 
     void consume() {
-        consumer.subscribe(Arrays.asList(KafkaProducerDemo.TOPIC));
+        consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC1));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)

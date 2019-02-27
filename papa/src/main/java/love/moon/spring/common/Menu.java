@@ -112,24 +112,25 @@ public class Menu {
     }
 
 
-    public void build(List<Menu> menuList) {
-        //add child menu
+    public List<Menu> getChild(long menuId,List<Menu> menuList) {
+        List<Menu> childList = new ArrayList<Menu>();
         for (Menu menu : menuList) {
-            if (menu.getParentId().equals(this.getMenuId())) {
-                this.getChildren().add(menu);
+            if (menu.getParentId().equals(menuId)) {
+                childList.add(menu);
             }
         }
         //递归终止条件
-        if (CollectionUtils.isEmpty(this.getChildren())) {
-            return;
+        if (childList.size()==0) {
+            return null;
         }
         //开始递归
-        for (Menu menu : this.getChildren()) {
-            menu.build(menuList);
+        for (Menu menu : childList) {
+            menu.setChildren(menu.getChild(menu.getMenuId(),menuList));
         }
+        return childList;
     }
 
-    public static void main(String[] args) {
+    public void buildMenu() {
         List<Menu> allMenus = new ArrayList<Menu>();//dao.getAllMenus();
         List<Menu> parents = new ArrayList<Menu>();
         //find all 1 level menu
@@ -139,7 +140,7 @@ public class Menu {
             }
         }
         for (Menu menu : parents) {
-            menu.build(allMenus);
+            menu.setChildren(getChild(menu.getMenuId(),allMenus));
         }
 
     }

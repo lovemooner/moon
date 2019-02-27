@@ -1,6 +1,7 @@
 package love.moon.kafka.transaction;
 
 import kafka.common.KafkaException;
+import love.moon.kafka.KafkaConstants;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.errors.ProducerFencedException;
 
@@ -8,14 +9,13 @@ import java.util.Properties;
 
 public class ProducerTransactionalExample {
 
-    public final static String TOPIC = "KAFKA_TRANSACTION1";
 
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("client.id", "ProducerTransactionalExample");
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", KafkaConstants.BOOTSTRAP_SERVERS);
         props.put("transactional.id", "test-transactional");
         props.put("acks", "all");
         KafkaProducer producer = new KafkaProducer(props);
@@ -23,9 +23,10 @@ public class ProducerTransactionalExample {
         try {
             String msg = "matt test";
             producer.beginTransaction();
-            producer.send(new ProducerRecord(TOPIC, "0", msg.toString()));
-            producer.send(new ProducerRecord(TOPIC, "1", msg.toString()));
-            producer.send(new ProducerRecord(TOPIC, "2", msg.toString()));
+            //send to multi topics
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "0", msg.toString()));
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "1", msg.toString()));
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "2", msg.toString()));
             producer.commitTransaction();
         } catch (ProducerFencedException e1) {
             e1.printStackTrace();

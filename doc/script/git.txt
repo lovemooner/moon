@@ -1,0 +1,33 @@
+Clone git clone https://github.com/lovemooner/moon.git
+Branch 
+本地分支：git branch。【-a】 切换分支：git checkout branchName
+
+Commit
+git commit -a
+git push origin master
+git push origin HEAD:refs/for/reserved (or other branch you wish to push, start with refs/for/)（push内容在其他库并非立即可见）
+
+撤销本地修改 git checkout filename
+删除文件 git rm filename (-r 文件夹)
+
+git log
+--stat 加stat，仅显示修改的文件)
+查看单个文件
+git log <filename> 查看所有commit历史(包括本地未push到库里的)
+--pretty=oneline  pretty
+-n 显示最后的几次提交日志
+-p 详细包括diff内容
+
+Config
+查看当前配置 git config –list
+配置：git config [--global] user.email "[email address]"
+设置proxy：git config --global https.proxy http://127.0.0.1:1080
+system级别 /global（用户级别）/local（当前仓库）三个 设置先从system-》global-》local  
+删除 git config --global --unset https.proxy
+remote
+git remote set-url origin [url]
+
+
+
+
+-- INSERT --

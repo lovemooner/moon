@@ -24,11 +24,7 @@ public class EventSource {
     public static void main(String[] args) {
         EventSource ds = new EventSource();
         //将监听器在事件源对象中登记：
-        ds.addDemoListener(new DemoListener() {
-            public void handleEvent(DemoEvent event) {
-                System.out.println("Method come from 匿名类...");
-            }
-        });
+        ds.addDemoListener(event -> System.out.println("Method come from 匿名类..."));
         ds.notifyDemoEvent();//触发事件、通知监听器
     }
 }

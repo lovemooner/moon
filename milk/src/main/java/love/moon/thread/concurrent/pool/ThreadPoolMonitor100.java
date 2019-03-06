@@ -24,9 +24,7 @@ public class ThreadPoolMonitor100 {
 
 
     public static void startMonitor(ExecutorService executor,long millis) {
-       new Thread(new Runnable() {
-           @Override
-           public void run() {
+       new Thread(()->{
                while (true){
                    int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();
                    int queueSize = ((ThreadPoolExecutor) executor).getQueue().size();
@@ -42,7 +40,6 @@ public class ThreadPoolMonitor100 {
                        e.printStackTrace();
                    }
                }
-           }
        }).start();
     }
 

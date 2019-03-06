@@ -1,5 +1,6 @@
 package love.moon.java8.lambda;
 
+import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -16,6 +17,9 @@ public class LambdaBuildIn200 {
         //Supplier
         Supplier<Integer> supplier = () -> "www.w3cschool.cn".length();
         System.out.println(supplier.get());
+        //Consumer
+        Consumer<String> consumer = str -> str.length();
+        consumer.accept("test");
 
     }
 

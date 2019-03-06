@@ -19,15 +19,13 @@ public class ThreadPoolExecutor100 {
     public void testFixedThreadPool() throws InterruptedException {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 50; i++) {
-            fixedThreadPool.execute(new Runnable() {   //复用执行第一个任务的线程
-                public void run() {
+            fixedThreadPool.execute(()->{
                     System.out.println(Thread.currentThread().getName() + ":Hi");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
             });
         }
         System.out.println("end===================");

@@ -9,25 +9,18 @@ import redis.clients.jedis.Jedis;
 
 @SuppressWarnings("resource")
 public class JedisTest {
-    private static final String HASH_KEY = "key";
+    private static final String HASH_KEY = "_key";
 
     public static void main(String[] args) {
         Jedis jedis = new Jedis("slc11fsp.us.oracle.com", 6379);
-        /**
-         * 存储String key-value
-         */
+
         jedis.set(HASH_KEY, "value-nan");
-        /**
-         * 如果已经存在key了，先删除掉
-         */
         if (jedis.exists(HASH_KEY)) {
             System.out.println(jedis.get(HASH_KEY));
             jedis.del(HASH_KEY);
         }
 
-        /**
-         * 存入单个key-value
-         */
+
         jedis.hset(HASH_KEY, "username", "yourUsername");
 
         /**

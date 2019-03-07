@@ -34,7 +34,7 @@ public class Reactor {
 
     private boolean selectable = false;
 
-    Reactor() throws IOException, InterruptedException {
+    Reactor()  {
         this.pool = new Processor[DEFAULT_SIZE];
         for (int i = 0; i < pool.length; i++) {
 //            pool[i] = new Processor();

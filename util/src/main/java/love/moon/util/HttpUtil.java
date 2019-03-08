@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,22 +42,21 @@ public class HttpUtil {
      * @return 响应对象
      * @throws IOException
      */
-    public static HttpResponse sendGet(String urlString) throws IOException {
+    public static HttpResponse sendGet(String urlString) {
         return send(urlString, "GET", null, null);
     }
 
-    public static HttpResponse sendBrowserGet(String urlString) throws IOException {
-        Map<String,String> propertys=new HashMap<String, String>();
+    public static HttpResponse sendBrowserGet(String urlString) {
+        Map<String, String> propertys = new HashMap<String, String>();
         propertys.put("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36");
         return send(urlString, "GET", null, propertys);
     }
 
-    public static HttpResponse sendChromeGet(String urlString) throws IOException {
-        Map<String,String> propertys=new HashMap<String, String>();
+    public static HttpResponse sendChromeGet(String urlString) {
+        Map<String, String> propertys = new HashMap<String, String>();
         propertys.put("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36");
         return send(urlString, "GET", null, propertys);
     }
-
 
 
     /**
@@ -84,9 +85,6 @@ public class HttpUtil {
                                        Map<String, String> propertys) throws IOException {
         return send(urlString, "GET", params, propertys);
     }
-
-
-
 
 
     /**
@@ -356,7 +354,7 @@ public class HttpUtil {
      * @throws IOException
      */
     public static HttpResponse send(String urlString, String method,
-                                     Map<String, Object> parameters, Map<String, String> propertys) throws IOException {
+                                    Map<String, Object> parameters, Map<String, String> propertys) {
         HttpURLConnection urlConnection = null;
         if (method.equalsIgnoreCase("GET") && parameters != null) {
             StringBuffer param = new StringBuffer();
@@ -371,10 +369,17 @@ public class HttpUtil {
             }
             urlString += param;
         }
-        URL url = new URL(urlString);
-        urlConnection = (HttpURLConnection) url.openConnection();
+        URL url = null;
+        try {
+            url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod(method);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        urlConnection.setRequestMethod(method);
         urlConnection.setDoOutput(true);
         urlConnection.setDoInput(true);
         urlConnection.setUseCaches(false);
@@ -407,9 +412,14 @@ public class HttpUtil {
 //        }
 //        param.append("}");
             }
-            urlConnection.getOutputStream().write(param.toString().getBytes("UTF-8"));
-            urlConnection.getOutputStream().flush();
-            urlConnection.getOutputStream().close();
+            try {
+                urlConnection.getOutputStream().write(param.toString().getBytes("UTF-8"));
+                urlConnection.getOutputStream().flush();
+                urlConnection.getOutputStream().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         return getContent(urlString, urlConnection);
     }
@@ -421,7 +431,7 @@ public class HttpUtil {
      * @return 响应对象
      * @throws IOException
      */
-    private static HttpResponse getContent(String urlString, HttpURLConnection urlConnection) throws IOException {
+    private static HttpResponse getContent(String urlString, HttpURLConnection urlConnection) {
         HttpResponse httpResponse = new HttpResponse();
         try {
             InputStream in = urlConnection.getInputStream();
@@ -458,7 +468,7 @@ public class HttpUtil {
             httpResponse.setReadTimeout(urlConnection.getReadTimeout());
             return httpResponse;
         } catch (IOException e) {
-            throw e;
+            throw new RuntimeException(e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

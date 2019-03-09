@@ -28,7 +28,7 @@ public class BioServer {
 
     public BioServer() throws IOException {
         serverSocket = new ServerSocket();
-        serverSocket.bind(new InetSocketAddress(IOConfig.PORT));
+        serverSocket.bind(new InetSocketAddress(IOConfig.PORT),1);
         LOG.info("Server is  started at PORT:{}",IOConfig.PORT);
     }
 

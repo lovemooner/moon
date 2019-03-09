@@ -35,7 +35,7 @@ public class NIOServer {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(true);
-        serverSocketChannel.bind(new InetSocketAddress(port));
+        serverSocketChannel.bind(new InetSocketAddress(port),10);
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }

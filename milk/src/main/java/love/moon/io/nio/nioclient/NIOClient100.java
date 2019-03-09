@@ -69,28 +69,17 @@ public class NIOClient100 extends AbstractConfig {
                }
            }).start();
         } else if (selectionKey.isReadable()) {
-            socketChannel = (SocketChannel) selectionKey.channel();
+            SocketChannel channel = (SocketChannel) selectionKey.channel();
             //将缓冲区清空以备下次读取
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             //读取服务器发送来的数据到缓冲区中
-            int count = socketChannel.read(buffer);
+            int count = channel.read(buffer);
             if (count > 0) {
                 String receiveText = new String(buffer.array(), 0, count);
                 System.out.println("Client->Receive:" + receiveText);
             }
 
         }
-//        else if (selectionKey.isWritable()) {
-//            ByteBuffer buffer = ByteBuffer.allocate(1024);
-//            SocketChannel client = (SocketChannel) selectionKey.channel();
-//            String sendText = "message from client--" + (flag++)+"\r\n";
-//            buffer.put(sendText.getBytes());
-//            //将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位
-//            buffer.flip();
-//            client.write(buffer);
-//            System.out.println("client：" + sendText);
-//            client.register(selector, SelectionKey.OP_READ);
-//        }
     }
 
     public void execute() throws IOException, InterruptedException {

@@ -34,13 +34,9 @@ public class NIOServer {
     public NIOServer(int port) throws IOException {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-<<<<<<< Updated upstream:milk/src/main/java/love/moon/io/nio/demo/NIOServer.java
-        serverSocketChannel.configureBlocking(true);
-        serverSocketChannel.bind(new InetSocketAddress(port),10);
-=======
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress(port));
->>>>>>> Stashed changes:milk/src/main/java/love/moon/io/nio/nioServer/NIOServer.java
+
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }
@@ -62,13 +58,13 @@ public class NIOServer {
             ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) selectionKey.channel();
             SocketChannel socketChannel = acceptServerSocketChannel.accept();
             socketChannel.configureBlocking(false);
-//            LOGGER.info("Accept request from {}" , socketChannel.getRemoteAddress());
+            LOGGER.info("Accept request from {}" , socketChannel.getRemoteAddress());
             LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
             socketChannel.register(selector, SelectionKey.OP_READ);
             LOGGER.info("isAcceptable:"+ selectionKey.isAcceptable()+" isReadable:"+selectionKey.isReadable());
         } else if (selectionKey.isReadable()) {
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-            ByteBuffer buffer = ByteBuffer.allocate(5);
+            ByteBuffer buffer = ByteBuffer.allocate(500);
             int count = socketChannel.read(buffer);
             if (count <= 0) {
                 socketChannel.close();

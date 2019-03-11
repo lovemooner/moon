@@ -20,14 +20,11 @@ public class HttpClient100 {
 
     public static void main(String[] args)  {
         for (int i = 0; i < 1; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println(Thread.currentThread().getName()+" send...");
-                    HttpResponse response = null;
-                    response = HttpUtil.sendGet(url);
-                    System.out.println("result:"+response.getContent());
-                }
+            new Thread(() -> {
+                System.out.println(Thread.currentThread().getName()+" send...");
+                HttpResponse response = null;
+                response = HttpUtil.sendGet(url);
+                System.out.println("result:"+response.getContent());
             }).start();
         }
     }

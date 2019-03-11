@@ -18,10 +18,9 @@ public class BlockClient {
     public static void main(String[] args) {
         try {
             SocketChannel socketChannel = SocketChannel.open();
-            socketChannel.connect(new InetSocketAddress(IOConfig.HOST, IOConfig.PORT));
-
+            socketChannel.connect(new InetSocketAddress("localhost", IOConfig.PORT));
             socketChannel.configureBlocking(true);
-
+            //write
             ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
             writeBuffer.put("hello world11111111111111111!".getBytes());
             writeBuffer.flip();

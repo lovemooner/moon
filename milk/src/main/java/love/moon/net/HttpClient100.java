@@ -25,11 +25,7 @@ public class HttpClient100 {
                 public void run() {
                     System.out.println(Thread.currentThread().getName()+" send...");
                     HttpResponse response = null;
-                    try {
-                        response = HttpUtil.sendGet(url);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    response = HttpUtil.sendGet(url);
                     System.out.println("result:"+response.getContent());
                 }
             }).start();

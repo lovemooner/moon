@@ -1,4 +1,4 @@
-package love.moon.io.nio.demo;
+package love.moon.io.nio.nioServer;
 
 import love.moon.io.IOConfig;
 import org.slf4j.Logger;
@@ -34,8 +34,13 @@ public class NIOServer {
     public NIOServer(int port) throws IOException {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+<<<<<<< Updated upstream:milk/src/main/java/love/moon/io/nio/demo/NIOServer.java
         serverSocketChannel.configureBlocking(true);
         serverSocketChannel.bind(new InetSocketAddress(port),10);
+=======
+        serverSocketChannel.configureBlocking(false);
+        serverSocketChannel.bind(new InetSocketAddress(port));
+>>>>>>> Stashed changes:milk/src/main/java/love/moon/io/nio/nioServer/NIOServer.java
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         LOGGER.info("Server: Start at port: {}",port);
     }

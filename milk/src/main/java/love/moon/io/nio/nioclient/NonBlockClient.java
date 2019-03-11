@@ -1,4 +1,4 @@
-package love.moon.io.nio.demo;
+package love.moon.io.nio.nioclient;
 
 /**
  * User: lovemooner
@@ -7,7 +7,7 @@ package love.moon.io.nio.demo;
  */
 
 
-import love.moon.io.nio.AbstractConfig;
+import love.moon.io.IOConfig;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -18,15 +18,13 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-import static love.moon.io.nio.reactor.Reactor.PORT;
-
-public class NIOClient extends AbstractConfig {
+public class NonBlockClient {
 
 
     private SocketChannel socketChannel;
     private Selector selector;
 
-    public NIOClient(int port) throws IOException {
+    public NonBlockClient(int port) throws IOException {
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.configureBlocking(false);
         selector = Selector.open();
@@ -41,7 +39,7 @@ public class NIOClient extends AbstractConfig {
      * @param selectionKey
      * @throws IOException
      */
-    private void handleKey(SelectionKey selectionKey) throws IOException, InterruptedException {
+    private void dispatch(SelectionKey selectionKey) throws IOException, InterruptedException {
         if (selectionKey.isConnectable()) {
             System.out.println("client connect");
             socketChannel = (SocketChannel) selectionKey.channel();
@@ -83,38 +81,35 @@ public class NIOClient extends AbstractConfig {
 //        }
     }
 
-    public void execute() throws IOException, InterruptedException {
+    protected int flag = 0;
+
+    protected void sendMsg(SocketChannel sc) throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        String sendText = Thread.currentThread().getName() + "-" + (flag++) + " \r\n";
+        buffer.put(sendText.getBytes());
+        //将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位
+        buffer.flip();
+        sc.write(buffer);
+    }
+
+    public void listen() throws IOException, InterruptedException {
         while (true) {
-            int val= selector.select();
-           if(val>0){
-               Set<SelectionKey> selectionKeys = selector.selectedKeys();
-               Iterator<SelectionKey> iterator = selectionKeys.iterator();
-               while (iterator.hasNext()) {
-                   SelectionKey selectionKey = iterator.next();
-                   handleKey(selectionKey);
-                   iterator.remove();
-               }
-           }
+            int val = selector.select();
+            if (val > 0) {
+                Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                while (iterator.hasNext()) {
+                    SelectionKey selectionKey = iterator.next();
+                    dispatch(selectionKey);
+                    iterator.remove();
+                }
+            }
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        for (int i = 0; i < 1; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    NIOClient client = null;
-                    try {
-                        client = new NIOClient(PORT);
-                        client.execute();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        NonBlockClient client = new NonBlockClient(IOConfig.PORT);
+        client.listen();
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
     }
 }

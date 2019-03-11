@@ -23,12 +23,8 @@ public class MockService implements IMockService {
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        HttpResponse response = HttpUtil.sendGet(url);
-                        System.out.println(response.getContent());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    HttpResponse response = HttpUtil.sendGet(url);
+                    System.out.println(response.getContent());
                 }
             });
         }

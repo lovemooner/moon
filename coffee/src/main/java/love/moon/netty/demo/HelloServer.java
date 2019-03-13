@@ -20,7 +20,7 @@ public class HelloServer {
         // 设置一个处理客户端消息和各种消息事件的类(Handler)
         bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
             @Override
-            public ChannelPipeline getPipeline() throws Exception {
+            public ChannelPipeline getPipeline()   {
                 return Channels.pipeline(new HelloServerHandler());
             }
         });

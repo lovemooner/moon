@@ -27,13 +27,13 @@ public class HttpServer100 {
 //                map.put(socket.hashCode(),socket);
             System.out.println("build a new tcp link with client,the cient address:" +
                     socket.getInetAddress() + ":" + socket.getPort());
-//                new Thread(()->{
-            try {
-                service(socket);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-//                }).start();
+            new Thread(() -> {
+                try {
+                    service(socket);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
 
     }
@@ -44,6 +44,13 @@ public class HttpServer100 {
         int count = inputStream.available();
         if (count == 0) {
             System.out.println("error.....");
+            StringBuilder sb = new StringBuilder();
+            sb.append("HTTP/1.1 200 OK\r\n");
+            sb.append("Content-Type:text/html" + "\r\n");
+            sb.append("Content-Length:0" + "\r\n");
+            sb.append("\r\n");
+            OutputStream out = socket.getOutputStream();
+            out.write(sb.toString().getBytes());
             socket.close();
             return;
         }

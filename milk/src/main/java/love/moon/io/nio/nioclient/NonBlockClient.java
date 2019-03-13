@@ -22,18 +22,20 @@ public class NonBlockClient {
 
 
     private SocketChannel socketChannel;
-    private Selector selector;
+    private static Selector selector;
 
-    public NonBlockClient(int port) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.configureBlocking(false);
         selector = Selector.open();
         // 注册连接服务端socket动作
         socketChannel.register(selector, SelectionKey.OP_CONNECT);
-        InetSocketAddress SERVER_ADDRESS = new InetSocketAddress("localhost", port);
+        InetSocketAddress SERVER_ADDRESS = new InetSocketAddress("localhost", IOConfig.PORT);
         socketChannel.connect(SERVER_ADDRESS);
-    }
+        NonBlockClient client = new NonBlockClient();
+        client.listen();
 
+    }
 
     /**
      * @param selectionKey
@@ -45,17 +47,22 @@ public class NonBlockClient {
             socketChannel = (SocketChannel) selectionKey.channel();
             if (socketChannel.isConnectionPending()) {
                 socketChannel.finishConnect();
-                System.out.println("完成连接!");
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 buffer.put("Hello,Server；".getBytes());
                 buffer.flip();
                 socketChannel.write(buffer);
             }
             socketChannel.register(selector, SelectionKey.OP_READ);
-            while (true) {
-                sendMsg(socketChannel);
-                Thread.sleep(2000l);
-            }
+//            new Thread(() -> {
+//                while (true) {
+//                    try {
+//                        sendMsg(socketChannel);
+//                        Thread.sleep(2000l);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
         } else if (selectionKey.isReadable()) {
             socketChannel = (SocketChannel) selectionKey.channel();
             //将缓冲区清空以备下次读取
@@ -87,7 +94,6 @@ public class NonBlockClient {
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         String sendText = Thread.currentThread().getName() + "-" + (flag++) + " \r\n";
         buffer.put(sendText.getBytes());
-        //将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位
         buffer.flip();
         sc.write(buffer);
     }
@@ -107,9 +113,5 @@ public class NonBlockClient {
         }
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        NonBlockClient client = new NonBlockClient(IOConfig.PORT);
-        client.listen();
 
-    }
 }

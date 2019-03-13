@@ -22,11 +22,8 @@ import java.util.Set;
  * Time: 下午5:25
  */
 public class NIOServer100 {
-    private static Logger LOGGER = LoggerFactory.getLogger(NIOServer100.class);
-    /*标识数字*/
-    private static int flag = 0;
     /*缓冲区大小*/
-    private static int BLOCK = 4;
+    private static int BLOCK = 100;
     /*接受数据缓冲区*/
     private static ByteBuffer sendBuffer = ByteBuffer.allocate(BLOCK);
 
@@ -38,7 +35,7 @@ public class NIOServer100 {
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress(port));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        LOGGER.info("Server: Start at port: {}", port);
+        System.out.println("Server: Start at port:" + port);
     }
 
     private void listen() throws IOException {
@@ -54,19 +51,30 @@ public class NIOServer100 {
     }
 
     Random r = new Random();
+
+    private String getHttpResponse() {
+        String content = "hello " + r.nextInt(1000);
+        StringBuilder sb = new StringBuilder();
+        sb.append("HTTP/1.1 200 OK\r\n");
+        sb.append("Content-Type:text/html" + "\r\n");
+        sb.append("Content-Length:" + content.length() + "\r\n");
+        sb.append("\r\n");
+        sb.append(content);
+        return sb.toString();
+    }
     private void dispatch(SelectionKey selectionKey) throws IOException {
         if (selectionKey.isConnectable()) {
             if (selectionKey.attachment() == null) {
                 selectionKey.attach(r.nextInt(1000));
             }
-            LOGGER.info("a connection was established with a remote server.");
+            System.out.println("a connection was established with a remote server.");
         } else if (selectionKey.isAcceptable()) {
             // a connection was accepted by a ServerSocketChannel.
             ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) selectionKey.channel();
             SocketChannel socketChannel = acceptServerSocketChannel.accept();
             socketChannel.configureBlocking(false);
-            LOGGER.info("Accept request from {}", socketChannel.getRemoteAddress());
-            socketChannel.register(selector, SelectionKey.OP_READ);
+            System.out.println("Accept request from "+ socketChannel.getRemoteAddress());
+            socketChannel.register(selector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);
         } else if (selectionKey.isReadable()) {
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
             ByteBuffer buffer = ByteBuffer.allocate(500);
@@ -74,16 +82,16 @@ public class NIOServer100 {
             if (count <= 0) {
                 socketChannel.close();
                 selectionKey.cancel();
-                LOGGER.info("Received invalid data, close the connection");
+                System.out.println("Received invalid data, close the connection");
             }
-            LOGGER.info("Server->Print Received message {}");
-            LOGGER.info(new String(buffer.array()));
+            System.out.println("Print Request ");
+            System.out.println(new String(buffer.array()));
 //            socketChannel.register(selector, SelectionKey.OP_WRITE);
         } else if (selectionKey.isWritable()) {
             int capacity = sendBuffer.capacity();
             sendBuffer.clear();
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-            String sendText = "message from server" + flag++;
+            String sendText = getHttpResponse();
             if (sendText.length() > capacity) {
                 sendText = sendText.substring(0, capacity);
             }

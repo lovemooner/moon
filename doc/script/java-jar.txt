@@ -1,0 +1,21 @@
+java-jar
+-c 创建一个jar包
+-t 显示jar中的内容列表
+-x 解压jar包
+-u 添加文件到jar包中
+-f 指定jar包的文件名
+-v生成详细的报造，并输出至标准设备
+
+1）解压
+Jar -xvf test.ear
+2）创建
+Jar -cvf test.jar ./*
+3）更新
+jar -uvf RESTWebService.ear APP-INF/lib/AdfHcmUsersRestModel.jar
+4）查看
+jar tvf test.jar
+5）搜索：
+jar tvf ZhcLib.jar | grep 'pattern'
+搜索整个目录下的所有jar文件：
+find . -name "*.jar"|awk '{print "jar -tvf "$1}' | sh | grep ".*.xml"
+

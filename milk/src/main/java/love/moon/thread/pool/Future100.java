@@ -1,0 +1,40 @@
+package love.moon.thread.pool;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
+
+/**
+ * Author: lovemooner
+ * Date: 2017/6/28 13:13
+ */
+public class Future100{
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        List<Future<String>> futures = new ArrayList<Future<String>>();
+        for (int i = 0; i < 1; i++) {
+            final int finalI = i;
+            Future<String> future = executorService.submit(() -> {
+                System.out.println("id:" + finalI + ",calling");
+                //一个模拟耗时的操作
+                TimeUnit.SECONDS.sleep(1000);
+                return "id:" + finalI + " return ";
+            });
+            futures.add(future);
+        }
+//        executorService.shutdown();
+        //遍历任务的结果
+        for (Future<String> fs : futures) {
+            try {
+                //Waits if necessary for the computation to complete, and then retrieves its result.
+                System.out.println(fs.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } finally {
+            }
+        }
+    }
+}

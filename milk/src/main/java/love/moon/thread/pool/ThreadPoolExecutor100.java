@@ -18,7 +18,7 @@ public class ThreadPoolExecutor100 {
      */
     public void testFixedThreadPool() throws InterruptedException {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 1; i++) {
             fixedThreadPool.execute(()->{
                     System.out.println(Thread.currentThread().getName() + ":Hi");
                     try {
@@ -88,8 +88,8 @@ public class ThreadPoolExecutor100 {
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPoolExecutor100 pool = new ThreadPoolExecutor100();
-        pool.testCachedThreadPool();
-//        pool.testFixedThreadPool();
+//        pool.testCachedThreadPool();
+        pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
 //        pool.testSingleThreadExecutor();
     }

@@ -50,11 +50,10 @@ public class MinaClient {
                         LineDelimiter.WINDOWS.getValue())));
         /** 主角登场 */
         KeepAliveMessageFactory heartBeatFactory = new KeepAliveMessageFactoryImpl();
+        //心跳过滤器
         KeepAliveFilter heartBeat = new KeepAliveFilter(heartBeatFactory);
-        /** 是否回发 */
-        heartBeat.setForwardEvent(true);
-        /** 发送频率 */
-        heartBeat.setRequestInterval(HEARTBEATRATE);
+        heartBeat.setForwardEvent(true);//是否回发
+        heartBeat.setRequestInterval(HEARTBEATRATE);//发送频率
         //connector.getSessionConfig().setKeepAlive(true);
         conn.getFilterChain().addLast("heartbeat", heartBeat);
         // 添加业务处理handler

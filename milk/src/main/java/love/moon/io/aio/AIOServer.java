@@ -27,6 +27,19 @@ public class AIOServer {
     static CharsetDecoder decoder = Charset.forName(CHARSET).newDecoder(); //解码
 
     int port;
+
+
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("正在启动服务...");
+            AIOServer server = new AIOServer(PORT);
+            server.listen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //ByteBuffer buffer;
     AsynchronousServerSocketChannel serverChannel;
 
@@ -40,16 +53,13 @@ public class AIOServer {
         this.serverChannel = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(port), 100);
         this.serverChannel.accept(this, new AcceptHandler());
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    System.out.println("运行中...");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        Thread t = new Thread(() -> {
+            while (true) {
+                System.out.println("运行中...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -160,15 +170,7 @@ public class AIOServer {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.println("正在启动服务...");
-            AIOServer server = new AIOServer(PORT);
-            server.listen();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private static void close(AsynchronousSocketChannel client) {
         try {

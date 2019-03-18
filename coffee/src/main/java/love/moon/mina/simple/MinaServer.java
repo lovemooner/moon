@@ -24,7 +24,6 @@ import java.util.Date;
 
 public class MinaServer {
     private static final Logger LOG = LoggerFactory.getLogger(MinaServer.class);
-    private int count=5;
 
     public static final int PORT = 8888;
 
@@ -45,24 +44,22 @@ public class MinaServer {
                         LineDelimiter.WINDOWS.getValue(),
                         LineDelimiter.WINDOWS.getValue())));
 
-        // 绑定业务处理器,这段代码要在acceptor.bind()方法之前执行，因为绑定套接字之后就不能再做这些准备
         acceptor.setHandler(new MinaServerHandler());
         // 设置读取数据的缓冲区大小
         acceptor.getSessionConfig().setReadBufferSize(2048);
         acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);
-        // 绑定一个监听端口
         acceptor.bind(new InetSocketAddress(PORT));
     }
 
 
     class MinaServerHandler extends IoHandlerAdapter {
         @Override
-        public void exceptionCaught(IoSession session, Throwable cause)throws Exception {
+        public void exceptionCaught(IoSession session, Throwable cause)  {
             cause.printStackTrace();
         }
 
         @Override
-        public void messageReceived(IoSession session, Object message)throws Exception {
+        public void messageReceived(IoSession session, Object message)  {
 //            if(count--<0){
 //                throw new NullPointerException();
 //            }
@@ -72,32 +69,31 @@ public class MinaServer {
                 session.close(Boolean.TRUE);
                 return;
             }
-            Date date = new Date();
-            session.write( "Hi Client"+ date.toString() );
+            session.write( "Hi Client"+ new Date().toString() );
         }
 
         @Override
-        public void messageSent(IoSession session, Object message) throws Exception {
+        public void messageSent(IoSession session, Object message)   {
             LOG.info("server ->消息已经发出");
         }
 
         @Override
-        public void sessionClosed(IoSession session) throws Exception {
+        public void sessionClosed(IoSession session)   {
             LOG.info("server ->server-session关闭连接断开");
         }
 
         @Override
-        public void sessionCreated(IoSession session) throws Exception {
+        public void sessionCreated(IoSession session)   {
             LOG.info("server ->server-session创建，建立连接");
         }
 
         @Override
-        public void sessionIdle(IoSession session, IdleStatus status)throws Exception {
+        public void sessionIdle(IoSession session, IdleStatus status)  {
             LOG.info("server ->server-服务端进入空闲状态..");
         }
 
         @Override
-        public void sessionOpened(IoSession session) throws Exception {
+        public void sessionOpened(IoSession session)   {
             LOG.info("server->服务端与客户端连接打开...");
         }
     }

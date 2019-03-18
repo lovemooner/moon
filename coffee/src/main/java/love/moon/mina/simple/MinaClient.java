@@ -43,14 +43,11 @@ public class MinaClient {
 
     public void connect() {
         IoConnector conn = new NioSocketConnector();
-        // 设置链接超时时间
         conn.setConnectTimeoutMillis(30000L);
-        // 添加过滤器
         conn.getFilterChain().addLast("codec",
                 new ProtocolCodecFilter(new TextLineCodecFactory(Charset
                         .forName("UTF-8"), LineDelimiter.WINDOWS.getValue(),
                         LineDelimiter.WINDOWS.getValue())));
-        // 添加业务处理handler
         conn.setHandler(new MinaClientHandler());
         IoSession session = null;
         try {
@@ -72,37 +69,37 @@ public class MinaClient {
 
     class MinaClientHandler extends IoHandlerAdapter {
         @Override
-        public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
+        public void exceptionCaught(IoSession session, Throwable cause) {
             cause.printStackTrace();
         }
 
         @Override
-        public void messageReceived(IoSession session, Object message) throws Exception {
+        public void messageReceived(IoSession session, Object message) {
             LOG.info("Client-> Receive Message:" + message);
         }
 
         @Override
-        public void messageSent(IoSession session, Object message) throws Exception {
+        public void messageSent(IoSession session, Object message) {
 //            LOG.info("client-消息已经发送" + message);
         }
 
         @Override
-        public void sessionClosed(IoSession session) throws Exception {
+        public void sessionClosed(IoSession session) {
             LOG.info("client-> session关闭连接断开");
         }
 
         @Override
-        public void sessionCreated(IoSession session) throws Exception {
+        public void sessionCreated(IoSession session) {
             System.out.println("client-> 创建session");
         }
 
         @Override
-        public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+        public void sessionIdle(IoSession session, IdleStatus status) {
             System.out.println("client-> 系统空闲中...");
         }
 
         @Override
-        public void sessionOpened(IoSession session) throws Exception {
+        public void sessionOpened(IoSession session) {
             System.out.println("client-> session打开");
         }
     }

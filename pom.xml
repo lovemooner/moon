@@ -14,6 +14,7 @@
         <module>coffee</module>
         <module>papa</module>
         <module>load</module>
+        <module>spring-boot-examples</module>
     </modules>
 
     <properties>

@@ -8,4 +8,8 @@ public class FactoryB implements IFactory {
     public IBusiness create() {
         return new BusinessB();
     }
+
+    public static void main(String[] args) {
+
+    }
 }

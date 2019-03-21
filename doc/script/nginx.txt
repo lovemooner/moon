@@ -9,3 +9,8 @@ kill -TERM 主进程号
 kill -9 主进程号
 3)
 nginx -s reload
+
+reload
+./nginx -s reload
+reload会重新加载配置文件，服务不中断，出错会rollback用上一次正确配置文件。
+

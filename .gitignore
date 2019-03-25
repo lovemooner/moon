@@ -3,11 +3,13 @@
 /milk/target/*
 /load/target/*
 /util/target/*
+/*/*/target/
 /util/util.iml
 /coffee/coffee.iml
 /papa/papa.iml
 /load/load.iml
-/milk/milk.iml
+/*/*.iml
+/*/*/*.iml
 /doc/todo/sql/~$PLSQL.docx
 /doc/~$M.docx
 /doc/~$mu.docx

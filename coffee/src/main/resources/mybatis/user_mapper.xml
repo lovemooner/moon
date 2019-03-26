@@ -7,7 +7,7 @@
     </resultMap>
 
     <select id="selectAllUsers" resultMap="UserMap">
-        select id, user_name from ca_user;
+        select id, user_name from ca_user limit 2,1;
     </select>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">

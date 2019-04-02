@@ -10,7 +10,6 @@ public class Optional100 {
     public  List<User.Order> test() {
 
         Optional<User> user = Optional.of(new User());
-
         if(user.isPresent()) {
             return user.get().getOrders();
         } else {

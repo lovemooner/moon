@@ -10,7 +10,7 @@ public class Java8Tester {
         Integer value1 = null;
         Integer value2 = new Integer(10);
 
-        // Optional.ofNullable - 允许传递为 null 参数
+        // 参数允为 null
         Optional<Integer> a = Optional.ofNullable(value1);
 
         // Optional.of - 如果传递的参数是 null，抛出异常 NullPointerException

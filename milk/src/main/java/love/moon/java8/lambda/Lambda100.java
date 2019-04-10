@@ -5,7 +5,10 @@ import java.lang.FunctionalInterface;
 public class Lambda100 {
 
     public static void main(String args[]) {
-        call((str)-> System.out.println(str));
+        call((str)-> {
+            System.out.println(str);
+            System.out.println(str);}
+            );
 
     }
 

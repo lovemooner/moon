@@ -1,0 +1,6 @@
+svn ls svn://slc02vlf.us.oracle.com:3690/repos
+
+svn checkout svn://slc02vlf.us.oracle.com:3690/repos/parking
+
+# log
+svn log url

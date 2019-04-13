@@ -1,9 +1,6 @@
 package love.moon.java8.stream;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,6 +14,20 @@ public class Stream100 {
                 .sorted()
                 .forEach(System.out::println);
 
+    }
+
+
+    public static void testMap(){
+        List<String> strings = Arrays.asList("a1", "a2", "b1", "c2", "c1");
+        List list=strings.stream()
+                .map(s->{
+                    Map<String,String> map=new HashMap<>();
+                    map.put(s,s);
+                    return map;
+                })
+                .collect(Collectors.toList());
+
+        System.out.println();
     }
 
     /**

@@ -8,12 +8,10 @@ public class ThreadInterrupt100 implements  Runnable{
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(30000l);
+//            Thread.sleep(30000l);
+        while (true)
             System.out.println("here");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static void main(String[] args) {

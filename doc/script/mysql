@@ -1,1 +1,24 @@
-mysql -h slc11fsp.us.oracle.com -uroot -p
+Mgr
+mysql [-h slc11fsp.us.oracle.com] -uroot -p
+
+启动服务 service mysqld start
+版本：mysql –V；或者select version();
+Tables：show databases/tables;
+
+查看表结构
+desc table_name;
+Show DDl: show create table ld_cart;
+
+indexs
+Show: show index from fund_history\G;
+Create: create index idx_fund_name on fund(name);
+
+
+
+
+
+
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+

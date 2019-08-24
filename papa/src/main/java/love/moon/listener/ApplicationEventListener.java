@@ -1,5 +1,6 @@
 package love.moon.listener;
 
+import love.moon.spring.model.User;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -25,6 +26,12 @@ public class ApplicationEventListener implements ApplicationListener {
         } else {
             System.out.println("有其它事件发生:" + event.getClass().getName());
         }
+
+        if(event instanceof FaceEvent){
+            User user = (User) event.getSource();
+            System.out.println("事件处理。。。");
+        }
+
 
     }
 

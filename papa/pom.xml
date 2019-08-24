@@ -134,11 +134,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.jdbc.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc</artifactId>
-            <version>6.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.oracle</groupId>-->
+<!--            <artifactId>ojdbc</artifactId>-->
+<!--            <version>6.0</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>commons-fileupload</groupId>

@@ -17,7 +17,7 @@
         <spring.version>4.0.4.RELEASE</spring.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <mysql.jdbc.version>5.1.13</mysql.jdbc.version>
-        <build.output.directory>C:\Users\nadong\Desktop\Jmx-tomcat</build.output.directory>
+        <build.output.directory>C:\Users\keda\Desktop\Jmx-tomcat</build.output.directory>
     </properties>
 
     <dependencies>

@@ -12,16 +12,16 @@
     </context:component-scan>
 
     <!-- ==============================Sample=======================   -->
-    <aop:aspectj-autoproxy proxy-target-class="false" expose-proxy="true"/>
-    <aop:config>
-        <aop:aspect id="sampleAspect" ref="sampleInterceptor">
-            <aop:pointcut id="samplePointcut" expression="execution(* love.moon.spring.service.*.*(..))"/>
-            <aop:before method="doBeforeTask" pointcut-ref="samplePointcut"/>
-            <aop:after method="doAfterTask" pointcut-ref="samplePointcut"/>
-            <aop:after-returning method="doAfterReturnningTask" returning="retVal" pointcut-ref="samplePointcut"/>
-            <aop:around method="doAroundTask" pointcut-ref="samplePointcut"/>
-        </aop:aspect>
-    </aop:config>
+<!--    <aop:aspectj-autoproxy proxy-target-class="false" expose-proxy="true"/>-->
+<!--    <aop:config>-->
+<!--        <aop:aspect id="sampleAspect" ref="sampleInterceptor">-->
+<!--            <aop:pointcut id="samplePointcut" expression="execution(* love.moon.spring.service.*.*(..))"/>-->
+<!--            <aop:before method="doBeforeTask" pointcut-ref="samplePointcut"/>-->
+<!--            <aop:after method="doAfterTask" pointcut-ref="samplePointcut"/>-->
+<!--            <aop:after-returning method="doAfterReturnningTask" returning="retVal" pointcut-ref="samplePointcut"/>-->
+<!--            <aop:around method="doAroundTask" pointcut-ref="samplePointcut"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
 
 
 
@@ -34,6 +34,7 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     </bean>
+    <bean id="sampleInterceptor"/>
 
 
 </beans>

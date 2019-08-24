@@ -1,11 +1,14 @@
 package love.moon.spring.controller;
 
 import love.moon.common.PageResult;
+import love.moon.listener.FaceEvent;
 import love.moon.spring.common.ServiceException;
 import love.moon.spring.dao.HomeIPDto;
 import love.moon.spring.model.HomeIP;
+import love.moon.spring.model.User;
 import love.moon.spring.service.IHomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +26,9 @@ public class HomeController {
     @Autowired
     private IHomeService homeService;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public PageResult list(HttpServletRequest request) throws ServiceException, InterruptedException {
@@ -37,6 +43,14 @@ public class HomeController {
             return result;
         }
         return null;
+    }
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
+    public void test(HttpServletRequest request) throws ServiceException, InterruptedException {
+
+
     }
 
 

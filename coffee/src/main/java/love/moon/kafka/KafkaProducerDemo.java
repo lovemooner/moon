@@ -7,8 +7,6 @@ import java.util.Properties;
 public class KafkaProducerDemo {
     private final Producer<String, String> kafkaProducer;
 
-    public final static String TOPIC = "JAVA_TOPIC";
-
     private KafkaProducerDemo() {
         kafkaProducer = createKafkaProducer();
     }
@@ -29,21 +27,16 @@ public class KafkaProducerDemo {
     }
 
     void produce() {
-        for (int i = 1; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String key = String.valueOf("key" + i);
+            String key = "key" + 1;
             String data = "hello kafka message:" + key;
-            kafkaProducer.send(new ProducerRecord<>(TOPIC, key, data), new Callback() {
-                @Override
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    //do sth
-                    System.out.println("send completion ");
-                }
-            });
+            data="{\"devGbId\":\"861679030010861\",\"latitude\":31.295700440483515,\"longitude\":120.52045409201855,\"direction\":-1.0,\"altitude\":0.0,\"speed\":0.0,\"timestamp\":1567150360000,\"locFlag\":\"A\",\"csysType\":2,\"csysLon\":120.531339,\"csysLat\":31.299376,\"userCode\":\"042\",\"deviceType\":1,\"motionMode\":0,\"dynamicDevice\":1}";
+            kafkaProducer.send(new ProducerRecord<>(KafkaConstants.TOPIC, key, data));
             System.out.println("producer:"+data);
         }
     }

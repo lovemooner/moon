@@ -14,6 +14,7 @@
         <module>coffee</module>
         <module>papa</module>
         <module>load</module>
+        <module>flume-ng-elasticsearch-sink</module>
     </modules>
 
     <properties>

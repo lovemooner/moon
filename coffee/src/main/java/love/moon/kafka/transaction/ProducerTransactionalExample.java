@@ -24,9 +24,9 @@ public class ProducerTransactionalExample {
             String msg = "matt test";
             producer.beginTransaction();
             //send to multi topics
-            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "0", msg.toString()));
-            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "1", msg.toString()));
-            producer.send(new ProducerRecord(KafkaConstants.TOPIC1, "2", msg.toString()));
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC, "0", msg.toString()));
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC, "1", msg.toString()));
+            producer.send(new ProducerRecord(KafkaConstants.TOPIC, "2", msg.toString()));
             producer.commitTransaction();
         } catch (ProducerFencedException e1) {
             e1.printStackTrace();

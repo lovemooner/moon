@@ -22,7 +22,7 @@ public class KafkaConsumerDemo {
     }
 
     void consume() {
-        consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC1));
+        consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)

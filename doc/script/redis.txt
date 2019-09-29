@@ -1,8 +1,0 @@
-redis
-1)启动： redis-server.exe redis.windows.conf
-
-开启memcache，并连接测试：
-以守护进程模式启动memcache
-memcached-1.5.2/bin/memcached -d -l slc11fsp.us.oracle.com -p 11211 -m 2048 -u root
-
-

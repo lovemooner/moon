@@ -1,4 +1,0 @@
-•	Kill VNC: vncserver -kill :1
-•	Create VNC: vncserver -geometry 1910x1050
-•	VNC set copy: vncconfig -nowin &
-•	List: vncserver -list

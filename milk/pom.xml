@@ -72,6 +72,11 @@
             <version>27.1-jre</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.22</version>
+        </dependency>
     </dependencies>
 
 </project>

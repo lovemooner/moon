@@ -29,9 +29,7 @@ public class ThreadPoolExecutor100 {
     public void mockFixPool() {
         ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 40, 3,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<>(1));
-
         new Thread(() -> ThreadPoolMonitor100.startMonitor(pool,100L)).start();
-
         for (int i = 1; i <5; i++) {
             pool.submit(new Task());
         }

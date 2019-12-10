@@ -13,7 +13,6 @@ flume-ng-elasticsearch-sink/target/
 /*/*/*.iml
 /doc/todo/sql/~$PLSQL.docx
 /doc/~$M.docx
-/doc/~$mu.docx
 /.gitignore
 /moon.iml
 /papa/moon.log*

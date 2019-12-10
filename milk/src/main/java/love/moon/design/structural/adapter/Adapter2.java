@@ -3,7 +3,7 @@ package love.moon.design.structural.adapter;
 /**
  * 委托模式
  *
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/19 10:56
  * @describe
  */

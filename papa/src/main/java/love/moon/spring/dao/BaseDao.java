@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Jimuchen
  * Date: 14-2-28
  * Time: 下午6:05
  * To change this template use File | Settings | File Templates.

@@ -2,7 +2,7 @@ package love.moon.design.structural.facade;
 
 /**
  * 外观类 Facade
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/20 15:30
  * @describe
  */

@@ -2,7 +2,7 @@ package love.moon.design.creational.prototype.simple;
 
 /**
  * 抽象原型角色
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/20 9:52
  * @describe
  */

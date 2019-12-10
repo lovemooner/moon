@@ -1,7 +1,7 @@
 package love.moon.design.behavioral.observer.jdk;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/23 21:19
  * @describe
  */

@@ -1,7 +1,7 @@
 package love.moon.design.behavioral.chain.demo2;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/23 19:49
  * @describe
  */

@@ -1,7 +1,7 @@
 package love.moon.design.behavioral.listener;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class DemoEvent extends java.util.EventObject {
     public DemoEvent(Object source) {

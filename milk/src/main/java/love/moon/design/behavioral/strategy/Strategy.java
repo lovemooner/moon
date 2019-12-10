@@ -1,7 +1,7 @@
 package love.moon.design.behavioral.strategy;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/19 17:44
  * @describe
  */

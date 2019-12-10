@@ -1,7 +1,7 @@
 package love.moon.design.creational.prototype.manager;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/20 10:39
  * @describe
  */

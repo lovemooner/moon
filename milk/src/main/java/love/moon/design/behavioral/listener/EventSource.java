@@ -4,7 +4,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class EventSource {
     private Vector repository = new Vector();//监听自己的监听器队列

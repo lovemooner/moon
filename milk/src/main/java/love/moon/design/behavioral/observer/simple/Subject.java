@@ -5,7 +5,7 @@ import java.util.Vector;
 
 /**
  * 被观察者
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/23 21:38
  * @describe
  */

@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Jimuchen
  * Date: 14-2-28
  * Time: 下午5:32
  * To change this template use File | Settings | File Templates.

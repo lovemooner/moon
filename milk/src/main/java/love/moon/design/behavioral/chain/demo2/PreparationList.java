@@ -3,7 +3,7 @@ package love.moon.design.behavioral.chain.demo2;
 import lombok.Data;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/23 19:40
  * @describe
  */

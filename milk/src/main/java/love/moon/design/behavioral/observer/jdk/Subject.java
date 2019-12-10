@@ -1,7 +1,7 @@
 package love.moon.design.behavioral.observer.jdk;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class Subject extends java.util.Observable {
 

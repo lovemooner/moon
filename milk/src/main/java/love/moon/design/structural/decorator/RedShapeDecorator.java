@@ -3,7 +3,7 @@ package love.moon.design.structural.decorator;
 import love.moon.design.structural.facade.Shape;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/20 16:05
  * @describe
  */

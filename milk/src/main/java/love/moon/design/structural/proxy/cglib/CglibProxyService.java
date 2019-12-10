@@ -1,7 +1,7 @@
 package love.moon.design.structural.proxy.cglib;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/18 15:09
  * @describe
  */

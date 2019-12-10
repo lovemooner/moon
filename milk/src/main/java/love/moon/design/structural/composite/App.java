@@ -1,7 +1,7 @@
 package love.moon.design.structural.composite;
 
 /**
- * @auther dongnan
+ * @auther lovemooner
  * @date 2019/11/20 13:49
  * @describe
  */

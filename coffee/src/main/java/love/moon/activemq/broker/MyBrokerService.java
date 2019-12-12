@@ -3,7 +3,7 @@ package love.moon.activemq.broker;
 import org.apache.activemq.broker.BrokerService;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class MyBrokerService {
 

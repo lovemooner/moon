@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import static love.moon.zookeeper.demo.ZooKeeperClient.ADDRESS;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class Publish implements Watcher{
     private static CountDownLatch latch =  new CountDownLatch(1);

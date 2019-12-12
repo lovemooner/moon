@@ -3,7 +3,7 @@ package love.moon.j2se.thread.concurrent.tools;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by ndong on 2017/5/6.
+ * Created by lovemooner on 2017/5/6.
  */
 public class CountDownLatch100 {
 

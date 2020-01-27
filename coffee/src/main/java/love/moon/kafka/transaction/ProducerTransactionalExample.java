@@ -1,7 +1,7 @@
 package love.moon.kafka.transaction;
 
 import kafka.common.KafkaException;
-import love.moon.kafka.KafkaConstants;
+import love.moon.kafka.demo.KafkaConstants;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.errors.ProducerFencedException;
 

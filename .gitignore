@@ -1,6 +1,6 @@
 /coffee/target/*
-/papa/target/*
-/milk/target/*
+/j2ee/target/*
+/j2se/target/*
 /load/target/*
 /util/target/*
 /*/*/target/

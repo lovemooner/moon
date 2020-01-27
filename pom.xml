@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>milk</module>
+        <module>j2ee</module>
         <module>util</module>
         <module>coffee</module>
-        <module>papa</module>
+        <module>j2se</module>
         <module>load</module>
         <module>flume-ng-elasticsearch-sink</module>
     </modules>

@@ -13,18 +13,14 @@ import org.apache.zookeeper.ZooKeeper;
 public class ZooKeeperClient {
 
     private static final int TIME_OUT = 30000;
-    public static final String ADDRESS = "slc11fsp.us.oracle.com:2181";
+    public static final String ADDRESS = "192.168.6.128:2181";
 
     public static void main(String[] args) throws Exception {
         String path  ="/test";
-        ZooKeeper zookeeper = new ZooKeeper(ADDRESS, TIME_OUT, new Watcher() {
-            // 监控所有被触发的事件
-            public void process(WatchedEvent event) {
-                System.out.println("已经触发了" + event.getType() + "事件！");
-            }
-        });
+        // 监控所有被触发的事件
+        ZooKeeper zookeeper = new ZooKeeper(ADDRESS, TIME_OUT, event -> System.out.println("已经触发了" + event.getType() + "事件！"));
 
-        System.out.println(zookeeper.getChildren("/dubbo/love.moon.dubbo.demo.service.DemoService", true));
+//        System.out.println(zookeeper.getChildren("/dubbo/love.moon.dubbo.demo.service.DemoService", true));
 
         System.out.println("=========create 创建节点===========");
         if (zookeeper.exists(path, false) == null) {

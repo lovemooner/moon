@@ -1,9 +1,0 @@
-存储的元素可以动态的增加和减少。向量是类模板，是一维数组的类模板，具有成员函数。
- 4种构造函数：
-   vector<type>name;
-   vector<type>name(length);
-   vector<type>name(length,a);//用a初始化
-   vector<type>name(v-name);//v-name是以定义的向量
- 不能使用列表初始化向量，但可先定义数组。
-   int a[3]={1,3,4};
-   vector<int>b(a,a+3);//会自动产生结束标志。 

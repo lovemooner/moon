@@ -1,2 +1,0 @@
-The concept of c++ virtual functions is different from C++ Function overloading.	
-The difference between a non-virtual c++ member function and a virtual member function is, the non-virtual member functions are resolved at compile time. This mechanism is called static binding. Where as the c++ virtual member functions are resolved during run-time. This mechanism is known as dynamic binding.

@@ -1,3 +1,0 @@
-
-1.调整tomcat maxThread
-返回字符，排除带宽因素

@@ -1,0 +1,73 @@
+启动ActiveMQ的代理（Broker），有多中方式
+
+
+
+1、直接运行安装目录的bin\activemq.bat
+
+
+
+2、可以通过在应用程序中以编码的方式启动broker，例如：
+
+[java] view plain copy  在CODE上查看代码片派生到我的代码片
+BrokerService broker =new BrokerService();
+broker.setBrokerName("testName");//如果启动多个Broker时，必须为Broker设置一个名称
+broker.addConnector("tcp://localhost:61616");
+broker.start();
+
+
+3、可以通过BrokerFactory来创建broker，例如：
+
+[java] view plain copy  在CODE上查看代码片派生到我的代码片
+BrokerService broker =BrokerFactory.createBroker(new URI("broker:tcp://localhost:61616"));
+broker.start();
+
+4、测代码
+
+[java] view plain copy  在CODE上查看代码片派生到我的代码片
+import java.net.URI;
+import org.apache.activemq.broker.BrokerFactory;
+import org.apache.activemq.broker.BrokerService;
+
+/**
+ * 启动ActiveMQ的代理Broker
+ *
+ * @author  XX
+ * @version  [版本号, Apr 28, 2013 3:21:20 PM ]
+ * @see  [相关类/方法]
+ * @since  [产品/模块版本]
+ */
+public class RunningBroker {
+    public static void main(String[] args){
+        try {
+            codeByRunning() ;  //启动Broker
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用程序中以编码的方式启动
+     * 创 建 人:  XX
+     * 创建时间:  May 23, 2013 3:26:22 PM
+     * @throws Exception
+     * @see [类、类#方法、类#成员]
+     */
+    public static void codeByRunning() throws Exception{
+        BrokerService broker =new BrokerService();
+        broker.setBrokerName("testName");//如果启动多个Broker时，必须为Broker设置一个名称
+        broker.addConnector("tcp://localhost:61616");
+        broker.start();
+    }
+
+    /**
+     * 以BrokerFactory的方式启动
+     * 创 建 人: XX
+     * 创建时间:  May 23, 2013 3:26:53 PM
+     * @throws Exception
+     * @see [类、类#方法、类#成员]
+     */
+    public static void factoryByRunning()throws Exception{
+        BrokerService broker =BrokerFactory.createBroker(new URI("broker:tcp://localhost:61616"));
+        broker.start();
+    }
+}

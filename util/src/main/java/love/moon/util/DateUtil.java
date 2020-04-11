@@ -171,40 +171,7 @@ public class DateUtil {
         return r;
     }
 
-    // 段时间
-    public static String toPeriodTime(long m) {
-        StringBuffer sb = new StringBuffer();
-        long years = m / YEAR_MILLION_SECONDS;
-        m = m - years * YEAR_MILLION_SECONDS;
-        long months = m / MONTH_MILLION_SECONDS;
-        m = m - months * MONTH_MILLION_SECONDS;
-        long days = m / DAY_MILLION_SECONDS;
-        m = m - days * DAY_MILLION_SECONDS;
-        long hours = m / HOUR_MILLION_SECONDS;
-        m = m - hours * HOUR_MILLION_SECONDS;
-        long minutes = m / MINUTE_MILLION_SECONDS;
-        if (0 != years) {
-            sb.append(String.valueOf(years));
-            sb.append("年");
-        }
-        if (0 != months) {
-            sb.append(String.valueOf(months));
-            sb.append("个月");
-        }
-        if (0 != days) {
-            sb.append(String.valueOf(days));
-            sb.append("天");
-        }
-        if (0 != hours) {
-            sb.append(String.valueOf(hours));
-            sb.append("小时");
-        }
-        if (0 != minutes) {
-            sb.append(String.valueOf(minutes));
-            sb.append("分钟");
-        }
-        return sb.toString();
-    }
+
 
     public static String getISO8601Time() {
         TimeZone tz = TimeZone.getTimeZone("UTC");

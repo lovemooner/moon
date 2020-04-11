@@ -13,7 +13,7 @@ public class ThreadPoolExecutorJDK100 {
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPoolExecutorJDK100 pool = new ThreadPoolExecutorJDK100();
-//        pool.testCachedThreadPool();
+        pool.testCachedThreadPool();
         pool.testFixedThreadPool();
 //        pool.testScheduledThreadPool();
 //        pool.testSingleThreadExecutor();
@@ -22,9 +22,8 @@ public class ThreadPoolExecutorJDK100 {
     /**
      * 定长线程池
      *
-     * @throws InterruptedException
      */
-    public void testFixedThreadPool() throws InterruptedException {
+    public void testFixedThreadPool() {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 1; i++) {
             fixedThreadPool.execute(()->{
@@ -48,11 +47,7 @@ public class ThreadPoolExecutorJDK100 {
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
-            cachedThreadPool.execute(new Runnable() {   //复用执行第一个任务的线程
-                public void run() {
-                    System.out.println(Thread.currentThread().getName() + ":Hi");
-                }
-            });
+            cachedThreadPool.execute(() -> System.out.println(Thread.currentThread().getName() + ":Hi"));
         }
     }
 

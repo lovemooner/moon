@@ -1,7 +1,7 @@
 package love.moon.j2se.thread.native1.syncronized;
 
 /**
- * Author: lovemooner
+ * author: lovemooner
  * Date: 2018/5/29 14:16
  */
 public class Synchronized100 {
@@ -19,12 +19,7 @@ public class Synchronized100 {
     public static void main(String[] args) {
         final Synchronized100 synchronized100 = new Synchronized100();
         for (int i = 0; i < 1000; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    synchronized100.increase();
-                }
-            }).start();
+            new Thread(() -> synchronized100.increase()).start();
         }
         while (Thread.activeCount() > 1) {
             Thread.yield();

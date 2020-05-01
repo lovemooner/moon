@@ -1,122 +1,43 @@
 package love.moon.j2se.thread.native1;
 
-import java.util.concurrent.TimeUnit;
+/**
+ * @author
+ */
 
-public
-class
+public class StopThread extends Thread {
 
-StopThread implements Runnable {
+    private int i = 0;
+    private int j = 0;
 
     @Override
     public void run() {
-
-        while(! Thread.currentThread().isInterrupted()) {
-        // 线程执行具体逻辑
-            System.out.println(Thread
-                                                    .
-                                                            currentThread
-                                                                    ().
-                                                    getName
-                                                            ()
-
-                                                    +
-
-                                                    "运行中。。"
-                                    );
-
-
-        }
-
-
-        System
-                .
-                        out
-                .
-                        println
-                                (
-                                        Thread
-                                                .
-                                                        currentThread
-                                                                ().
-                                                getName
-                                                        ()
-
-                                                +
-
-                                                "退出。。"
-                                );
-
+            ++i;
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ++j;
 
     }
 
 
-    public
-
-    static void
-    main
-            (
-                    String
-                            []
-                            args
-            )
-
-            throws
-
-            InterruptedException {
-
-
-        Thread
-                thread
-                =
-
-                new
-
-                        Thread
-                        (
-                                new
-
-                                        StopThread
-                                        (),
-
-                                "thread A"
-                        );
-
-        thread
-                .
-                        start
-                                ();
-
-
-        System
-                .
-                        out
-                .
-                        println
-                                (
-                                        "main 线程正在运行"
-                                )
-
-        ;
-
-
-        TimeUnit
-                .
-                        MILLISECONDS
-                .
-                        sleep
-                                (
-                                        10
-                                )
-
-        ;
-
-        thread
-                .
-                        interrupt
-                                ();
-
-
+    public void print() {
+        System.out.println("i=" + i + " j=" + j);
     }
 
+    public static void main(String[] args) throws InterruptedException {
+        StopThread thread = new StopThread();
+        thread.start();
+        // 休眠 1 秒，确保 i 变量自增成功
+        Thread.sleep(1000);
+        // 暂停线程
+        thread.stop(); // 错误的终止
+//        thread.interrupt(); // 错误的终止
+        while (thread.isAlive()) {
+            // 确保线程已经终止
+        } // 输出结果
+        thread.print();
+    }
 
 }

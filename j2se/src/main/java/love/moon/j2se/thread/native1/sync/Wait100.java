@@ -5,12 +5,7 @@ public class Wait100 {
     public static void main(String[] args) {
         final Wait100 wait100=new Wait100();
         for(int i=0;i<2;i++){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    wait100.test();
-                }
-            }).start();
+            new Thread(() -> wait100.test()).start();
         }
     }
 

@@ -1,5 +1,7 @@
 package love.moon.j2se.collection;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -32,5 +34,7 @@ public class ConcurrentHashMap380 {
             }
         };
         System.out.println(map);
+
+        Collections.synchronizedMap(new HashMap<>());
     }
 }

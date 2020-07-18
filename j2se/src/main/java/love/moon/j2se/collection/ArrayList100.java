@@ -1,5 +1,7 @@
 package love.moon.j2se.collection;
 
+import org.apache.tomcat.util.threads.LimitLatch;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,11 +12,13 @@ import java.util.List;
  */
 public class ArrayList100 {
     public static void main(String[] args) {
-        List list=new ArrayList();
+        List list = new ArrayList();
         list.add("a");
 
-            List<String> list2 = Collections.synchronizedList(new ArrayList<String>());
-            list2.add("a");
-            list2.add("a");
+        List<String> list2 = Collections.synchronizedList(new ArrayList<>());
+        list2.add("a");
+        list2.add("a");
+
+        LimitLatch limitLatch;
     }
 }

@@ -15,10 +15,12 @@ public class ArrayList100 {
         List list = new ArrayList();
         list.add("a");
 
+        list.iterator().forEachRemaining(System.out::println);
+
         List<String> list2 = Collections.synchronizedList(new ArrayList<>());
         list2.add("a");
         list2.add("a");
 
-        LimitLatch limitLatch;
+        list2.stream();
     }
 }

@@ -1,12 +1,23 @@
 package love.moon.j2se.collection;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: lovemooner
  * Date: 2018/7/17 13:46
  */
 public class List100 {
+
+    @Test
+    public void testClear(){
+        List<String> list=new ArrayList();
+        list.add("test");
+        list.clear();
+        list.forEach(System.out::println);
+    }
 
     public void  test(){
         ArrayList list=new ArrayList();
@@ -18,11 +29,6 @@ public class List100 {
         System.out.println("end");
     }
 
-    public static void main(String[] args) {
-        List100 list100=new List100();
-        list100.test();
-
-    }
 
     class Elem{
         private String name;

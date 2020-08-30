@@ -17,15 +17,17 @@ public class SimpleServer {
     }
 
     public void run() throws Exception {
-        //EventLoopGroup是用来处理IO操作的多线程事件循环器
-        //bossGroup 用来接收进来的连接
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        //workerGroup 用来处理已经被接收的连接
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        /**
+         * EventLoopGroup是用来处理IO操作的多线程事件循环器
+         * acceptor 用来接收进来的连接
+         * worker 当acceptor接受连接并注册被接受的连接到worker时，处理被接受连接的流量。
+         */
+        EventLoopGroup acceptor = new NioEventLoopGroup();
+        EventLoopGroup worker = new NioEventLoopGroup();
         try {
             //启动 NIO 服务的辅助启动类
             ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
+            b.group(acceptor, worker)
                     //配置 Channel
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -43,8 +45,8 @@ public class SimpleServer {
             // 等待服务器 socket 关闭 。
             f.channel().closeFuture().sync();
         } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
+            worker.shutdownGracefully();
+            acceptor.shutdownGracefully();
         }
     }
 

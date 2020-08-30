@@ -11,13 +11,13 @@ public class SinkChain {
         Spliterator spliterator = Arrays.stream(source).spliterator();
 
         //setup upstream
-        Sink<Integer> sink0 = new Sink<Integer>("source sink", null);
-        Sink<Integer> sink4 = sink0.op("sink1").op("sink2").op("sink3").op("terminal sink");
+        Sink<Integer> sink0 = new Sink<Integer>("sink0", null);
+        Sink<Integer> sink4 = sink0.op("sink1").op("sink2").op("sink3").op("sink4 terminal");
 
         //setup downstream chain
         Sink wrappedSink = wrapSink(sink4);
-        assert(wrappedSink == sink0); //now get the first (source) stage
-
+        //now get the first (source) stage
+        assert(wrappedSink == sink0);
         //in one loop, handle elements: 1,2,3,4,5
         spliterator.forEachRemaining(wrappedSink);
     }
@@ -26,7 +26,6 @@ public class SinkChain {
             sink.upstream.downstream = sink;
             sink = sink.upstream;
         }
-
         return sink;
     }
 

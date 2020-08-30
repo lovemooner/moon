@@ -8,17 +8,17 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
- * Author: lovemooner
- * Date: 2017/5/4 14:51
+ * @Author: lovemooner
+ * @Date: 2017/5/4 14:51
  */
 public class SimpleClient {
 
     public void connect(String host, int port) throws Exception {
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup worker = new NioEventLoopGroup();
 
         try {
             Bootstrap b = new Bootstrap();
-            b.group(workerGroup);
+            b.group(worker);
             b.channel(NioSocketChannel.class);
             b.option(ChannelOption.SO_KEEPALIVE, true);
             b.handler(new ChannelInitializer<SocketChannel>() {
@@ -33,7 +33,7 @@ public class SimpleClient {
             // Wait until the connection is closed.
             f.channel().closeFuture().sync();
         } finally {
-            workerGroup.shutdownGracefully();
+            worker.shutdownGracefully();
         }
     }
 

@@ -1,0 +1,2 @@
+db.getCollection('GsmVehicleData').find({"_id":ObjectId("55c86f8cee17063d38b811c5")})
+db.GsmVehicleData.find({"appUserNo":"dcf6c34822fd852ea1a5ff8cfed4c014"}).sort({"uploadTime":-1});

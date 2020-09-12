@@ -3,8 +3,8 @@ package love.moon.j2se.thread.juc.future;
 import java.util.concurrent.*;
 
 /**
- * Author: lovemooner
- * Date: 2017/6/28 13:13
+ * @author : lovemooner
+ * @date: 2017/6/28 13:13
  */
 public class Future100 {
 

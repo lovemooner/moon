@@ -1,31 +1,39 @@
 package love.moon.j2se.thread.juc.future;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author
  */
 public class CompletableFuture100 {
 
-    public static void main(String[] args) {
-        CompletableFuture<String> completableFuture = new CompletableFuture<>();
-        new Thread(()->{
-            completableFuture.complete(Thread.currentThread().getName());
-        }).start();
-        doSomethingElse();//做你想做的其他操作
-
-        try {
-            System.out.println(completableFuture.get());
-        } catch (InterruptedException e) {
+    public static void main(String[] args) throws Exception {
+        // 创建异步执行任务:
+        CompletableFuture<Double> cf = CompletableFuture
+                .supplyAsync(CompletableFuture100::fetchPrice);
+        // 如果执行成功:
+        cf.thenAccept((result) -> {
+            System.out.println("price: " + result);
+        });
+        // 如果执行异常:
+        cf.exceptionally((e) -> {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+            return null;
+        });
+        System.out.println("Main thread");
+        // 主线程不要立刻结束，否则CompletableFuture默认使用的线程池会立刻关闭:
+        Thread.sleep(200);
     }
 
-    private static void doSomethingElse()   {
-        System.out.println("doSomethingElse");
+    static Double fetchPrice() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+        if (Math.random() < 0.3) {
+            throw new RuntimeException("fetch price failed!");
+        }
+        return 5 + Math.random() * 20;
     }
 
 }

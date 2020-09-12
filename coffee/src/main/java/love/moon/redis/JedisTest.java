@@ -13,13 +13,13 @@ public class JedisTest {
 
     public static void main(String[] args) {
         Jedis jedis = new Jedis("slc11fsp.us.oracle.com", 6379);
-
+        //set key-value
         jedis.set(HASH_KEY, "value-nan");
         if (jedis.exists(HASH_KEY)) {
             System.out.println(jedis.get(HASH_KEY));
             jedis.del(HASH_KEY);
         }
-
+      //hset
         jedis.hset(HASH_KEY, "username", "yourUsername");
 
         //存入多个key-value键值对

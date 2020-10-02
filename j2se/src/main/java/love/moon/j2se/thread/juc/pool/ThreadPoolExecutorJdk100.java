@@ -48,17 +48,13 @@ public class ThreadPoolExecutorJdk100 {
      */
     public void testScheduledThreadPool() {
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
-        scheduledThreadPool.schedule(new Runnable() {
-            public void run() {
-                System.out.println("delay 3 seconds");
-            }
-        }, 3, TimeUnit.SECONDS);
-
-        scheduledThreadPool.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                System.out.println("delay 1 seconds, and excute every 3 seconds");
-            }
-        }, 1, 3, TimeUnit.SECONDS);
+        scheduledThreadPool.schedule(() -> System.out.println("delay 3 seconds"), 3, TimeUnit.SECONDS);
+        //每隔period时间执行一次,，相比scheduleWithFixedDelay，不受任务执行时间的影响。
+        scheduledThreadPool.scheduleAtFixedRate(() -> System.out.println("delay 1 seconds, and excute every 3 seconds"),
+                1, 3, TimeUnit.SECONDS);
+        //线程执行完成后，间隔delay时间继续执行一次，无限循环。任务串行执行。
+        scheduledThreadPool.scheduleWithFixedDelay(() -> System.out.println("scheduleWithFixedDelay"),
+                1, 3, TimeUnit.SECONDS);
     }
 
     /**

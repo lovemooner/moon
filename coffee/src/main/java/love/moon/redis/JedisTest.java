@@ -9,10 +9,10 @@ import redis.clients.jedis.Jedis;
 
 @SuppressWarnings("resource")
 public class JedisTest {
-    private static final String HASH_KEY = "_key";
+    private static final String HASH_KEY = "love:moon";
 
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("slc11fsp.us.oracle.com", 6379);
+        Jedis jedis = new Jedis("192.168.6.100", 6379);
         //set key-value
         jedis.set(HASH_KEY, "value-nan");
         if (jedis.exists(HASH_KEY)) {

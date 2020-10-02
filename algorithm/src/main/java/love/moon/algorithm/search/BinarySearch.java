@@ -8,11 +8,11 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         int arr[] = {1, 3, 9, 12, 14, 27, 31, 40, 45, 50};
-        int result = bSearchWithoutRecursion(arr, 3);
+        int result = search(arr, 3);
         System.out.println(result);
     }
 
-    static int bSearchWithoutRecursion(int arr[], int keyword) {
+    static int search(int arr[], int keyword) {
         int low = 0;
         int high = arr.length - 1;
         while (low <= high) {
@@ -38,7 +38,7 @@ public class BinarySearch {
      * @param target
      * @return
      */
-//    static int binarysearch(int array[], int low, int high, int target) {
+//    static int searchWithRecursion(int array[], int low, int high, int target) {
 //        if (low > high) {
 //            return -1;
 //        }

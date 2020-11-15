@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * 二叉查找树
- *
+ * <p>
  * Author: lovemooner
  * Date: 2017/6/2 12:20
  */
@@ -18,8 +18,8 @@ public class BinaryTree {
 
     public static void main(String[] args) {
         //顺序存储的满二叉树或者完全二叉树
-        int[] arr={1,2,3,4,5,6,7,8,9};
-        BinaryTree bt=new BinaryTree(arr, 0);
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        BinaryTree bt = new BinaryTree(arr, 0);
         System.out.println("递归-前序遍历：");
         bt.preOrder(bt.root);
         System.out.println();
@@ -41,6 +41,7 @@ public class BinaryTree {
 
     /**
      * 创建二叉树
+     *
      * @param array
      * @param index
      * @return
@@ -58,18 +59,21 @@ public class BinaryTree {
 
     /**
      * 递归遍历二叉树-先序遍历（前序遍历）
+     *
      * @param node
      */
     public void preOrder(TreeNode node) {
-        if (node != null) {
-            System.out.print(node.val);;
-            preOrder(node.left);
-            preOrder(node.right);
+        if (node == null) {
+            return;
         }
+        System.out.print(node.val);
+        preOrder(node.left);
+        preOrder(node.right);
     }
 
     /**
      * 递归遍历二叉树-中序遍历
+     *
      * @param node
      */
     public void inOrder(TreeNode node) {
@@ -82,6 +86,7 @@ public class BinaryTree {
 
     /**
      * 递归遍历二叉树-后序遍历
+     *
      * @param node
      */
     public void postOrder(TreeNode node) {
@@ -132,25 +137,21 @@ public class BinaryTree {
     }
 
     //后序遍历 ,需要记录遍历过的节点
-    public void noRecursionPostOrder(TreeNode node)
-    {
-        TreeNode pre=node;
-        Stack<TreeNode> stack=new Stack<>();
-        while(node!=null)
-        {
-            for(;node.left!=null;node=node.left)
-            {
+    public void noRecursionPostOrder(TreeNode node) {
+        TreeNode pre = node;
+        Stack<TreeNode> stack = new Stack<>();
+        while (node != null) {
+            for (; node.left != null; node = node.left) {
                 stack.push(node);
             }
-            while(node!=null&&(node.right==null||node.right==pre))
-            {
+            while (node != null && (node.right == null || node.right == pre)) {
                 showData(node);
-                pre=node;
-                if(stack.empty()) return;
-                node=stack.pop();
+                pre = node;
+                if (stack.empty()) return;
+                node = stack.pop();
             }
             stack.push(node);
-            node=node.right;
+            node = node.right;
         }
     }
 

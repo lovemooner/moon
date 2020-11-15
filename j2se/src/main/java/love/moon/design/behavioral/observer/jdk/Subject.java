@@ -5,8 +5,8 @@ package love.moon.design.behavioral.observer.jdk;
  */
 public class Subject extends java.util.Observable {
 
-    public void notify(Object arg) {
+    public void notifyObservers(Object arg) {
         setChanged();
-        notifyObservers(arg);
+        super.notifyObservers(arg);
     }
 }

@@ -11,15 +11,16 @@ import java.util.List;
  * Date: 2018/8/1 10:33
  */
 public class ArrayList100 {
+
     public static void main(String[] args) {
         List list = new ArrayList();
         list.add("a");
 
         list.iterator().forEachRemaining(System.out::println);
 
-        List<String> list2 = Collections.synchronizedList(new ArrayList<>());
+        List<String> list2 = Collections.synchronizedList(new ArrayList<String>());
         list2.add("a");
-        list2.add("a");
+        list2.get(0);
 
         list2.stream();
     }

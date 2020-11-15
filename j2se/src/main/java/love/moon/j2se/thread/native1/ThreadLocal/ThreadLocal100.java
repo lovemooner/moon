@@ -12,20 +12,20 @@ public class ThreadLocal100 {
     }
 
 
-    public String getString() {
+    public String get() {
         return stringLocal.get();
     }
 
     public static void main(String[] args) throws InterruptedException {
         final ThreadLocal100 test = new ThreadLocal100();
         test.set();
-        System.out.println(test.getString());
+        System.out.println(test.get());
 
 
         Thread thread1 = new Thread() {
             public void run() {
                 test.set();
-                System.out.println(test.getString());
+                System.out.println(test.get());
             }
 
             ;
@@ -33,6 +33,6 @@ public class ThreadLocal100 {
         thread1.start();
         thread1.join();
 
-        System.out.println(test.getString());
+        System.out.println(test.get());
     }
 }

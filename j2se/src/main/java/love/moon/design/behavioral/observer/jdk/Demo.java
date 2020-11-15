@@ -14,6 +14,6 @@ public class Demo {
         ConcreteObserver observer2 = new ConcreteObserver("watcher2");
         subject.addObserver(observer1);
         subject.addObserver(observer2);
-        subject.notify("test");
+        subject.notifyObservers("test");
     }
 }

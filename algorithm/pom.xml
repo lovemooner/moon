@@ -10,9 +10,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>algorithm</artifactId>
-    <packaging>war</packaging>
-    <name>A custom project using myfaces</name>
-    <url>http://www.myorganization.org</url>
+    <packaging>jar</packaging>
+    <name>algorithm</name>
 
     <build>
         <finalName>algorithm</finalName>
@@ -38,7 +37,11 @@
             <artifactId>guava</artifactId>
             <version>28.2-jre</version>
         </dependency>
-
+        <dependency>
+            <groupId>love.moon</groupId>
+            <artifactId>util</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 

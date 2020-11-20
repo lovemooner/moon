@@ -53,5 +53,6 @@ public class PathClassLoader extends ClassLoader {
         Class c = pcl.loadClass("love.moon.j2se.reflect.Sample");
         Sample sample= (Sample) c.newInstance();
         System.out.println(sample.sayHello());
+        System.out.println(Sample.class.getClassLoader());
     }
 }

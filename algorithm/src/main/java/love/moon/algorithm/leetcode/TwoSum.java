@@ -1,4 +1,4 @@
-package love.moon.algorithm;
+package love.moon.algorithm.leetcode;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -24,4 +24,10 @@ public class Assert {
             throw new RuntimeException("flag:true,expect:false");
         }
     }
+
+    public static void assertEqual(int source,int expect) {
+        if(source!=expect){
+            throw new RuntimeException("source:"+source+",expect:"+expect);
+        }
+    }
 }

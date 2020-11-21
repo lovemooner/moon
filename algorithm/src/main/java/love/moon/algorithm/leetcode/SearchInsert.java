@@ -26,6 +26,7 @@ public class SearchInsert {
         return left;
     }
 
+
     public static void main(String[] args) {
         int[] nums={1,3,5,6};
         Assert.assertEqual(searchInsert(nums,2),1);

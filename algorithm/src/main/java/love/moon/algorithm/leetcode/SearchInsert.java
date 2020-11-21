@@ -4,7 +4,6 @@ import love.moon.util.Assert;
 
 public class SearchInsert {
 
-    
     /**
      * 最后一定left=right
      * 所以最后执行while使left=right

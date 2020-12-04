@@ -1,6 +1,7 @@
 package love.moon.java8.stream;
 
 import love.moon.design.other.mvc.Student;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -65,8 +66,6 @@ public class Stream100 {
         System.out.println(max.get());
         System.out.println(min.get());
     }
-
-
 
 
     List<Student> getStudentList() {

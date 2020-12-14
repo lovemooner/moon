@@ -3,46 +3,40 @@ package love.moon.algorithm.sort.merge;
 import love.moon.algorithm.sort.ISort;
 
 /**
- * @author dongnan
+ * @author lovemooner
  * @date 2020/7/28 16:32
  */
 public class MergeSort implements ISort {
 
+
     public void sort(int[] arr) {
-        int[] temp = new int[arr.length];//在排序前，先建好一个长度等于原数组长度的临时数组，避免递归中频繁开辟空间
-        sort(arr, 0, arr.length - 1, temp);
+        sort(arr, 0, arr.length - 1);
     }
 
-    private static void sort(int[] arr, int left, int right, int[] temp) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            sort(arr, left, mid, temp);//左边归并排序，使得左子序列有序
-            sort(arr, mid + 1, right, temp);//右边归并排序，使得右子序列有序
-            merge(arr, left, mid, right, temp);//将两个有序子数组合并操作
+    private void sort(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
         }
-    }
-
-    private static void merge(int[] arr, int left, int mid, int right, int[] temp) {
-        int i = left;//左序列指针
-        int j = mid + 1;//右序列指针
+        int mid = (left + right) / 2;
+        sort(arr, left, mid);
+        sort(arr, mid + 1, right);
+        //将两个有序子数组合并操作
+        int[] temp = new int[right - left + 1];
         int t = 0;//临时数组指针
+        int i = left,j = mid + 1;
         while (i <= mid && j <= right) {
-            if (arr[i] <= arr[j]) {
-                temp[t++] = arr[i++];
-            } else {
-                temp[t++] = arr[j++];
-            }
+            temp[t++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
         }
-        while (i <= mid) {//将左边剩余元素填充进temp中
+        while (i <= mid) {//将左边剩余元素
             temp[t++] = arr[i++];
         }
-        while (j <= right) {//将右序列剩余元素填充进temp中
+        while (j <= right) {
             temp[t++] = arr[j++];
         }
-        t = 0;
         //将temp中的元素全部拷贝到原数组中
         while (left <= right) {
-            arr[left++] = temp[t++];
+            arr[right--] = temp[--t];
         }
     }
+
 }

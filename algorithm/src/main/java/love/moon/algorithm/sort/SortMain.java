@@ -10,8 +10,8 @@ public class SortMain {
 //        ISort sort=new BubbleSort();
 //        ISort sort=new QuickSort();
 //        ISort sort=new HeapSort();
-//        ISort sort = new MergeSort();
-        ISort sort = new TreeSelectSort();
+        ISort sort = new MergeSort();
+//        ISort sort = new TreeSelectSort();
 
         int[] arr = {6, 5, 3, 1, 8, 7, 2, 4};
         System.out.println("排序之前：");

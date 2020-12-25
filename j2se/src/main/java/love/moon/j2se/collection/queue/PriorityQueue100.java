@@ -1,5 +1,7 @@
 package love.moon.j2se.collection.queue;
 
+import org.junit.Test;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -24,6 +26,7 @@ public class PriorityQueue100 {
         System.out.println(q.poll()); // null,因为队列为空
     }
 
+    @Test
     public void test(){
         Queue<Integer> q = new PriorityQueue<>();
         // 添加3个元素到队列:

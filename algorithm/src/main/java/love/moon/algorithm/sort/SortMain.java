@@ -3,14 +3,15 @@ package love.moon.algorithm.sort;
 import love.moon.algorithm.sort.merge.MergeSort;
 import love.moon.algorithm.sort.select.HeapSort;
 import love.moon.algorithm.sort.select.TreeSelectSort;
+import love.moon.algorithm.sort.swap.QuickSort;
 
 public class SortMain {
 
     public static void main(String[] args) {
 //        ISort sort=new DirectInsertSort();
 //        ISort sort=new BubbleSort();
-//        ISort sort=new QuickSort();
-        ISort sort=new HeapSort();
+        ISort sort=new QuickSort();
+//        ISort sort=new HeapSort();
 //        ISort sort = new MergeSort();
 //        ISort sort = new TreeSelectSort();
 

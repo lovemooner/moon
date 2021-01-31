@@ -13,17 +13,22 @@ package love.moon.algorithm.dp;
  */
 public class Fibonacci {
 
-    //递归
-    public int fib(int n) {
-        if (n <= 0)
-            return 0;
-        if (n == 1)
-            return 1;
-        return fib(n - 1) + fib(n - 2);
+    /**
+     * 递归
+     * @param n
+     * @return
+     */
+    public int fib1(int n) {
+        if(n==0||n==1) return n;
+        return fib1(n - 1) + fib1(n - 2);
     }
 
-    //自底向上的动态规划
-    public static int fibButtomUp(int n) {
+    /**
+     * 自底向上的动态规划
+     * @param n
+     * @return
+     */
+    public  int fib2(int n) {
         if (n <= 0) return n;
         int[] cached = new int[n + 1];
         cached[0] = 0;
@@ -41,24 +46,31 @@ public class Fibonacci {
      * @param n
      * @return
      */
-    public static int Fibonacci(int n) {
-        if (n <= 0)
-            return n;
-        int[] Memo = new int[n + 1];
-        for (int i = 0; i <= n; i++)
-            Memo[i] = -1;
-        return upDown(n, Memo);
+    public  int fib3(int n) {
+        if (n <= 0) return n;
+        int[] memo = new int[n + 1];
+        for (int i = 0; i <= n; i++){
+            memo[i] = -1;
+        }
+        return upDown(n, memo);
     }
 
-    public static int upDown(int n, int[] Memo) {
-        if (Memo[n] != -1)
-            return Memo[n];
-        //如果已经求出了fib（n）的值直接返回，否则将求出的值保存在Memo备忘录中。
-        if (n <= 2) {
-            Memo[n] = 1;
-        } else {
-            Memo[n] = upDown(n - 1, Memo) + upDown(n - 2, Memo);
+    public  int upDown(int n, int[] memo) {
+        if (memo[n] != -1){
+            return memo[n];
         }
-        return Memo[n];
+        if (n <= 2) {
+            memo[n] = 1;
+        } else {
+            memo[n] = upDown(n - 1, memo) + upDown(n - 2, memo);
+        }
+        return memo[n];
     }
+
+    public static void main(String[] args) {
+        Fibonacci f= new Fibonacci();
+        int result=f.fib3(6);
+        System.out.println(result);
+    }
+
 }

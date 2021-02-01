@@ -1,4 +1,4 @@
-package love.moon.algorithm.dp;
+package love.moon.algorithm.leetcode.dp;
 
 import love.moon.util.Assert;
 

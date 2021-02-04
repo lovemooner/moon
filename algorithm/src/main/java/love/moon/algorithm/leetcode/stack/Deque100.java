@@ -12,6 +12,20 @@ import java.util.LinkedList;
  */
 public class Deque100 {
 
+
+    @Test
+    public void myStack1() {
+        Deque<Integer> deque = new LinkedList<>();
+        deque.push(1);
+        deque.push(7);
+
+        System.out.println(deque.pop());
+        System.out.println(deque.pop());
+        System.out.println(deque.pop());
+
+    }
+
+
     @Test
     public void myStack() {
         Deque<Integer> deque = new LinkedList<>();
@@ -20,7 +34,7 @@ public class Deque100 {
         deque.push(1);
         deque.push(7);
         //出栈操作
-        while(deque.peek()!=null){
+        while (deque.peek() != null) {
             System.out.println(deque.pop());
         }
         //loop

@@ -13,19 +13,6 @@ import java.util.Queue;
  */
 public class PriorityQueue100 {
 
-
-    public void customComparator(){
-        Queue<User> q = new PriorityQueue((Comparator<User>) (u1, u2) -> u1.number.compareTo(u2.number));
-        // 添加3个元素到队列:
-        q.offer(new User("Bob", 1));
-        q.offer(new User("Alice", 3));
-        q.offer(new User("Boss", 2));
-        System.out.println(q.poll()); // Boss/V1
-        System.out.println(q.poll()); // Bob/A1
-        System.out.println(q.poll()); // Alice/A2
-        System.out.println(q.poll()); // null,因为队列为空
-    }
-
     @Test
     public void test(){
         Queue<Integer> q = new PriorityQueue<>();
@@ -39,11 +26,17 @@ public class PriorityQueue100 {
         System.out.println(q.poll()); // null,因为队列为空
     }
 
-
-    public static void main(String[] args) {
-        PriorityQueue100 queue100=new PriorityQueue100();
-        queue100.test();
-//        queue100.customComparator();
+    @Test
+    public void customComparator(){
+        Queue<User> q = new PriorityQueue((Comparator<User>) (u1, u2) -> u1.number.compareTo(u2.number));
+        // 添加3个元素到队列:
+        q.offer(new User("Bob", 1));
+        q.offer(new User("Alice", 3));
+        q.offer(new User("Boss", 2));
+        System.out.println(q.poll()); // Boss/V1
+        System.out.println(q.poll()); // Bob/A1
+        System.out.println(q.poll()); // Alice/A2
+        System.out.println(q.poll()); // null,因为队列为空
     }
 
 

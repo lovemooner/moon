@@ -10,14 +10,14 @@ import love.moon.algorithm.sort.ISort;
 public class DirectInsertSort implements ISort {
 
     public void sort(int[] arr) {
-        int j; // 已排序列表下标
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] < arr[i - 1]) {
                 int temp = arr[i];
-                for (j = i - 1; j >= 0 && temp < arr[j]; j--) {
-                    arr[j + 1] = arr[j]; //后移
+                int j=i;
+                for (; j >= 1 && temp < arr[j-1]; j--) {
+                    arr[j] = arr[j-1]; //后移
                 }
-                arr[j + 1] = temp; // 插入待排序元素
+                arr[j] = temp; // 插入待排序元素
             }
         }
     }

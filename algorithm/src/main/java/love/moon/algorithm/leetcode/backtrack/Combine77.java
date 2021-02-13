@@ -1,6 +1,8 @@
 package love.moon.algorithm.leetcode.backtrack;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -19,25 +21,26 @@ public class Combine77 {
     }
 
     public List<List<Integer>> combine(int n, int k) {
-        List<Integer> output = new ArrayList<>();
-        boolean[] used = new boolean[n];
         List<List<Integer>> result = new ArrayList<>();
-        dfs(k, n, used, output, 0, 0,result);
+        if (k <= 0 || n < k) {
+            return result;
+        }
+        Deque<Integer> path = new ArrayDeque<>();
+        dfs(n, k, 1, path, result);
         return result;
     }
 
-    private void dfs(int k, int n, boolean[] used, List<Integer> output, int index, int pi,List<List<Integer>> result) {
-        if (output.size() == k) {
-            result.add(new ArrayList<>(output));
+    private void dfs(int n, int k, int begin, Deque<Integer> path, List<List<Integer>> result) {
+        if (path.size() == k) {
+            result.add(new ArrayList<>(path));
             return;
         }
-        for (int i = 0; i < n; i++) {
-            if (used[i]||pi!=0&& i<pi) continue;
-            output.add(i+1);
-            used[i] = true;
-            dfs(k, n, used, output, index + 1, i,result);
-            used[i] = false;
-            output.remove(index);
+        for (int i = begin; i <= n; i++) {
+            path.addLast(i);
+            dfs(n, k, i + 1, path, result);
+            path.removeLast();
         }
     }
+
+
 }

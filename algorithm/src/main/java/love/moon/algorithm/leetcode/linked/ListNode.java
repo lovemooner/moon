@@ -1,4 +1,4 @@
-package love.moon.algorithm.leetcode.list;
+package love.moon.algorithm.leetcode.linked;
 
 /**
  * @author : ndong

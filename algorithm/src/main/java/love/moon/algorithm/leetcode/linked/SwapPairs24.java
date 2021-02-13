@@ -1,7 +1,5 @@
 package love.moon.algorithm.leetcode.linked;
 
-import love.moon.algorithm.leetcode.list.ListNode;
-
 public class SwapPairs24 {
 
     public ListNode swapPairs(ListNode head) {

@@ -17,32 +17,28 @@ public class CombinationSum39 {
     }
 
     public List<List<Integer>> combinationSum(int[] nums, int target) {
-        int len = nums.length;
-        List<List<Integer>> result = new ArrayList<>();
-        if (len == 0) {
-            return result;
+        if (nums.length == 0) {
+            return new ArrayList<>();
         }
         Arrays.sort(nums);
-        Deque<Integer> path = new ArrayDeque<>();
-        dfs(nums, 0, len, target, path, result);
+        List<Integer> output = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, target, output, result);
         return result;
     }
 
-    private void dfs(int[] nums, int begin, int len, int target, Deque<Integer> path, List<List<Integer>> result) {
+    private void dfs(int[] nums, int begin,  int target, List<Integer> output, List<List<Integer>> result) {
         if (target == 0) {
-            result.add(new ArrayList<>(path));
+            result.add(new ArrayList<>(output));
             return;
         }
-        for (int i = begin; i < len; i++) {
-            if (target - nums[i] < 0) {
-                break;
-            }
-            path.addLast(nums[i]);
-            dfs(nums, i, len, target - nums[i], path, result);
-            path.removeLast();
+        for (int i = begin; i < nums.length; i++) {
+            if (nums[i]>target) break;
+            output.add(nums[i]);
+            dfs(nums, i, target - nums[i], output, result);
+            output.remove(output.size()-1);
         }
     }
-
 
 
 }

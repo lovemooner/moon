@@ -37,18 +37,4 @@ public class CoinChange {
         return dp[amount] > amount ? -1 : dp[amount];
     }
 
-    public String removeDuplicateLetters(String s) {
-        Set<Character> set=new HashSet<>();
-        StringBuilder sb=new StringBuilder();
-        for(int i=0;i<s.length();i++){
-            if(!set.contains(s.charAt(i))){
-                sb.append(s.charAt(i));
-                set.add(s.charAt(i));
-            }
-        }
-        return sb.toString();
-
-    }
-
-
 }

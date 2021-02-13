@@ -22,10 +22,10 @@ public class Permute46 {
     }
 
     public List<List<Integer>> permute(int[] nums) {
-        int len=nums.length;
-        if (len == 0) {
+        if (nums.length == 0) {
             return new ArrayList<>();
         }
+        int len=nums.length;
         List<List<Integer>> result = new ArrayList<>();
         boolean[] used = new boolean[len];
         List<Integer> output = new ArrayList<>(len);
@@ -33,13 +33,6 @@ public class Permute46 {
         return result;
     }
 
-    /**
-     * @param nums
-     * @param used   nums的位置状态
-     * @param output
-     * @param index  output的位置
-     * @param result
-     */
     private void dfs(int[] nums, boolean[] used, List<Integer> output, int index
             , List<List<Integer>> result) {
         if (index == nums.length) {

@@ -15,10 +15,10 @@ public class Permute47 {
 
 
     public static void main(String[] args) {
-        int[] nums1 = {1, 1, 3};
+        int[] nums1 = {1, 1, 2};
         int[] nums2 = {1, 2, 2};
         Permute47 sol = new Permute47();
-        List<List<Integer>> lists = sol.permute(nums2);
+        List<List<Integer>> lists = sol.permute(nums1);
         System.out.println(lists);
     }
 
@@ -38,11 +38,12 @@ public class Permute47 {
     private void dfs(int[] nums, boolean[] used, List<Integer> output, int index
             , List<List<Integer>> result) {
         if (index == nums.length) {
+            System.out.println("output:"+output);
             result.add(new ArrayList<>(output));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-            if (used[i] || (i>0&& used[i-1]&&nums[i] == nums[i - 1])) {
+            if (used[i] || (i>0&& nums[i] == nums[i - 1])&&!used[i-1]) {
                 continue;
             }
             output.add(nums[i]);

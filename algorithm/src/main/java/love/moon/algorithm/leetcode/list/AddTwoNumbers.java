@@ -1,5 +1,7 @@
 package love.moon.algorithm.leetcode.list;
 
+import love.moon.algorithm.leetcode.linked.ListNode;
+
 /**
  * @author : ndong
  * date : 2020/11/15 17:58

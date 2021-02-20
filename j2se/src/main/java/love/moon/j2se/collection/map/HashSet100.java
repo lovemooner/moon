@@ -7,5 +7,6 @@ public class HashSet100 {
     public static void main(String[] args) {
         HashSet set= new HashSet();
         set.add("test");
+        System.out.println( set.add("test"));;
     }
 }

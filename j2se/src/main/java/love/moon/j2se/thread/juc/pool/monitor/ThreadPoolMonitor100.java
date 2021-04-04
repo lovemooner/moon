@@ -25,13 +25,14 @@ public class ThreadPoolMonitor100 {
     public static void startMonitor(ExecutorService executor,long millis) {
        new Thread(()->{
                while (true){
+                   //returns the approximate number of threads that are actively executing tasks
                    int activeCount = ((ThreadPoolExecutor) executor).getActiveCount();
                    int corePoolSize = ((ThreadPoolExecutor) executor).getCorePoolSize();
                    int queueSize = ((ThreadPoolExecutor) executor).getQueue().size();
                    long completedTaskCount = ((ThreadPoolExecutor) executor).getCompletedTaskCount();
                    long task = ((ThreadPoolExecutor) executor).getTaskCount();
-                   System.out.println("corePoolSize:" + corePoolSize
-                           +",排队线程数:" + queueSize
+                   System.out.println("coreSize:" + corePoolSize
+                           +",queueSize(排队):" + queueSize
                            + ",活动线程数(worker):" + activeCount
                            + ",执行完成线程数:" + completedTaskCount)
                    ;

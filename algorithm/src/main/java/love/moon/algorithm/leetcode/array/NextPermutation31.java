@@ -7,6 +7,15 @@ package love.moon.algorithm.leetcode.array;
  */
 public class NextPermutation31 {
 
+    public static void main(String[] args) {
+        int [] nums={1,5,8,4,7,6,5,3,1};
+        NextPermutation31 sol=new NextPermutation31();
+        sol.nextPermutation(nums);
+        for(int i=0;i<nums.length;i++){
+            System.out.println(nums[i]);
+        }
+    }
+
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) {

@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HttpServer100 {
     Random random = new Random();
     static ConcurrentHashMap map = new ConcurrentHashMap();
-    int port = 7878;
+    int port = 8080;
 
     public static void main(String[] args) throws IOException {
         HttpServer100 server = new HttpServer100();

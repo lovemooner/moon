@@ -64,6 +64,7 @@ public class ForkJoinDemo101 {
         }
     }
 
+
     public static void main(String[] args) throws Exception {
         // 创建随机数组成的数组:
         long[] array = new long[400];

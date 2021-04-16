@@ -20,6 +20,7 @@ public class DirectByteBuffer100 {
         System.out.println("ss");
     }
 
+
     @Test
     public void test2() {
         ByteBuffer buffer = ByteBuffer.allocateDirect(1024);

@@ -24,8 +24,7 @@ public class QuickSort implements ISort {
     }
 
     private int partition(int[] arr, int left, int right) {
-        int pivot = left;// 设定基准值（pivot）
-        int index = pivot + 1;
+        int pivot = left,index = left + 1;
         for (int i = index; i <= right; i++) {
             if (arr[i] < arr[pivot]) {
                 swap(arr, i, index);

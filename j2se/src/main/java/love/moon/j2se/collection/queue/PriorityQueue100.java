@@ -15,9 +15,10 @@ public class PriorityQueue100 {
 
     @Test
     public void test(){
-        Queue<Integer> q = new PriorityQueue<>();
+        Queue<Integer> q = new PriorityQueue<>((n1, n2) -> n1 - n2);
         // 添加3个元素到队列:
         q.offer(1);
+        q.offer(10);
         q.offer(10);
         q.offer(2);
         System.out.println(q.poll());

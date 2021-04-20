@@ -23,7 +23,6 @@ public class GraphByMatrix {
         sol.dfs(startNode, visited);
     }
 
-
     /**
      * 深度遍历
      * @param node    当前节点
@@ -40,17 +39,15 @@ public class GraphByMatrix {
         }
     }
 
-
     /**
      * 广度优先搜索
      *
      * @param node 搜索的入口节点
      */
-    public void searchTraversing(GraphNode node) {
+    public void bfs(GraphNode node) {
         List<GraphNode> visited = new ArrayList<>(); // 已经被访问过的元素
         Queue<GraphNode> q = new LinkedList<>(); // 用队列存放依次要遍历的元素
         q.offer(node);
-
         while (!q.isEmpty()) {
             GraphNode currNode = q.poll();
             if (!visited.contains(currNode)) {

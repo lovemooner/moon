@@ -1,61 +1,57 @@
 package love.moon.j2se.thread.juc.future;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
-import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
 
-
+/**
+ * 求最大数
+ */
 public class ForkJoin100 {
 
 
-    public static void main(String ... args) throws ExecutionException, InterruptedException, TimeoutException {
+    public static void main(String... args) throws ExecutionException, InterruptedException, TimeoutException {
+        int[] array = {100, 400, 200, 90, 80, 300, 600, 10, 20, -10, 30, 2000, 1000};
+        SumTask task = new SumTask(array, 0, array.length - 1);
+
         ForkJoinPool pool = new ForkJoinPool();
-        int[] array = {100,400,200,90,80,300,600,10,20,-10,30,2000,1000};
-        MaxNumber task = new MaxNumber(array, 0, array.length - 1);
         Future<Integer> future = pool.submit(task);
         System.out.println("Result:" + future.get(1, TimeUnit.SECONDS));
 
     }
 
-    /**
-     * how to find the max number in array by Fork/Join
-     */
-    private static class MaxNumber extends RecursiveTask<Integer> {
+    private static class SumTask extends RecursiveTask<Integer> {
+        private int[] numbers;
+        private int from;
+        private int to;
 
-        private int threshold = 2;
-        private int[] array; // the data array
-        private int index0 = 0;
-        private int index1 = 0;
-
-        public MaxNumber(int[] array, int index0, int index1) {
-            this.array = array;
-            this.index0 = index0;
-            this.index1 = index1;
+        public SumTask(int[] numbers, int from, int to) {
+            this.numbers = numbers;
+            this.from = from;
+            this.to = to;
         }
 
+        static final int THRESHOLD = 6;
+
+        /**
+         * 任务拆分  拆分的好坏决定了效率的高低
+         */
         @Override
         protected Integer compute() {
-            int max = Integer.MIN_VALUE;
-            if ((index1 - index0) <= threshold) {
-                for (int i = index0;i <= index1; i ++) {
-                    max = Math.max(max, array[i]);
+            if (to - from < THRESHOLD) {
+                int total = 0;
+                for (int i = from; i <= to; i++) {
+                    total += numbers[i];
                 }
+                return total;
             } else {
-                //fork/join
-                int mid = index0 + (index1 - index0) / 2;
-                MaxNumber lMax = new MaxNumber(array, index0, mid);
-                MaxNumber rMax = new MaxNumber(array, mid + 1, index1);
-                lMax.fork();
-                rMax.fork();
-                int lm = lMax.join();
-                int rm = rMax.join();
-                max = Math.max(lm, rm);
+                //任务一分为二，递归拆分(注意此处有递归)到底拆分成多少分 需要根据具体情况而定
+                int middle = (from + to) / 2;
+                SumTask taskLeft = new SumTask(numbers, from, middle);
+                SumTask taskRight = new SumTask(numbers, middle + 1, to);
+                taskLeft.fork();
+                taskRight.fork();
+                return taskLeft.join() + taskRight.join();
             }
-            return max;
         }
     }
 

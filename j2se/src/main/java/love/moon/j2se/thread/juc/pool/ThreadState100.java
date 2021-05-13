@@ -88,6 +88,7 @@ public class ThreadState100 {
         }
     }
 
+
     private static final Lock lock = new ReentrantLock();
 
     static class LockThread2 implements Runnable {

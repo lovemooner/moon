@@ -4,8 +4,11 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.SneakyThrows;
 import love.moon.common.HttpResponse;
 import love.moon.j2se.thread.juc.pool.monitor.ThreadPoolMonitor100;
+import love.moon.jdbc.JdbcOracleClient100;
 import love.moon.util.HttpUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -25,16 +28,16 @@ public class ThreadState100 {
 
     public static void main(String[] args) {
 //        new Thread(() -> ThreadPoolMonitor100.startMonitor(pool, 100L)).start();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
 //        pool.execute(new IOThread());
-            pool.execute(new LockThread1());
+            pool.execute(new ParallelStream());
 //            pool.execute(new LockThread2());
         }
     }
 
 
 
-    static class IOThread implements Runnable {
+    static class SocketIOThread implements Runnable {
 
         @SneakyThrows
         @Override
@@ -59,6 +62,24 @@ public class ThreadState100 {
         }
     }
 
+    static class ParallelStream implements Runnable {
+
+        @SneakyThrows
+        @Override
+        public void run() {
+            List<Integer> list=new ArrayList<>();
+         for(int i=0;i<10;i++){
+             list.add(i);
+         }
+         list.parallelStream().forEach(e->{
+             HttpResponse response= HttpUtil.sendGet("http://localhost:8092/galaxyappmanagement-server/init/hi");
+             System.out.println(e+""+response.getContent());
+         });
+
+        }
+
+    }
+
 
     static class WaitThread implements Runnable {
         final Object lock = new Object();
@@ -73,6 +94,17 @@ public class ThreadState100 {
 
     }
 
+    static class JdbcThread implements Runnable {
+
+        @SneakyThrows
+        @Override
+        public void run() {
+            JdbcOracleClient100 client = new JdbcOracleClient100();
+            client.select();
+        }
+
+    }
+
 
     static class LockThread1 implements Runnable {
 
@@ -80,11 +112,9 @@ public class ThreadState100 {
         @Override
         public void run() {
             System.out.println(Thread.currentThread().getName());
-//            synchronized (LockThread1.class) {
-//                Thread.sleep(120000l);
+            synchronized (LockThread1.class) {
                 while (true){}
-
-//            }
+            }
         }
     }
 

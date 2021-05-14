@@ -25,6 +25,7 @@ public class Jdbc100 {
             conn = DriverManager.getConnection(URL, NAME, PASSWORD);
             conn.setAutoCommit(false);
             stmt = conn.createStatement();
+//            stmt.setFetchSize(10000);
             rs = stmt.executeQuery("select * from CA_USER");  //TODO setMaxResultSet
             while (rs.next()) {
                 System.out.print(rs.getString(1) + " ");

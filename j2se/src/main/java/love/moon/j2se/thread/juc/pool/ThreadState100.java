@@ -80,6 +80,7 @@ public class ThreadState100 {
 
     }
 
+
     static class WaitThread implements Runnable {
         final Object lock = new Object();
 

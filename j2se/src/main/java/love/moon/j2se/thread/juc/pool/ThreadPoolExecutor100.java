@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import love.moon.j2se.thread.juc.pool.monitor.ThreadPoolMonitor100;
 
 import java.util.concurrent.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author lovemooner
@@ -33,22 +31,18 @@ public class ThreadPoolExecutor100 {
         @Override
         public void run() {
             System.out.println(Thread.currentThread().getName() + " start");
-            synchronized (Task.class) {
-                try {
-//                Thread.sleep(100000l);
-                    Thread.currentThread().wait();
+            try {
+                Thread.sleep(10000l);
+//                Thread.currentThread().wait();
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
             System.out.println(Thread.currentThread().getName() + " end");
         }
 
     }
-
-
 
 
 }

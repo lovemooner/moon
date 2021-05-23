@@ -16,23 +16,23 @@ public class QuickSort implements ISort {
 
     private int[] quickSort(int[] arr, int left, int right) {
         if (left < right) {
-            int partitionIndex = partition(arr, left, right);
-            quickSort(arr, left, partitionIndex - 1);
-            quickSort(arr, partitionIndex + 1, right);
+            int index = partition(arr, left, right);
+            quickSort(arr, left, index - 1);
+            quickSort(arr, index + 1, right);
         }
         return arr;
     }
 
     private int partition(int[] arr, int left, int right) {
-        int pivot = left,index = left + 1;
-        for (int i = index; i <= right; i++) {
+        int pivot = left,slow  = left + 1;
+        for (int i = slow ; i <= right; i++) {
             if (arr[i] < arr[pivot]) {
-                swap(arr, i, index);
-                index++;
+                swap(arr, i, slow);
+                slow++;
             }
         }
-        swap(arr, pivot, index - 1);
-        return index - 1;
+        swap(arr, pivot, slow - 1);
+        return slow - 1;
     }
 
     private void swap(int[] arr, int i, int j) {

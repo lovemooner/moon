@@ -22,7 +22,6 @@ public class QuickSort implements ISort {
         }
         return arr;
     }
-
     private int partition(int[] arr, int left, int right) {
         int pivot = left,slow  = left + 1;
         for (int i = slow ; i <= right; i++) {

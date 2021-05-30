@@ -17,6 +17,7 @@ public class ChannelTransfer {
         catFiles(Channels.newChannel(System.out), files);
     }
 
+
     private static void catFiles(WritableByteChannel target, String[] files)
             throws Exception {
         for (int i = 0; i < files.length; i++) {

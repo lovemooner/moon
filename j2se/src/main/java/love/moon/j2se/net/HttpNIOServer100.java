@@ -1,5 +1,6 @@
 package love.moon.j2se.net;
 
+import lombok.extern.slf4j.Slf4j;
 import love.moon.j2se.io.IOConfig;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * single selector
@@ -19,8 +21,8 @@ import java.util.Set;
  * Date: 17-4-10
  * Time: 下午5:25
  */
+@Slf4j
 public class HttpNIOServer100 {
-
 
     /*缓冲区大小*/
     private static int BLOCK = 100;
@@ -51,8 +53,8 @@ public class HttpNIOServer100 {
 
     Random r = new Random();
 
-    private String getHttpResponse() {
-        String content = "hello " + r.nextInt(1000);
+    private String getResponseStr(String sessionId) {
+        String content = "hello " + sessionId;
         StringBuilder sb = new StringBuilder();
         sb.append("HTTP/1.1 200 OK\r\n");
         sb.append("Content-Type:text/html" + "\r\n");
@@ -61,26 +63,22 @@ public class HttpNIOServer100 {
         sb.append(content);
         return sb.toString();
     }
+
     private void dispatch(SelectionKey selectionKey) throws IOException {
-        if (selectionKey.isConnectable()) {
-            System.out.println("isConnectable");
-            SocketChannel channel = (SocketChannel) selectionKey.channel();
-            // 如果正在连接，则完成连接
-            if (channel.isConnectionPending()) {
-                channel.finishConnect();
-            }
-            if (selectionKey.attachment() == null) {
-                selectionKey.attach(r.nextInt(1000));
-            }
-            System.out.println("a connection was established with a remote server.");
-        } else if (selectionKey.isAcceptable()) {
-            // a connection was accepted by a ServerSocketChannel.
+        if (selectionKey.isAcceptable()) {
             ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) selectionKey.channel();
             SocketChannel socketChannel = acceptServerSocketChannel.accept();
             socketChannel.configureBlocking(false);
-            System.out.println("Accept request from "+ socketChannel.getRemoteAddress());
-            socketChannel.register(selector, SelectionKey.OP_READ|SelectionKey.OP_WRITE);
+            socketChannel.finishConnect();
+
+            log.info("Accept request from {}", socketChannel.getRemoteAddress());
+            Request request = new Request();
+            request.setSocketChannel(socketChannel);
+            request.setRequestId(UUID.randomUUID().toString());
+            SelectionKey key = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+            key.attach(request);
         } else if (selectionKey.isReadable()) {
+            Request request = (Request) selectionKey.attachment();
             SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
             ByteBuffer buffer = ByteBuffer.allocate(500);
             int count = socketChannel.read(buffer);
@@ -88,20 +86,26 @@ public class HttpNIOServer100 {
                 socketChannel.close();
                 selectionKey.cancel();
                 System.out.println("Received invalid data, close the connection");
+                return;
             }
-            System.out.println("Print Request ");
-            System.out.println(new String(buffer.array()));
-//            socketChannel.register(selector, SelectionKey.OP_WRITE);
+            log.info("read,requestId:{},content:\r\n{}", request.getRequestId(), new String(buffer.array()));
+            request.setReaded(true);
+            selectionKey.attach(request);
+        }else if(selectionKey.isWritable()){
+            //response
+            Request request = (Request) selectionKey.attachment();
             ByteBuffer sendBuffer = ByteBuffer.allocate(BLOCK);
             int capacity = sendBuffer.capacity();
             sendBuffer.clear();
-            String sendText = getHttpResponse();
+            String sendText = getResponseStr(request.getRequestId());
             if (sendText.length() > capacity) {
                 sendText = sendText.substring(0, capacity);
             }
             sendBuffer.put(sendText.getBytes());
             sendBuffer.flip();
+            SocketChannel socketChannel= request.getSocketChannel();
             socketChannel.write(sendBuffer);
+
         }
     }
 

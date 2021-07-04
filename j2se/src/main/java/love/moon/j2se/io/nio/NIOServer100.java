@@ -27,6 +27,13 @@ public class NIOServer100 {
 
     private Selector selector;
 
+
+    public static void main(String[] args) throws IOException {
+        NIOServer100 selector = new NIOServer100(IOConfig.PORT);
+        selector.listen();
+
+    }
+
     public NIOServer100(int port) throws IOException {
         selector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
@@ -48,18 +55,7 @@ public class NIOServer100 {
         }
     }
 
-    Random r = new Random();
 
-    private String getHttpResponse() {
-        String content = "hello " + r.nextInt(1000);
-        StringBuilder sb = new StringBuilder();
-        sb.append("HTTP/1.1 200 OK\r\n");
-        sb.append("Content-Type:text/html" + "\r\n");
-        sb.append("Content-Length:" + content.length() + "\r\n");
-        sb.append("\r\n");
-        sb.append(content);
-        return sb.toString();
-    }
     private void dispatch(SelectionKey selectionKey) throws IOException {
         if (selectionKey.isConnectable()) {
             if (selectionKey.attachment() == null) {
@@ -100,9 +96,17 @@ public class NIOServer100 {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        NIOServer100 selector = new NIOServer100(IOConfig.PORT);
-        selector.listen();
+    Random r = new Random();
 
+    private String getHttpResponse() {
+        String content = "hello " + r.nextInt(1000);
+        StringBuilder sb = new StringBuilder();
+        sb.append("HTTP/1.1 200 OK\r\n");
+        sb.append("Content-Type:text/html" + "\r\n");
+        sb.append("Content-Length:" + content.length() + "\r\n");
+        sb.append("\r\n");
+        sb.append(content);
+        return sb.toString();
     }
+
 }

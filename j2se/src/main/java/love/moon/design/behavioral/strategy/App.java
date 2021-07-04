@@ -1,10 +1,12 @@
 package love.moon.design.behavioral.strategy;
 
 /**
+ * 客户端，用调用者
  * @auther lovemooner
  * @date 2019/11/19 17:46
  * @describe
  */
+
 public class App {
 
     public static void main(String[] args) {

@@ -9,7 +9,6 @@ package love.moon.design.behavioral.strategy.demo2;
  */
 public class SimplyFactoryAndStrategy2 {
 
-
     public static void main(String[] args) {
         AudiCar car = new AudiA6();
         car.setName("a6");

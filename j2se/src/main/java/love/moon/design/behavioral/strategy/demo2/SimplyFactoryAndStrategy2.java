@@ -11,7 +11,6 @@ public class SimplyFactoryAndStrategy2 {
 
 
     public static void main(String[] args) {
-
         AudiCar car = new AudiA6();
         car.setName("a6");
         CarContext context = new CarContext(car);

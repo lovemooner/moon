@@ -15,4 +15,5 @@ public class SimplyFactoryAndStrategy2 {
         CarContext context = new CarContext(car);
         context.orderCar();
     }
+
 }

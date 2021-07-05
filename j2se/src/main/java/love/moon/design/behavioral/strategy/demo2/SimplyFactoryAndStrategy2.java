@@ -16,4 +16,5 @@ public class SimplyFactoryAndStrategy2 {
         context.orderCar();
     }
 
+
 }
